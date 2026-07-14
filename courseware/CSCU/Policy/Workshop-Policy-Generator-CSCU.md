@@ -107,6 +107,40 @@ Concepts without seeds are listed as **skipped**, with the reason — a concept
 detected only by name/context has no evidence to author from, and guessing is
 exactly what this pipeline exists to avoid.
 
+### Why most concepts have no method — the three mechanisms
+
+Expect the skipped list to be **most of the glossary**, and expect that to be
+correct. Identification methods are only one of three mechanisms that apply
+and check governed terms — the app color-codes the skipped list by which
+mechanism owns each term:
+
+| Mechanism | What it covers | Where it happens |
+| --- | --- | --- |
+| **Apply** (mapping-based binding) | *every* reviewed term: the Glossary app PATCHes the term link, governed tags and sensitivity directly onto the mapped columns (the Registry's `sources[]`) | Glossary app → Apply to PDC |
+| **Identification methods** (value-based recognition) | only concepts with a stable value shape — an induced format or a reference list. Their job is *new and unknown* data: a new table, a file in the bucket, a rogue column | this app's authored set — custom methods only |
+| **Business rules** (semantic checks) | what no shape can express: opt-out honoured, CVV must be absent, SSNs must not appear in `note_txt` | Workshop 04 rules + Trust Score |
+
+Reading the color groups in the app:
+
+- **Amber — should be value-recognizable.** Canonical shapes (SSN, email,
+  phone, ZIP) and reference lists (service cities). Give them seeds on the
+  glossary side — re-scan with profiling, or add a `curated_seeds` entry to
+  the domain pack — and they become fully auditable custom methods (the
+  custom-only program's replacement for PDC's built-ins).
+- **Teal — applied by mapping.** Amounts, dates, ids, statuses, names: no
+  stable shape, and none needed — Apply already governs them on their
+  mapped columns.
+- **Purple — business-rule territory.** Free text and semantics; forcing a
+  regex here is the free-text blind spot Workshop 05 warns about.
+- **Gray — table/folder level.** Record- and folder-level concepts govern
+  whole tables and document folders through Apply; column-level
+  identification does not apply.
+
+The loop is closed later by the **drift-check** stage: deployed methods'
+Assign-Tags and PDC's live tag facet are compared against the Registry's
+governed vocabulary, so anything that stops matching what the glossary
+governs is flagged instead of drifting silently.
+
 `--zip out/cscu-methods.zip` writes the same set as one zip if you prefer a
 single artifact.
 
