@@ -338,5 +338,66 @@
         "aml"
       ]
     }
+  },
+  "curated_seeds": {
+    "SSN": {
+      "type": "pattern",
+      "regex": "^\\d{3}-\\d{2}-\\d{4}$",
+      "signature": "ddd-dd-dddd"
+    },
+    "Email Address": {
+      "type": "pattern",
+      "regex": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+    },
+    "Phone": {
+      "type": "pattern",
+      "regex": "^\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}$"
+    },
+    "ZIP Code": {
+      "type": "pattern",
+      "regex": "^\\d{5}(-\\d{4})?$"
+    },
+    "City": {
+      "type": "dictionary",
+      "values": [
+        "Phoenix",
+        "Tempe",
+        "Tucson",
+        "Casa Grande",
+        "Mesa",
+        "Chandler",
+        "Scottsdale",
+        "Glendale",
+        "Gilbert",
+        "Peoria",
+        "Flagstaff",
+        "Yuma",
+        "Globe",
+        "Prescott",
+        "Payson",
+        "Kingman"
+      ]
+    },
+    "Branch City": {
+      "type": "dictionary",
+      "values": [
+        "Phoenix",
+        "Tempe",
+        "Tucson",
+        "Casa Grande",
+        "Mesa",
+        "Chandler",
+        "Scottsdale",
+        "Glendale",
+        "Gilbert",
+        "Peoria",
+        "Flagstaff",
+        "Yuma",
+        "Globe",
+        "Prescott",
+        "Payson",
+        "Kingman"
+      ]
+    }
   }
 }
