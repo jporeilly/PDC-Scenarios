@@ -468,7 +468,7 @@ This completes the RETAIL workshop track. From here the natural
 continuations are the **Glossary Generator app** (install the RETAIL
 scenario with `install-scenario.ps1` and build this same glossary with the
 scan → suggest → govern → export pipeline), and the **Technical Track**
-modules in `courseware/CSCU/Technical-Track/` — the engine-room deep dives
+modules in `courseware/CSCU/Platform/Technical-Track/` — the engine-room deep dives
 on identification rules, custom method libraries, and similarity/ML, taught
 on the CSCU scenario but directly transferable to CTO.
 
