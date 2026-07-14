@@ -23,7 +23,7 @@ scenario: _need_id select up load
 	@echo "  Next: make pack ID=$(IDU)   (install its domain pack into the Glossary app)"
 
 select: _need_id
-	@bash select-vertical.sh $(IDU)
+	@PDC_SCEN_QUIET=1 bash select-vertical.sh $(IDU)
 
 up: $(LAB)/.env
 	@$(MAKE) -C $(LAB) up

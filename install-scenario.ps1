@@ -145,7 +145,7 @@ if (Test-Path $dsCsvSrc) {
 
 Write-Host ""
 Write-Host "Done. Next steps:" -ForegroundColor Green
-Write-Host ("  1. Stand up the lab:      cd {0}\lab; make up; make load SCENARIO={1}  (on the Docker host)" -f $DS, $sel.id)
+Write-Host ("  1. Lab sources:           make scenario ID={0}  (on the Docker host, repo root; skip if already run)" -f $sel.id)
 Write-Host ("  2. Start the app:         cd {0}; .\run.ps1" -f $App)
 Write-Host  "  3. In the app:            Dictionary page -> confirm the vocabulary reseeded"
 Write-Host ("  4. Register PDC sources:  Connections -> Bulk-load panel -> choose {0}" -f $dsCsvDst)

@@ -36,8 +36,10 @@ git sparse-checkout set "data_sources/lab" "data_sources/$ID" "courseware/$ID" "
 echo ""
 echo "Vertical: $ID"
 git sparse-checkout list | sed 's/^/  /'
-echo ""
-echo "Next:"
-echo "  1. Sources:    cd data_sources/lab && make up && make load SCENARIO=$ID"
-echo "  2. Glossary:   ./install-scenario.sh $ID     (installs pack + roster into the app)"
-echo "  3. Courseware: courseware/$ID/"
+if [ -z "${PDC_SCEN_QUIET:-}" ]; then
+  echo ""
+  echo "Next:"
+  echo "  1. Sources:    make scenario ID=$ID   (lab up + data loaded; safe to re-run)"
+  echo "  2. Glossary:   make pack ID=$ID       (domain pack + roster into the app)"
+  echo "  3. Courseware: courseware/$ID/"
+fi

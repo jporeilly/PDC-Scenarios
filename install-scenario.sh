@@ -150,7 +150,7 @@ fi
 
 echo ""
 echo "Done. Next steps:"
-echo "  1. Stand up the lab:      cd $DS/lab && make up && make load SCENARIO=$choice"
+echo "  1. Lab sources:           make scenario ID=$choice   (repo root; skip if already run — it's idempotent)"
 echo "  2. Start the app:         cd $APP && ./run.sh"
 echo "  3. In the app:            Dictionary page -> confirm the vocabulary reseeded"
 echo "  4. Register PDC sources:  Connections -> Bulk-load panel -> choose $APP/datasources.csv"
