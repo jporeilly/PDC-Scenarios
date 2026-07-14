@@ -45,6 +45,20 @@ make pack ID=CSCU          # its domain pack + roster into the Glossary app
 lab (data survives); `make destroy` erases the scenario data. Each app repo
 also carries its own `install-pdc-demo.sh` for single-app updates.
 
+### Windows host (the apps)
+
+The standard topology runs the **apps on the Windows host** (Ollama lives
+there) and the lab + PDC on the VM. The PowerShell twin stands up the same
+`%USERPROFILE%\PDC-Demo` layout — both apps + the vertical — and installs
+the vertical's domain pack + roster into the Glossary app:
+
+```powershell
+iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
+```
+
+Re-run it bare to update everything; then `.un.ps1` in each app folder
+(Glossary :5000, Policy :5001).
+
 ## Select a vertical (manual pieces)
 
 ```bash
@@ -79,7 +93,8 @@ courseware/
                       (each set's tools/build-docx.py regenerates its .docx)
   PDC-Users-All-Scenarios.{csv,md}   consolidated user roster, all verticals
 diagrams/             app diagrams the courseware builders embed
-install-pdc-demo.sh   ONE bootstrap: both apps + this repo (sparse) into ~/PDC-Demo
+install-pdc-demo.sh   ONE bootstrap (VM): both apps + this repo (sparse) into ~/PDC-Demo
+install-pdc-demo.ps1  the same for the Windows host (+ installs the pack into the app)
 Makefile              make scenario ID=<ID> — select + lab up + load; pack/status/down
 install-scenario.sh   install a vertical's pack + roster into the Glossary app
 reset-scenario.sh     remove it again (reset the app to generic)
