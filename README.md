@@ -22,22 +22,40 @@ The two apps this repo feeds:
 - **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** —
   reads the Registry and authors PDC's Data Identification methods.
 
-## Select a vertical
+## One command: the whole lab
+
+On the VM, **one bootstrap** stands up (or updates) the complete `~/PDC-Demo`
+checkout — the Glossary Generator, the Policy Generator (sparse, app only)
+and this repo pulled sparse to the selected vertical:
 
 ```bash
-git clone --filter=blob:none https://github.com/jporeilly/PDC-Scenarios.git
-cd PDC-Scenarios
-./select-vertical.sh CSCU        # sparse-pulls ONLY this vertical (+ shared lab)
+curl -fsSL https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.sh | bash -s -- CSCU
+```
+
+Re-run it bare to update everything (the vertical is remembered; pass an ID
+to switch). Then **one make entry** loads the vertical's data sources:
+
+```bash
+cd ~/PDC-Demo/PDC-Scenarios
+make scenario ID=CSCU      # select + lab up + create/load its db + bucket
+make pack ID=CSCU          # its domain pack + roster into the Glossary app
+```
+
+`make status` shows the lab and the selected vertical; `make down` stops the
+lab (data survives); `make destroy` erases the scenario data. Each app repo
+also carries its own `install-pdc-demo.sh` for single-app updates.
+
+## Select a vertical (manual pieces)
+
+```bash
+./select-vertical.sh CSCU        # sparse-pull ONLY this vertical (+ shared lab)
+cd data_sources/lab && make up && make load SCENARIO=CSCU
+cd ../.. && ./install-scenario.sh CSCU     # pack + roster into the Glossary app
 ```
 
 `select-vertical.sh` narrows the checkout to `data_sources/lab`,
 `data_sources/<ID>` and `courseware/<ID>` — run it again to switch verticals,
-`--all` for everything. Then:
-
-```bash
-cd data_sources/lab && make up && make load SCENARIO=CSCU   # stand up the sources
-cd ../.. && ./install-scenario.sh CSCU                      # pack + roster into the Glossary app
-```
+`--all` for everything.
 
 `install-scenario.sh` finds the Glossary app automatically (this repo cloned
 beside/inside the app checkouts, e.g. the lab VM's `~/PDC-Demo`) or via
@@ -61,6 +79,8 @@ courseware/
                       (each set's tools/build-docx.py regenerates its .docx)
   PDC-Users-All-Scenarios.{csv,md}   consolidated user roster, all verticals
 diagrams/             app diagrams the courseware builders embed
+install-pdc-demo.sh   ONE bootstrap: both apps + this repo (sparse) into ~/PDC-Demo
+Makefile              make scenario ID=<ID> — select + lab up + load; pack/status/down
 install-scenario.sh   install a vertical's pack + roster into the Glossary app
 reset-scenario.sh     remove it again (reset the app to generic)
 select-vertical.sh    sparse-pull just one vertical from this repo
