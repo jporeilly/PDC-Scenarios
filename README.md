@@ -22,6 +22,36 @@ The two apps this repo feeds:
 - **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** —
   reads the Registry and authors PDC's Data Identification methods.
 
+## The estate at a glance
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#EEF6FA','primaryBorderColor':'#1C7293','primaryTextColor':'#22333B','secondaryColor':'#DBEEF3','tertiaryColor':'#F7FBFD','lineColor':'#1C7293','fontFamily':'Segoe UI, sans-serif','fontSize':'13px','clusterBkg':'#F7FBFD','clusterBorder':'#CFE3EC'}}}%%
+flowchart LR
+    subgraph GH["GitHub — three repos"]
+        R1["PDC-Glossary-Generator"]
+        R2["PDC-Policy-Generator"]
+        R3["PDC-Scenarios<br/>all vertical assets"]
+    end
+    subgraph WIN["Windows host — C:/PDC-Demo"]
+        GA["glossary_generator :5000"]
+        PA["policy_generator :5001"]
+        OLL["Ollama<br/>(AI agents)"]
+    end
+    subgraph VM["Ubuntu VM 192.168.1.200 — ~/PDC-Demo"]
+        PDC[("PDC 11<br/>pentaho.io")]
+        LAB[("demo lab<br/>Postgres :5433 + MinIO :9000")]
+    end
+    R3 -- "install-pdc-demo.ps1 CSCU<br/>(apps + vertical + pack)" --> WIN
+    R3 -- "install-pdc-demo.sh CSCU<br/>make scenario ID=CSCU" --> VM
+    OLL --- GA
+    GA -- "scan + profile" --> LAB
+    GA -- "public API v3" --> PDC
+    PA -- "public API v3" --> PDC
+    PDC -- "ingest · profile · identify" --> LAB
+    classDef repo fill:#EEF6FA,stroke:#1C7293
+    class R1,R2,R3 repo
+```
+
 ## One command: the whole lab
 
 On the VM, **one bootstrap** stands up (or updates) the complete `~/PDC-Demo`
