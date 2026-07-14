@@ -69,19 +69,27 @@ fi
 ok "Glossary app $(cat "$DEMO/glossary_generator/VERSION" 2>/dev/null | tr -d '[:space:]')"
 echo
 
-# --- 2. the Policy Generator (sparse: app only) -------------------------------
+# --- 2. the Policy Generator (hidden sparse clone, linked flat) ---------------
 printf "${B}  2/3  Policy Generator${RS}\n"
-PT="$DEMO/PDC-Policy-Generator"
+PT="$DEMO/.pdc-policy-generator"
+# migrate the old visible layout
+if [ -d "$DEMO/PDC-Policy-Generator/.git" ] && [ ! -d "$PT" ]; then
+  mv "$DEMO/PDC-Policy-Generator" "$PT"
+  ok "Migrated PDC-Policy-Generator/ -> .pdc-policy-generator/"
+fi
 if [ -d "$PT/.git" ]; then
   git -C "$PT" pull -q --ff-only || warn "Policy pull failed (local changes?)"
   ok "Updated to $(git -C "$PT" rev-parse --short HEAD)"
 else
   printf "  ${DIM}cloning (sparse, app only)…${RS}\n"
-  git -C "$DEMO" clone -q --filter=blob:none --sparse "$POLICY_URL" PDC-Policy-Generator
+  git -C "$DEMO" clone -q --filter=blob:none --sparse "$POLICY_URL" .pdc-policy-generator
   git -C "$PT" sparse-checkout set policy_generator
-  ok "Cloned (policy_generator/ only)"
+  ok "Cloned (app only)"
 fi
-ok "Policy app $(cat "$PT/policy_generator/VERSION" 2>/dev/null | tr -d '[:space:]')"
+# flat view: policy_generator/ beside glossary_generator/, README kept separate
+ln -sfn ".pdc-policy-generator/policy_generator" "$DEMO/policy_generator"
+cp -f "$PT/README.md" "$DEMO/README-Policy.md" 2>/dev/null || true
+ok "Policy app $(cat "$PT/policy_generator/VERSION" 2>/dev/null | tr -d '[:space:]') — linked at $DEMO/policy_generator"
 echo
 
 # --- 3. PDC-Scenarios (sparse: the selected vertical) -------------------------
@@ -99,7 +107,9 @@ if [ -d "$ST/.git" ]; then
   [ -n "$VERTICAL" ] || VERTICAL="$CUR"
   if [ -n "$VERTICAL" ]; then
     if (cd "$ST" && bash select-vertical.sh "$VERTICAL" >/dev/null); then
-      ok "Vertical $VERTICAL — data kit + domain pack + courseware"
+      # flat view: courseware/ at the top level beside the apps
+      ln -sfn "PDC-Scenarios/courseware" "$DEMO/courseware"
+      ok "Vertical $VERTICAL — data kit + domain pack + courseware (linked at $DEMO/courseware)"
     else
       warn "select-vertical.sh $VERTICAL failed — valid ids: CSCU RETAIL HEALTH MFG"
     fi
@@ -115,11 +125,9 @@ if [ -d "$ST/.git" ]; then
 else
   warn "Skipped — pass a vertical to set it up: install-pdc-demo.sh CSCU"
 fi
-# keep the outer checkout's git status clean
-for d in PDC-Policy-Generator PDC-Scenarios; do
-  if [ -d "$DEMO/$d" ] && ! grep -qx "$d/" "$DEMO/.git/info/exclude" 2>/dev/null; then
-    echo "$d/" >> "$DEMO/.git/info/exclude"
-  fi
+# keep the outer checkout's git status clean (nested repos, links, extras)
+for entry in ".pdc-policy-generator/" "PDC-Scenarios/" "policy_generator" "courseware" "README-Policy.md"; do
+  grep -qx "$entry" "$DEMO/.git/info/exclude" 2>/dev/null || echo "$entry" >> "$DEMO/.git/info/exclude"
 done
 echo
 
@@ -127,7 +135,7 @@ printf "${B}  Next${RS}\n"
 if [ -n "$VERTICAL" ]; then
   printf "  ${TEAL}cd $ST && make scenario ID=$VERTICAL${RS}   ${DIM}(lab up + data sources loaded)${RS}\n"
   printf "  ${DIM}apps:  glossary → $DEMO/glossary_generator (./run.sh, :5000)\n"
-  printf "         policy   → $PT/policy_generator (bash run.sh --host 0.0.0.0, :5001)${RS}\n\n"
+  printf "         policy   → $DEMO/policy_generator (bash run.sh --host 0.0.0.0, :5001)${RS}\n\n"
 else
   printf "  ${TEAL}install-pdc-demo.sh CSCU${RS}   ${DIM}(pick a vertical first)${RS}\n\n"
 fi

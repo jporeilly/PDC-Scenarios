@@ -66,20 +66,33 @@ if (Test-Path (Join-Path $DemoDir '.git')) {
 Ok ("Glossary app " + (Get-Content (Join-Path $DemoDir 'glossary_generator\VERSION') -Raw).Trim())
 Write-Host ""
 
-# --- 2. the Policy Generator (sparse: app only) -------------------------------
+# --- 2. the Policy Generator (hidden sparse clone, linked flat) ---------------
 Write-Host "  2/3  Policy Generator"
-$PT = Join-Path $DemoDir 'PDC-Policy-Generator'
+$PT = Join-Path $DemoDir '.pdc-policy-generator'
+$oldPT = Join-Path $DemoDir 'PDC-Policy-Generator'
+if ((Test-Path (Join-Path $oldPT '.git')) -and -not (Test-Path $PT)) {
+    Move-Item $oldPT $PT
+    Ok "Migrated PDC-Policy-Generator/ -> .pdc-policy-generator/"
+}
 if (Test-Path (Join-Path $PT '.git')) {
     git -C $PT pull -q --ff-only
     if ($LASTEXITCODE -ne 0) { Warn "Policy pull failed (local changes?)" } else { Ok ("Updated to " + (git -C $PT rev-parse --short HEAD)) }
 } else {
     Write-Host "  cloning (sparse, app only)..." -ForegroundColor DarkGray
-    git -C $DemoDir clone -q --filter=blob:none --sparse $PolicyUrl PDC-Policy-Generator
+    git -C $DemoDir clone -q --filter=blob:none --sparse $PolicyUrl .pdc-policy-generator
     if ($LASTEXITCODE -ne 0) { Die "Policy clone failed" }
     git -C $PT sparse-checkout set policy_generator
-    Ok "Cloned (policy_generator/ only)"
+    Ok "Cloned (app only)"
 }
-Ok ("Policy app " + (Get-Content (Join-Path $PT 'policy_generator\VERSION') -Raw).Trim())
+# dot-prefix alone doesn't hide folders in Explorer — set the attribute too
+try { $i = Get-Item $PT -Force; if (-not ($i.Attributes -band 'Hidden')) { $i.Attributes = $i.Attributes -bor 'Hidden' } } catch {}
+# flat view: policy_generator junction beside glossary_generator, README kept separate
+$pgLink = Join-Path $DemoDir 'policy_generator'
+if (-not (Test-Path $pgLink)) {
+    New-Item -ItemType Junction -Path $pgLink -Target (Join-Path $PT 'policy_generator') | Out-Null
+}
+Copy-Item (Join-Path $PT 'README.md') (Join-Path $DemoDir 'README-Policy.md') -Force -ErrorAction SilentlyContinue
+Ok ("Policy app " + (Get-Content (Join-Path $PT 'policy_generator\VERSION') -Raw).Trim() + " - linked at $pgLink")
 Write-Host ""
 
 # --- 3. PDC-Scenarios (sparse: the selected vertical) -------------------------
@@ -101,7 +114,11 @@ if (Test-Path (Join-Path $ST '.git')) {
     if ($Vertical) {
         git -C $ST sparse-checkout set "data_sources/lab" "data_sources/$Vertical" "courseware/$Vertical" "diagrams"
         if ($LASTEXITCODE -eq 0 -and (Test-Path (Join-Path $ST "data_sources\$Vertical"))) {
-            Ok "Vertical $Vertical - data kit + domain pack + courseware"
+            $cwLink = Join-Path $DemoDir 'courseware'
+            if (-not (Test-Path $cwLink)) {
+                New-Item -ItemType Junction -Path $cwLink -Target (Join-Path $ST 'courseware') | Out-Null
+            }
+            Ok "Vertical $Vertical - data kit + domain pack + courseware (linked at $cwLink)"
         } else {
             Warn "vertical '$Vertical' not found - valid ids: CSCU RETAIL HEALTH MFG"
         }
@@ -111,11 +128,11 @@ if (Test-Path (Join-Path $ST '.git')) {
 } else {
     Warn "Skipped - pass a vertical to set it up: .\install-pdc-demo.ps1 CSCU"
 }
-# keep the outer checkout's git status clean
+# keep the outer checkout's git status clean (nested repos, links, extras)
 $exclude = Join-Path $DemoDir '.git\info\exclude'
-foreach ($d in @('PDC-Policy-Generator','PDC-Scenarios')) {
-    if ((Test-Path (Join-Path $DemoDir $d)) -and -not (Select-String -Path $exclude -Pattern "^$d/$" -Quiet -ErrorAction SilentlyContinue)) {
-        Add-Content -Path $exclude -Value "$d/"
+foreach ($d in @('.pdc-policy-generator/','PDC-Scenarios/','policy_generator','courseware','README-Policy.md')) {
+    if (-not (Select-String -Path $exclude -Pattern ("^" + [regex]::Escape($d) + "$") -Quiet -ErrorAction SilentlyContinue)) {
+        Add-Content -Path $exclude -Value $d
     }
 }
 Write-Host ""
@@ -133,5 +150,5 @@ Write-Host ""
 Write-Host "  Next" -ForegroundColor Cyan
 Write-Host "  1. Lab (on the VM):  curl one-liner + make scenario ID=$Vertical   (see PDC-Scenarios README)"
 Write-Host ("  2. Glossary app:     cd {0}\glossary_generator; .\run.ps1     -> http://127.0.0.1:5000" -f $DemoDir)
-Write-Host ("  3. Policy app:       cd {0}\PDC-Policy-Generator\policy_generator; .\run.ps1  -> http://127.0.0.1:5001" -f $DemoDir)
+Write-Host ("  3. Policy app:       cd {0}\policy_generator; .\run.ps1  -> http://127.0.0.1:5001" -f $DemoDir)
 Write-Host ""
