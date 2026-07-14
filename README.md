@@ -49,14 +49,16 @@ also carries its own `install-pdc-demo.sh` for single-app updates.
 
 The standard topology runs the **apps on the Windows host** (Ollama lives
 there) and the lab + PDC on the VM. The PowerShell twin stands up the same
-`%USERPROFILE%\PDC-Demo` layout — both apps + the vertical — and installs
-the vertical's domain pack + roster into the Glossary app:
+layout in **`C:\PDC-Demo`** — both apps + the vertical, kept separate from
+any dev checkouts — and installs the vertical's domain pack + roster into
+the Glossary app:
 
 ```powershell
 iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
 ```
 
-Re-run it bare to update everything; then `.un.ps1` in each app folder
+Re-run it bare to update everything; then `.
+un.ps1` in each app folder
 (Glossary :5000, Policy :5001).
 
 ## Select a vertical (manual pieces)

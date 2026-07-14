@@ -13,6 +13,9 @@
       curl -fsSL https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.sh | bash -s -- CSCU
       cd ~/PDC-Demo/PDC-Scenarios && make scenario ID=CSCU
 
+  Installs to C:\PDC-Demo by default - keeping the test/delivery
+  environment separate from any dev checkouts (e.g. C:\Projects).
+
   One-liner (PowerShell):
     iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
 
@@ -30,7 +33,7 @@ $ErrorActionPreference = 'Stop'
 $GlossUrl  = if ($env:GLOSSARY_REPO_URL)  { $env:GLOSSARY_REPO_URL }  else { 'https://github.com/jporeilly/PDC-Glossary-Generator.git' }
 $PolicyUrl = if ($env:POLICY_REPO_URL)    { $env:POLICY_REPO_URL }    else { 'https://github.com/jporeilly/PDC-Policy-Generator.git' }
 $ScenUrl   = if ($env:SCENARIOS_REPO_URL) { $env:SCENARIOS_REPO_URL } else { 'https://github.com/jporeilly/PDC-Scenarios.git' }
-if (-not $DemoDir) { $DemoDir = if ($env:PDC_DEMO_DIR) { $env:PDC_DEMO_DIR } else { Join-Path $env:USERPROFILE 'PDC-Demo' } }
+if (-not $DemoDir) { $DemoDir = if ($env:PDC_DEMO_DIR) { $env:PDC_DEMO_DIR } else { 'C:\PDC-Demo' } }
 if ($Vertical) { $Vertical = $Vertical.ToUpper() }
 
 function Ok   ($m) { Write-Host "  " -NoNewline; Write-Host "OK  " -ForegroundColor Green  -NoNewline; Write-Host $m }
