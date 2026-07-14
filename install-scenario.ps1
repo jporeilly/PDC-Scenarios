@@ -117,8 +117,8 @@ Write-Host ("  + GLOSSARY_COMPANY=""{0}""  ({1})" -f $sel.company, $envFile)
 # scenario instead of leaving them pinned to an old one.
 $content = Get-Content $envFile -Raw -Encoding UTF8
 $retarget = @{
-    "GLOSSARY_DOMAIN_PACK" = ("{0}/{1}/{2}" -f (Resolve-Path $DS).Path.Replace('','/'), $sel.id, $sel.pack)
-    "GLOSSARY_PEOPLE_SEED" = ("{0}/{1}/{2}" -f (Resolve-Path $DS).Path.Replace('','/'), $sel.id, $sel.people)
+    "GLOSSARY_DOMAIN_PACK" = ("{0}/{1}/{2}" -f (Resolve-Path $DS).Path.Replace('\','/'), $sel.id, $sel.pack)
+    "GLOSSARY_PEOPLE_SEED" = ("{0}/{1}/{2}" -f (Resolve-Path $DS).Path.Replace('\','/'), $sel.id, $sel.people)
 }
 $dirty = $false
 foreach ($k in $retarget.Keys) {
