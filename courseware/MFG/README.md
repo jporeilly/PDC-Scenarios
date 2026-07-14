@@ -18,12 +18,12 @@ directly.
 
 | Workshop | Focus | Guide |
 | --- | --- | --- |
-| [Workshop-00-Preflight](Workshop-00-Preflight/) | Provision users & roles (Keycloak + PDC) — the CPC cast across all seven PDC roles | `Workshop-00-Guide.md` |
-| [Workshop-01-Connect-Data-Sources](Workshop-01-Connect-Data-Sources/) | Connect `cpc_mfg` + the `cpc-documents` bucket, bulk loader, ingest, Scan Files | `Workshop-01-Guide.md` |
-| [Workshop-02-Structure-and-Metadata](Workshop-02-Structure-and-Metadata/) | Explore tables, columns, comments, documents — and bookmark the CoC and MRB defects | `Workshop-02-Guide.md` |
-| [Workshop-03-Glossary-Terms](Workshop-03-Glossary-Terms/) | Build & import the business glossary (118 records), link 100 columns, assign stewards | `Workshop-03-Guide.md` |
-| [Workshop-04-Profiling-and-Quality](Workshop-04-Profiling-and-Quality/) | Profile the tables; six business rules incl. CoC-before-release, MRB approval and the suspended-supplier PO | `Workshop-04-Guide.md` |
-| [Workshop-05-Data-Identification](Workshop-05-Data-Identification/) | The non-PII lesson: built-ins go quiet, then the custom part/lot pattern library lights the estate up | `Workshop-05-Guide.md` |
+| [Workshop-00-Preflight](Platform/Workshop-00-Preflight/) | Provision users & roles (Keycloak + PDC) — the CPC cast across all seven PDC roles | `Workshop-00-Guide.md` |
+| [Workshop-01-Connect-Data-Sources](Platform/Workshop-01-Connect-Data-Sources/) | Connect `cpc_mfg` + the `cpc-documents` bucket, bulk loader, ingest, Scan Files | `Workshop-01-Guide.md` |
+| [Workshop-02-Structure-and-Metadata](Platform/Workshop-02-Structure-and-Metadata/) | Explore tables, columns, comments, documents — and bookmark the CoC and MRB defects | `Workshop-02-Guide.md` |
+| [Workshop-03-Glossary-Terms](Platform/Workshop-03-Glossary-Terms/) | Build & import the business glossary (118 records), link 100 columns, assign stewards | `Workshop-03-Guide.md` |
+| [Workshop-04-Profiling-and-Quality](Platform/Workshop-04-Profiling-and-Quality/) | Profile the tables; six business rules incl. CoC-before-release, MRB approval and the suspended-supplier PO | `Workshop-04-Guide.md` |
+| [Workshop-05-Data-Identification](Platform/Workshop-05-Data-Identification/) | The non-PII lesson: built-ins go quiet, then the custom part/lot pattern library lights the estate up | `Workshop-05-Guide.md` |
 
 Each workshop folder carries a `Workshop-XX-Guide.md` — the authoritative
 markdown master — and a `Workshop-XX-Guide.docx` generated from it in the

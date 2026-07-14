@@ -54,10 +54,11 @@ data_sources/
   <ID>/               the vertical's kit: scenario.json manifest, postgres-init
                       SQL, documents, domain pack + install zip, bulk-load CSV
 courseware/
-  <ID>/               the vertical's workshop sets: PDC platform Workshops 00-05,
-                      the Glossary Generator app workshop (+ Technical Track on
-                      CSCU), and Policy-Generator/ (the Policy app workshop);
-                      each set's tools/build-docx.py regenerates its .docx
+  <ID>/Platform/      PDC platform courseware: Workshops 00-05 (+ the
+                      Technical Track on CSCU)
+  <ID>/Glossary/      the Glossary Generator app workshop + topic notes
+  <ID>/Policy/        the Policy Generator app workshop
+                      (each set's tools/build-docx.py regenerates its .docx)
   PDC-Users-All-Scenarios.{csv,md}   consolidated user roster, all verticals
 diagrams/             app diagrams the courseware builders embed
 install-scenario.sh   install a vertical's pack + roster into the Glossary app

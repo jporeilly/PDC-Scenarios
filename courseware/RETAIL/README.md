@@ -12,12 +12,12 @@ transfer directly.
 
 | Workshop | Focus | Guide |
 | --- | --- | --- |
-| [Workshop-00-Preflight](Workshop-00-Preflight/) | Provision users & roles (Keycloak + PDC) — the CTO cast across all seven PDC roles | `Workshop-00-Guide.md` |
-| [Workshop-01-Connect-Data-Sources](Workshop-01-Connect-Data-Sources/) | Connect `cto_retail` + the `cto-documents` bucket, bulk loader, ingest, Scan Files | `Workshop-01-Guide.md` |
-| [Workshop-02-Structure-and-Metadata](Workshop-02-Structure-and-Metadata/) | Explore tables, columns, comments, documents — and bookmark the `card_no` defect | `Workshop-02-Guide.md` |
-| [Workshop-03-Glossary-Terms](Workshop-03-Glossary-Terms/) | Build & import the business glossary (109 records), link 93 columns, assign stewards | `Workshop-03-Guide.md` |
-| [Workshop-04-Profiling-and-Quality](Workshop-04-Profiling-and-Quality/) | Profile the tables; six business rules incl. the flagship opt-out + PCI no-full-PAN | `Workshop-04-Guide.md` |
-| [Workshop-05-Data-Identification](Workshop-05-Data-Identification/) | Dictionaries + patterns on tables and documents; the `card_no` triangulation and the `loyalty_no` custom pattern | `Workshop-05-Guide.md` |
+| [Workshop-00-Preflight](Platform/Workshop-00-Preflight/) | Provision users & roles (Keycloak + PDC) — the CTO cast across all seven PDC roles | `Workshop-00-Guide.md` |
+| [Workshop-01-Connect-Data-Sources](Platform/Workshop-01-Connect-Data-Sources/) | Connect `cto_retail` + the `cto-documents` bucket, bulk loader, ingest, Scan Files | `Workshop-01-Guide.md` |
+| [Workshop-02-Structure-and-Metadata](Platform/Workshop-02-Structure-and-Metadata/) | Explore tables, columns, comments, documents — and bookmark the `card_no` defect | `Workshop-02-Guide.md` |
+| [Workshop-03-Glossary-Terms](Platform/Workshop-03-Glossary-Terms/) | Build & import the business glossary (109 records), link 93 columns, assign stewards | `Workshop-03-Guide.md` |
+| [Workshop-04-Profiling-and-Quality](Platform/Workshop-04-Profiling-and-Quality/) | Profile the tables; six business rules incl. the flagship opt-out + PCI no-full-PAN | `Workshop-04-Guide.md` |
+| [Workshop-05-Data-Identification](Platform/Workshop-05-Data-Identification/) | Dictionaries + patterns on tables and documents; the `card_no` triangulation and the `loyalty_no` custom pattern | `Workshop-05-Guide.md` |
 
 Each workshop folder carries a `Workshop-XX-Guide.md` — the authoritative
 markdown master — and a `Workshop-XX-Guide.docx` generated from it in the

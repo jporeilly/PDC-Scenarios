@@ -10,7 +10,7 @@ from PIL import Image
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
 TEMPLATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.docx")
-CW = os.path.join(ROOT, "courseware", "CSCU", "Policy-Generator")
+CW = os.path.join(ROOT, "courseware", "CSCU", "Policy")
 
 TEAL = "1C7293"; GRAY = "5B7886"; LABEL = "5B7782"; INK = "14333F"; SUB = "065A82"
 CELLBORD = "C9DEE8"; HDRFILL = "EEF6FA"; CODEFILL = "F4F7F9"

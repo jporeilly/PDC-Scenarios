@@ -7,6 +7,14 @@
 | [`HEALTH/`](HEALTH/) | **Lakeshore Health Partners** — healthcare | Workshops 00–05 with the LHP cast, HIPAA framing, the SSN-in-notes free-text blind spot, the unauthorized-disclosure rule, and the MRN custom pattern |
 | [`MFG/`](MFG/) | **Cascade Precision Components** — manufacturing | Workshops 00–05 with the CPC cast: the non-PII lesson (built-ins go quiet), BOM lineage, lot traceability, CoC/MRB/ASL planted defects, and the part-number custom pattern library |
 
+Within each set the courseware is separated **per app**, so one app's
+materials never mix into another's delivery:
+
+- `<ID>/Platform/` — the PDC platform workshops (00–05) and, on CSCU, the
+  Technical Track
+- `<ID>/Glossary/` — the Glossary Generator app workshop and topic notes
+- `<ID>/Policy/` — the Policy Generator app workshop
+
 Each workshop folder carries a markdown guide master (authoritative, with
 `[SCREENSHOT]` markers for captures on that scenario's lab), a `.docx`
 generated from it in the course design (`<set>/tools/build-docx.py`), and its
