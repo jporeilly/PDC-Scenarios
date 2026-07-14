@@ -144,6 +144,11 @@ profiling actually saw (risk ratings, SAR statuses, account types).
 
 The methods appear alongside the built-ins, grouped by the `CSCU` prefix.
 
+> **Best practice:** at **Select Methods**, run identification on your
+> custom set only — leave the built-ins unselected. Every tag stamped in a
+> governed run should trace to a versioned, evidence-based method; the
+> built-ins are opaque and release-dependent, so they stay demo-only.
+
 ### Step 6 — Run Data Identification
 
 Run **Data Identification** on the CSCU sources

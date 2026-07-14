@@ -19,6 +19,12 @@
 > conditions, apply-tags — so a draft is something you can *judge*, not just
 > import. Stewards who can read a rule can also fix one.
 
+> **Why this lab is the production path.** Best practice for a governed
+> program is to run identification on **custom methods only** — everything
+> you build here is versioned, evidence-based and auditable, which the
+> built-ins can never be. This library, plus the methods the Policy
+> Generator authors from the Registry, IS the production policy.
+
 ## From concept to authoring
 
 Module 02 covered the engine: how Dictionaries match content, Data Patterns

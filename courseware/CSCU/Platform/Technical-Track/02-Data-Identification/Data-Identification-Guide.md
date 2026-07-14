@@ -50,6 +50,18 @@ that names alone never reveal, such as a column of two-letter state codes.
   codes — is the work of Module 03, and 18 ready-made CSCU dictionaries ship
   with it.
 
+> **Best practice — custom methods only in production.** The built-ins are
+> useful for a first exploration (and the platform workshops demo them), but
+> a governed identification program runs on **custom dictionaries and
+> patterns only**: built-ins are opaque, unversioned, and change between PDC
+> releases, so a tag stamped by one cannot be audited or diffed. A custom
+> method is a reviewable artifact — its regex or value list came from
+> profiled evidence, it lives in version control, and every change is
+> tracked. At **Select Methods**, the production policy is simply: select
+> only your own prefixed method set. Anything a built-in would have covered
+> (SSNs, emails, phones, states) is authored as a custom method from a
+> vetted canonical shape or curated list instead.
+
 ### The matching rule and confidence score
 
 Every dictionary carries a JSON rule. It computes a weighted confidence
