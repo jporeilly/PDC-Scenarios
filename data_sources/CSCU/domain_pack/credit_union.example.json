@@ -1,6 +1,6 @@
 {
   "domain": "credit_union",
-  "note": "Copper State Credit Union (CSCU) domain pack — the financial-services scenario. Carries both halves of a pack: the categorization/naming keys read by suggester.py (table_category, table_terms, cat_keywords, abbreviations, category_definitions) and the governed tag vocabulary read by tagdict.py (category_tags, tag_rules, extra_tags, terms). Tags introduced here are company-layer and pre-approved. Reseed the Dictionary (Dictionary page -> Reseed) after adding/changing this file, then re-run 'Suggest tags' on the grid. [refreshed from scan results by the pack generator — review the additions, then commit]",
+  "note": "Copper State Credit Union (CSCU) domain pack — the financial-services scenario. Carries both halves of a pack: the categorization/naming keys read by suggester.py (table_category, table_terms, cat_keywords, abbreviations, category_definitions) and the governed tag vocabulary read by tagdict.py (category_tags, tag_rules, extra_tags, terms). Tags introduced here are company-layer and pre-approved. Reseed the Dictionary (Dictionary page -> Reseed) after adding/changing this file, then re-run 'Suggest tags' on the grid. [curated 2026-07-15: twins folded to aliases, junk terms removed, scaffolding tags stripped, brittle seeds pruned]",
   "table_category": {
     "members": "Member",
     "accounts": "Accounts & Deposits",
@@ -234,8 +234,7 @@
     "rates",
     "records",
     "statement",
-    "transaction",
-    "uncategorized"
+    "transaction"
   ],
   "tag_rules": [
     {
@@ -404,7 +403,7 @@
         "lending",
         "credit",
         "billing",
-        "rate"
+        "rates"
       ]
     },
     "Account Status": {
@@ -433,43 +432,33 @@
       "tags": [
         "payments",
         "ach",
-        "operational",
-        "uncategorized"
+        "operational"
       ]
     },
     "Activity Type Code": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Address 1": {
       "aliases": [],
       "sensitivity": "MEDIUM",
       "tags": [
-        "location",
-        "uncategorized"
-      ]
-    },
-    "Avail Balance Amount": {
-      "aliases": [],
-      "sensitivity": "MEDIUM",
-      "tags": [
-        "billing",
-        "financial",
-        "customer",
-        "cde"
+        "location"
       ]
     },
     "Available Balance Amount": {
-      "aliases": [],
+      "aliases": [
+        "Avail Balance Amount"
+      ],
       "sensitivity": "MEDIUM",
       "tags": [
         "deposit",
         "billing",
         "financial",
-        "identifier"
+        "identifier",
+        "customer",
+        "cde"
       ]
     },
     "Balance Amount": {
@@ -482,44 +471,10 @@
         "cde"
       ]
     },
-    "Br Address": {
-      "aliases": [],
-      "sensitivity": "MEDIUM",
-      "tags": [
-        "location",
-        "uncategorized"
-      ]
-    },
-    "Br County": {
-      "aliases": [],
-      "sensitivity": "HIGH",
-      "tags": [
-        "pii",
-        "location",
-        "privacy",
-        "uncategorized"
-      ]
-    },
-    "Br Status": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "operational",
-        "uncategorized"
-      ]
-    },
-    "Br ZIP": {
-      "aliases": [],
-      "sensitivity": "HIGH",
-      "tags": [
-        "pii",
-        "location",
-        "privacy",
-        "uncategorized"
-      ]
-    },
     "Branch Address": {
-      "aliases": [],
+      "aliases": [
+        "Br Address"
+      ],
       "sensitivity": "MEDIUM",
       "tags": [
         "location",
@@ -527,7 +482,9 @@
       ]
     },
     "Branch County": {
-      "aliases": [],
+      "aliases": [
+        "Br County"
+      ],
       "sensitivity": "HIGH",
       "tags": [
         "pii",
@@ -545,14 +502,18 @@
       ]
     },
     "Branch Status": {
-      "aliases": [],
+      "aliases": [
+        "Br Status"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "operational"
       ]
     },
     "Branch ZIP": {
-      "aliases": [],
+      "aliases": [
+        "Br ZIP"
+      ],
       "sensitivity": "HIGH",
       "tags": [
         "pii",
@@ -585,8 +546,7 @@
       "tags": [
         "pci",
         "card",
-        "payments",
-        "uncategorized"
+        "payments"
       ]
     },
     "Close Date": {
@@ -603,8 +563,7 @@
       "tags": [
         "lending",
         "credit",
-        "location",
-        "uncategorized"
+        "location"
       ]
     },
     "Compliance": {
@@ -632,8 +591,7 @@
       "tags": [
         "pci",
         "card",
-        "payments",
-        "uncategorized"
+        "payments"
       ]
     },
     "Date of Birth": {
@@ -642,16 +600,13 @@
       "tags": [
         "pii",
         "temporal",
-        "uncategorized",
         "maskable"
       ]
     },
     "Description Txt": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Detail": {
       "aliases": [],
@@ -670,25 +625,10 @@
         "payments"
       ]
     },
-    "Emp ID": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized",
-        "cde",
-        "identifier"
-      ]
-    },
-    "Emp Status": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "operational",
-        "uncategorized"
-      ]
-    },
     "Employee ID": {
-      "aliases": [],
+      "aliases": [
+        "Emp ID"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "operational",
@@ -697,7 +637,9 @@
       ]
     },
     "Employee Status": {
-      "aliases": [],
+      "aliases": [
+        "Emp Status"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "operational"
@@ -713,16 +655,10 @@
         "billing"
       ]
     },
-    "Filed By Emp ID": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized",
-        "identifier"
-      ]
-    },
     "Filed By Employee ID": {
-      "aliases": [],
+      "aliases": [
+        "Filed By Emp ID"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "compliance",
@@ -733,9 +669,7 @@
     "First Name": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "General Ledger Account Number": {
       "aliases": [],
@@ -757,20 +691,12 @@
       ]
     },
     "General Ledger ID": {
-      "aliases": [],
+      "aliases": [
+        "Gl ID"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "ledger",
-        "cde",
-        "identifier"
-      ]
-    },
-    "Gl ID": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "ledger",
-        "uncategorized",
         "cde",
         "identifier"
       ]
@@ -779,23 +705,18 @@
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "temporal",
-        "uncategorized"
+        "temporal"
       ]
     },
     "ID Doc Number": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "ID Doc Type Code": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Interest Rate": {
       "aliases": [],
@@ -803,16 +724,14 @@
       "tags": [
         "rates",
         "deposit",
-        "billing",
-        "rate"
+        "billing"
       ]
     },
     "Issued Date": {
       "aliases": [],
       "sensitivity": "MEDIUM",
       "tags": [
-        "temporal",
-        "uncategorized"
+        "temporal"
       ]
     },
     "Item Date": {
@@ -828,20 +747,6 @@
       "sensitivity": "LOW",
       "tags": [
         "governance"
-      ]
-    },
-    "June Credits": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
-    },
-    "June Debits": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
       ]
     },
     "Kyc ID": {
@@ -860,35 +765,13 @@
       "tags": [
         "compliance",
         "aml",
-        "operational",
-        "uncategorized"
+        "operational"
       ]
     },
     "Last Name": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
-    },
-    "Ln Status": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "lending",
-        "credit",
-        "operational",
-        "uncategorized"
-      ]
-    },
-    "Ln Type Code": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "lending",
-        "credit",
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Loan Applications": {
       "aliases": [],
@@ -901,7 +784,9 @@
       ]
     },
     "Loan Status": {
-      "aliases": [],
+      "aliases": [
+        "Ln Status"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "lending",
@@ -910,7 +795,9 @@
       ]
     },
     "Loan Type Code": {
-      "aliases": [],
+      "aliases": [
+        "Ln Type Code"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "lending",
@@ -923,40 +810,13 @@
       "tags": [
         "lending",
         "credit",
-        "temporal",
-        "uncategorized"
-      ]
-    },
-    "Mbr Since Date": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "member",
-        "temporal",
-        "uncategorized"
-      ]
-    },
-    "Mbr Status": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "member",
-        "operational",
-        "uncategorized"
-      ]
-    },
-    "Mcc Code": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "pci",
-        "card",
-        "payments",
-        "uncategorized"
+        "temporal"
       ]
     },
     "Member Since Date": {
-      "aliases": [],
+      "aliases": [
+        "Mbr Since Date"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "member",
@@ -964,7 +824,9 @@
       ]
     },
     "Member Status": {
-      "aliases": [],
+      "aliases": [
+        "Mbr Status"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "member",
@@ -976,42 +838,22 @@
       "sensitivity": "LOW",
       "tags": [
         "correspondence",
-        "records",
-        "uncategorized"
-      ]
-    },
-    "Merch Name": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "transaction",
-        "uncategorized"
-      ]
-    },
-    "Merchant Category Code Code": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "transaction"
+        "records"
       ]
     },
     "Merchant Name": {
-      "aliases": [],
+      "aliases": [
+        "Merch Name"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "transaction"
       ]
     },
-    "Mgr Emp ID": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized",
-        "identifier"
-      ]
-    },
     "Mgr Employee ID": {
-      "aliases": [],
+      "aliases": [
+        "Mgr Emp ID"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "operational",
@@ -1021,23 +863,18 @@
     "Narrative Txt": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Notes": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Open Accounts": {
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "identifier",
-        "uncategorized"
+        "identifier"
       ]
     },
     "Open Loans": {
@@ -1045,28 +882,18 @@
       "sensitivity": "LOW",
       "tags": [
         "lending",
-        "credit",
-        "uncategorized"
+        "credit"
       ]
     },
     "Opted Out Marketing": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
-    },
-    "Orig Amount": {
-      "aliases": [],
-      "sensitivity": "MEDIUM",
-      "tags": [
-        "billing",
-        "financial",
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Origination Amount": {
-      "aliases": [],
+      "aliases": [
+        "Orig Amount"
+      ],
       "sensitivity": "MEDIUM",
       "tags": [
         "billing",
@@ -1092,24 +919,17 @@
         "financial"
       ]
     },
-    "Prin Balance Amount": {
-      "aliases": [],
-      "sensitivity": "MEDIUM",
-      "tags": [
-        "billing",
-        "financial",
-        "uncategorized",
-        "cde"
-      ]
-    },
     "Principal Balance Amount": {
-      "aliases": [],
+      "aliases": [
+        "Prin Balance Amount"
+      ],
       "sensitivity": "MEDIUM",
       "tags": [
         "lending",
         "credit",
         "billing",
-        "financial"
+        "financial",
+        "cde"
       ]
     },
     "Rates": {
@@ -1118,35 +938,26 @@
       "tags": [
         "document",
         "billing",
-        "rate",
-        "records"
+        "records",
+        "rates"
       ]
     },
     "Return Code": {
       "aliases": [],
       "sensitivity": "MEDIUM",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Review Date": {
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "temporal",
-        "uncategorized"
-      ]
-    },
-    "Reviewer Emp ID": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized",
-        "identifier"
+        "temporal"
       ]
     },
     "Reviewer Employee ID": {
-      "aliases": [],
+      "aliases": [
+        "Reviewer Emp ID"
+      ],
       "sensitivity": "LOW",
       "tags": [
         "compliance",
@@ -1157,9 +968,7 @@
     "Role Code": {
       "aliases": [],
       "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
-      ]
+      "tags": []
     },
     "Sar Amount": {
       "aliases": [],
@@ -1187,8 +996,7 @@
       "tags": [
         "compliance",
         "aml",
-        "operational",
-        "uncategorized"
+        "operational"
       ]
     },
     "Severity": {
@@ -1197,13 +1005,6 @@
       "tags": [
         "operational",
         "governance"
-      ]
-    },
-    "St": {
-      "aliases": [],
-      "sensitivity": "LOW",
-      "tags": [
-        "uncategorized"
       ]
     },
     "Statements": {
@@ -1237,16 +1038,14 @@
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "temporal",
-        "uncategorized"
+        "temporal"
       ]
     },
     "Total Deposits": {
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "deposit",
-        "uncategorized"
+        "deposit"
       ]
     },
     "Total Loan Balance": {
@@ -1264,8 +1063,7 @@
       "sensitivity": "LOW",
       "tags": [
         "transaction",
-        "temporal",
-        "uncategorized"
+        "temporal"
       ]
     },
     "Transaction ID": {
@@ -1273,7 +1071,6 @@
       "sensitivity": "LOW",
       "tags": [
         "transaction",
-        "uncategorized",
         "cde",
         "identifier"
       ]
@@ -1282,8 +1079,7 @@
       "aliases": [],
       "sensitivity": "LOW",
       "tags": [
-        "transaction",
-        "uncategorized"
+        "transaction"
       ]
     },
     "ZIP": {
@@ -1292,8 +1088,21 @@
       "tags": [
         "pii",
         "location",
-        "privacy",
-        "uncategorized"
+        "privacy"
+      ]
+    },
+    "Merchant Category Code": {
+      "aliases": [
+        "Mcc Code",
+        "Merchant Category Code Code",
+        "MCC"
+      ],
+      "sensitivity": "LOW",
+      "tags": [
+        "pci",
+        "card",
+        "payments",
+        "transaction"
       ]
     }
   },
@@ -1406,41 +1215,6 @@
         "5110"
       ]
     },
-    "Dr Amount": {
-      "type": "dictionary",
-      "values": [
-        "0.00",
-        "1200.00",
-        "16512.00",
-        "231.19",
-        "25.00",
-        "9450.00"
-      ]
-    },
-    "Cr Amount": {
-      "type": "dictionary",
-      "values": [
-        "0.00",
-        "118.35",
-        "231.19",
-        "25.00",
-        "35.00"
-      ]
-    },
-    "Description Text": {
-      "type": "dictionary",
-      "values": [
-        "ACH settlement clearing - outgoing",
-        "Auto loan principal outstanding - LN-091004",
-        "Branch operating expense - Tucson Speedway",
-        "Dividend expense funding - money market",
-        "Loan interest income - June accrual",
-        "Member dividend payable - ACC-00070005",
-        "Member share liability - ACC-00070004",
-        "Overdraft fee income - ACC-00070010",
-        "Share deposit - teller drawer"
-      ]
-    },
     "Loan Number": {
       "type": "pattern",
       "regex": "^LN\\-\\d{6}$",
@@ -1456,38 +1230,6 @@
       "values": [
         "Active",
         "Dormant"
-      ]
-    },
-    "Open Accounts": {
-      "type": "dictionary",
-      "values": [
-        "1",
-        "2"
-      ]
-    },
-    "Open Loans": {
-      "type": "dictionary",
-      "values": [
-        "0",
-        "1"
-      ]
-    },
-    "Total Loan Balance": {
-      "type": "dictionary",
-      "values": [
-        "0",
-        "16512.00",
-        "21500.00",
-        "38685.54",
-        "497980.24",
-        "8104.33"
-      ]
-    },
-    "Opted Out Marketing": {
-      "type": "dictionary",
-      "values": [
-        "False",
-        "True"
       ]
     },
     "Transaction Type Code": {
