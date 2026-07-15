@@ -181,6 +181,13 @@ profiling actually saw (risk ratings, SAR statuses, account types).
 Both zips are in the exact layout PDC's own **Export** produces — that is
 the import contract, and it's why the app emits it byte-compatible.
 
+> **Caveat:** PDC's *edit* form does not display an imported rule's
+> condition, even though View → Rules shows it and it evaluates. Don't
+> hand-edit imported methods — a save could persist the emptied condition.
+> The governed change path is: adjust in the Policy Generator (or the
+> Registry/pack) and **re-import** — deterministic ids make re-imports
+> clean updates.
+
 [SCREENSHOT: PDC Data Identification import dialog with the CSCU method set]
 
 The methods appear alongside the built-ins, grouped by the `CSCU` prefix.
