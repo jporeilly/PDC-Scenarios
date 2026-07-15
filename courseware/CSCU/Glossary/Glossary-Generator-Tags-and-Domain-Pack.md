@@ -135,6 +135,36 @@ facets** in PDC (a filter on `attributes.tags.name`). Read it correctly:
 
 ---
 
+### The pack generator — the pack learns from the scans
+
+Packs start hand-authored, but they don't stay that way. After a full scan +
+review cycle, **Dictionary → Export domain pack** exports the reviewed state
+back into pack format — the flywheel that makes each cycle better than the
+last:
+
+- **What it learns**: table→category mappings and table record terms from the
+  reviewed rows; `cat_keywords` from table tokens; **abbreviations** by
+  aligning column tokens with term words (`mbr_no` + "Member Number" →
+  `mbr: Member`, two sightings required); the **governed company vocabulary**
+  (approved terms/tags/rules only — pending scan noise never exports); and
+  **`curated_seeds`** carrying the scan's induced value patterns and profiled
+  reference lists per term — detection seeds specific to *this* company's
+  data, which flow into the Registry (`source: "curated"`) for the Policy
+  Generator.
+- **Merge, never overwrite**: hand-curated entries in the installed pack
+  always win; learned content fills gaps, and the report counts additions
+  per key.
+- **Two ways to use it**: **Apply to this app** (writes the pack — timestamped
+  backup kept — and reseeds the dictionary; approved items survive), and
+  **commit** the file to the scenario's `domain_pack/` folder so every future
+  install starts from evidence instead of guesses. Do both — an uncommitted
+  improvement dies with the install.
+- **When**: after review, before you'd reinstall or hand the vertical to the
+  next cohort. It exports the *reviewed* state, so the richer the review, the
+  better the pack.
+
+---
+
 ### Quick reference
 
 | Want to… | Do this |
@@ -144,5 +174,6 @@ facets** in PDC (a filter on `attributes.tags.name`). Read it correctly:
 | Change a category's default tag | Edit `category_tags` → Reseed → Suggest tags |
 | Approve a scan-grown tag | Dictionary page → review pending → approve |
 | Understand why a tag is bare | The name didn't match any rule — add one to the pack |
+| Make the pack learn from this scan | Dictionary → Export domain pack → Apply / commit |
 
 *All Copper State Credit Union data is fictional and generated for training.*
