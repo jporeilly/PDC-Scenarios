@@ -151,9 +151,20 @@ last:
   reference lists per term — detection seeds specific to *this* company's
   data, which flow into the Registry (`source: "curated"`) for the Policy
   Generator.
-- **Merge, never overwrite**: hand-curated entries in the installed pack
-  always win; learned content fills gaps, and the report counts additions
-  per key.
+- **Merge, never silently overwrite**: learned content fills gaps and adds
+  new entries, and every place the scan *disagrees* with the installed pack
+  is listed in the export dialog as a checkbox row — pack value vs scan
+  value, the steward picks the winner. Defaults: curation-bearing keys keep
+  the pack's value (a steward's recorded decision beats the machine's newest
+  opinion); `curated_seeds` prefer the **scan** — they're machine-derived
+  evidence, so fresher profiling wins and the replaced seed stays visible.
+  Term entries take safe unions: aliases/tags union in, sensitivity tightens
+  automatically, and a *loosening* is surfaced as a conflict, never applied
+  silently.
+- **Starting from nothing**: a new company doesn't need a hand-authored pack.
+  Run packless (generic defaults), do one scan → review cycle, and the first
+  **Export domain pack** *is* the base pack — commit it and every later
+  cycle refines it through the merge above.
 - **Two ways to use it**: **Apply to this app** (writes the pack — timestamped
   backup kept — and reseeds the dictionary; approved items survive), and
   **commit** the file to the scenario's `domain_pack/` folder so every future
