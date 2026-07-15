@@ -118,6 +118,45 @@ click.
   match is marked *strong*, while look-alike names holding different data are
   flagged **different concepts** with the merge withheld.
 
+### Step 4b — Steward judgment lab: work the *Find similar* list
+
+Run **Find similar** with the threshold at its default **0.60** and merge
+nothing yet. The point of this exercise: the advisor supplies *evidence*;
+the steward supplies *meaning* — and at 0.60 the list deliberately contains
+both. Work it top-down:
+
+1. **The strong trio.** `Employee ID ← Manager Employee ID / Reviewer
+   Employee ID / Filed By Employee ID` — each justified by a foreign key
+   (*"same concept by construction"*). The FK proves the columns share a
+   value domain: they all hold employee ids. Whether they are one **term**
+   is a policy decision the tool cannot make:
+   - *One concept, many columns* (PDC-native): merge all three — the
+     `mgr_emp_id` column simply links to **Employee ID**.
+   - *Role-qualified terms*: dismiss all three — **Manager Employee ID**
+     carries meaning ("who approves") the bare identifier doesn't.
+
+   Either is defensible; deciding the three **inconsistently** is not.
+   Pick a policy, apply it to all three, record it in the surviving term's
+   definition. If you merged, open the Dictionary page and run the **AI
+   fold advisor** so the governed vocabulary folds the same way — the grid
+   and the vocabulary must tell one story.
+2. **The classic traps — dismiss each, and say why out loud:**
+   `Balance Amount ← Available Balance Amount` (ledger vs available);
+   `Account Number ← External Account Number` (ours vs the
+   counterparty's); `Dr Amount ← Cr Amount` (opposites!); `Branch City ←
+   Branch County`; `KYC Status ← SAR Status` (different regulatory
+   processes). High string similarity, different business meaning.
+   **Dismissing is the review** — each dismissal is a recorded decision
+   the audit can defend.
+3. **The junk pair.** `June Debits ← June Credits` — neither merge nor
+   dismiss: period-specific spreadsheet noise. Untick their **Keep**
+   boxes; they should never reach PDC at all.
+4. Drag the **threshold to ~0.75** and watch the noise fall away — that is
+   the working setting for routine passes; 0.60 was the teaching setting.
+
+**Checkpoint:** you dismissed more than you merged. A cohort that merges
+everything the advisor suggests has missed the lesson.
+
 ### Step 5 — Govern
 
 The roster is pre-seeded with the CSCU team, each steward carrying the
