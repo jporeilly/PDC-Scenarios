@@ -10,6 +10,14 @@ PDC 10.2.11 is capable, but its defaults assume a small, manual, freeform catalo
 
 The fix is not more manual effort inside PDC. It's a thin governance layer **on top of** PDC: a single Classification Registry as the source of truth, everything downstream (glossary terms, Data Identification methods, policies) generated from it, everything automated through the REST API, and LLMs used surgically for residual work only. This is the pattern already proven in the AWC build.
 
+**Reference implementations** (public GitHub, validated against live PDC 11.0.0):
+
+- [PDC-Glossary-Generator](https://github.com/jporeilly/PDC-Glossary-Generator) — the governed glossary side: scans sources, mints one term per concept, governs tags, and **writes the Classification Registry** this document keeps referring to.
+
+- [PDC-Policy-Generator](https://github.com/jporeilly/PDC-Policy-Generator) — reads the Registry and owns the Data Identification lifecycle: **author → reconcile → deploy → drift-check** (custom methods only, GraphQL retire included).
+
+- [PDC-Scenarios](https://github.com/jporeilly/PDC-Scenarios) — the training verticals that exercise both apps end-to-end: data kits, domain packs, and per-scenario courseware, deployed with one command.
+
 The gaps below are ordered roughly by pain-at-scale.
 
 ## **Gap summary**
@@ -63,7 +71,7 @@ A metadata ingest produces a large volume of technical metrics. Dumping all of i
 
 Freeform, auto-populated glossaries are the primary source of concept drift. Two ingests produce two near-identical terms; nobody agrees which is canonical; downstream links fork. Auto-generation is only safe when the scope is very specific and small.
 
-**Solution.** Curate the glossary. Mint **one conceptual term per table** as a creation-only step, and let the steward link it deliberately — never auto-link. This keeps the glossary small, intentional, and reviewable, and it's the behaviour the Glossary Generator app already enforces.
+**Solution.** Curate the glossary. Mint **one conceptual term per table** as a creation-only step, and let the steward link it deliberately — never auto-link. This keeps the glossary small, intentional, and reviewable, and it's the behaviour the [Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator) app already enforces.
 
 ## **5. There is no registry tying the glossary to classification — add one**
 
@@ -103,7 +111,7 @@ Use a stable uuid5(NS, "AWC\|kind\|concept") \_id so upserts are idempotent and 
 
 There are no pre-built named policies in PDC. A policy is simply a combination of methods a user selects at runtime. That means there is nothing in the platform to enforce which methods constitute a governed policy — it's convention, and convention drifts.
 
-The 11.0 internals confirm how thin this is: identification methods are rows in two Mongo-style collections (`dictionaries`, `datapatterns`) behind a GraphQL CRUD endpoint, and "policy" never exists as an object anywhere — it is literally whichever checkboxes a user ticks at **Select Methods** before a run.
+The 11.0 internals confirm how thin this is: identification methods are rows in two Mongo-style collections (`dictionaries`, `datapatterns`) behind a GraphQL CRUD endpoint — on 11.0 those collections are served by **FerretDB, PostgreSQL-backed** (the MongoDB → FerretDB migration in the gotchas table), with the Mongoose/GraphQL layer unchanged above it — and "policy" never exists as an object anywhere: it is literally whichever checkboxes a user ticks at **Select Methods** before a run.
 
 **Solution.** Treat the method combination as a generated artifact, not a manual choice. The registry defines the governed set; the tooling emits the combination; the analyst applies a known-good policy rather than assembling one ad hoc. The working form of this, exercised live in the CSCU build, is a **custom-only run policy**: every method is authored from the registry under a common prefix, and identification runs select *only* the prefixed set — never the built-ins — so every stamped tag traces to a versioned, evidence-based method.
 
@@ -193,7 +201,7 @@ Two exhibits from the live 11.0 build make the point concrete:
 
 Concretely: a role-based home that opens on the user's stage; wizardized multi-step tasks (onboarding, method authoring, policy assembly) with progressive disclosure; a shared component **and copy** library so terminology is identical everywhere by construction; bulk actions and steward task-queues as first-class citizens; empty states that surface the next best action. The v11 UI-Kit alignment is a prerequisite for this, not a substitute — consistent components don't fix an illogical workflow.
 
-Where PDC's native UX falls short of this, front it with the API-driven apps that already impose the right workflow: the Glossary Generator, the Classification Registry, and the read-only Insights app collectively deliver the lifecycle order the native UI doesn't.
+Where PDC's native UX falls short of this, front it with the API-driven apps that already impose the right workflow: the [Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator), the Registry-driven [Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator), and the read-only Insights app collectively deliver the lifecycle order the native UI doesn't.
 
 ## **14. No config-as-code or environment promotion**
 
@@ -277,7 +285,7 @@ PDC's Metadata Similarity feature finds near-duplicate tables, columns, and busi
 
 So the instinct is right: to actually *prevent* term drift, the check has to happen **before** a term is committed, not after. Post-hoc similarity reduces redundancy; it can't stop it. It also carries its own quirks — rejecting a suggestion permanently excludes it from future runs, and the batch nature means results are stale between runs.
 
-**Solution.** Put the similarity check at the point of entry, in the registry. When the Glossary Generator mints a candidate term, compare it against the registry and existing terms *before* committing — the duplicate-group handling in the Review & prune grid is exactly this pre-commit gate. PDC's Metadata Similarity then becomes a backstop that should find almost nothing, not the primary defense. Prevention lives upstream; detection stays downstream as a safety net.
+**Solution.** Put the similarity check at the point of entry, in the registry. When the [Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator) mints a candidate term, compare it against the registry and existing terms *before* committing — the duplicate-group handling in the Review & prune grid is exactly this pre-commit gate. PDC's Metadata Similarity then becomes a backstop that should find almost nothing, not the primary defense. Prevention lives upstream; detection stays downstream as a safety net.
 
 ## **Further gotchas in features not yet covered**
 
@@ -395,7 +403,7 @@ Two clarifications matter before the table:
 
 ### Live-validated on 11.0 (hands-on, 2026-07)
 
-The layer-on-top architecture is no longer only an AWC-era argument — its core loop has now run end-to-end against a live PDC 11.0.0 build in the CSCU training scenario: registry generated from scan evidence → glossary imported → identification methods **authored from the registry and imported** (custom-only, governed tags, term bindings) → identification run → **term ids reconciled at full-registry scale** → obsolete method set **retired in bulk**. Two discovery methods made that possible and are worth institutionalizing: the import contract was learned by **exporting a built-in method and mirroring PDC's own Export format** (the documentation's shapes were wrong on every detail that mattered), and the GraphQL surface behind the UI was mapped **through Apollo's validation-error suggestions** despite introspection being disabled. The general lesson: on this product, live behaviour is the specification — sample the running build before building against the docs.
+The layer-on-top architecture is no longer only an AWC-era argument — its core loop has now run end-to-end against a live PDC 11.0.0 build in the CSCU training scenario ([PDC-Scenarios](https://github.com/jporeilly/PDC-Scenarios), exercising the [Glossary](https://github.com/jporeilly/PDC-Glossary-Generator) and [Policy](https://github.com/jporeilly/PDC-Policy-Generator) Generators): registry generated from scan evidence → glossary imported → identification methods **authored from the registry and imported** (custom-only, governed tags, term bindings) → identification run → **term ids reconciled at full-registry scale** → obsolete method set **retired in bulk**. Two discovery methods made that possible and are worth institutionalizing: the import contract was learned by **exporting a built-in method and mirroring PDC's own Export format** (the documentation's shapes were wrong on every detail that mattered), and the GraphQL surface behind the UI was mapped **through Apollo's validation-error suggestions** despite introspection being disabled. The general lesson: on this product, live behaviour is the specification — sample the running build before building against the docs.
 
 ## **Prioritization**
 
@@ -433,4 +441,4 @@ Priority is set by impact-at-scale, whether the item is a foundational enabler, 
 
 ## **What this means for courseware / customers**
 
-The through-line to teach is simple: **PDC is the execution engine, not the governance system.** Scale and consistency come from a registry-driven, API-automated layer on top, with LLMs kept to residual work. Teaching the manual UI paths as the "real" workflow sets customers up for exactly the drift this document catalogues.
+The through-line to teach is simple: **PDC is the execution engine, not the governance system.** Scale and consistency come from a registry-driven, API-automated layer on top, with LLMs kept to residual work. Teaching the manual UI paths as the "real" workflow sets customers up for exactly the drift this document catalogues. The courseware that teaches the governed workflow instead — per-vertical workshops for both generators — lives in [PDC-Scenarios](https://github.com/jporeilly/PDC-Scenarios).
