@@ -160,7 +160,11 @@ last:
   evidence, so fresher profiling wins and the replaced seed stays visible.
   Term entries take safe unions: aliases/tags union in, sensitivity tightens
   automatically, and a *loosening* is surfaced as a conflict, never applied
-  silently.
+  silently. Entries the steward **retired** in the dictionary (tombstoned —
+  they stay retired through reseeds instead of resurrecting from the pack)
+  appear as removal rows, default *remove* — so an over-eager Approve-all is
+  recoverable per item (✕ retire / ⤵ fold-to-alias on the vocabulary tables)
+  and the pack stops re-seeding the mistake.
 - **Starting from nothing**: a new company doesn't need a hand-authored pack.
   Run packless (generic defaults), do one scan → review cycle, and the first
   **Export domain pack** *is* the base pack — commit it and every later
