@@ -16,7 +16,9 @@ The fix is not more manual effort inside PDC. It's a thin governance layer **on 
 
 - [PDC-Policy-Generator](https://github.com/jporeilly/PDC-Policy-Generator) — reads the Registry and owns the Data Identification lifecycle: **author → reconcile → deploy → drift-check** (custom methods only, GraphQL retire included).
 
-- [PDC-Scenarios](https://github.com/jporeilly/PDC-Scenarios) — the training verticals that exercise both apps end-to-end: data kits, domain packs, and per-scenario courseware, deployed with one command.
+- [PDC-Insights](https://github.com/jporeilly/PDC-Insights) — the read-only reporting layer this document keeps recommending: curated dashboards over the public API (trust, quality, sensitivity, coverage, lineage), with NL-to-dashboard generation via a local LLM. Built against 10.2.11, re-targeted at 11.0.
+
+- [PDC-Scenarios](https://github.com/jporeilly/PDC-Scenarios) — the training verticals that exercise the apps end-to-end: data kits, domain packs, and per-scenario courseware, deployed with one command.
 
 The gaps below are ordered roughly by pain-at-scale.
 
@@ -65,7 +67,7 @@ In practice this has proven to be **friction, not a show-stopper**: driver stagi
 
 A metadata ingest produces a large volume of technical metrics. Dumping all of it into the analyst's view is noise. A business analyst does not need row counts, scan durations, or profiling internals — they need to know: *can I trust this, is it sensitive, who owns it, where did it come from.*
 
-**Solution.** Role-scope the surface. Ingest metrics belong to the admin/engineer view. The analyst view should present only decision-relevant signals — trust, sensitivity classification, ownership, lineage — and suppress the rest. This is exactly what the read-only Insights app does: it reads PDC via API and renders a curated dashboard instead of the raw catalog.
+**Solution.** Role-scope the surface. Ingest metrics belong to the admin/engineer view. The analyst view should present only decision-relevant signals — trust, sensitivity classification, ownership, lineage — and suppress the rest. This is exactly what the read-only [Insights app](https://github.com/jporeilly/PDC-Insights) does: it reads PDC via API and renders a curated dashboard instead of the raw catalog.
 
 ## **4. The glossary should be governed, not auto-generated**
 
@@ -131,7 +133,7 @@ Trust Score is native only to tables and files. Columns and folders never carry 
 
 The built-in views are generic and can't be tailored to what a given audience needs to see. The API can.
 
-**Solution.** Build read-only dashboards on the REST API. The proven access pattern is Keycloak bearer auth (POST /keycloak/realms/pdc/protocol/openid-connect/token, client_id=pdc-client → access_token) followed by POST /entities/filter with the appropriate root types. This is how the Insights app renders curated dashboards, live panel previews, and generated views without touching the catalog UI.
+**Solution.** Build read-only dashboards on the REST API. The proven access pattern is Keycloak bearer auth (POST /keycloak/realms/pdc/protocol/openid-connect/token, client_id=pdc-client → access_token) followed by POST /entities/filter with the appropriate root types. This is how the [Insights app](https://github.com/jporeilly/PDC-Insights) renders curated dashboards, live panel previews, and generated views without touching the catalog UI.
 
 ## **11. Automate the manual toil — the API is the product**
 
@@ -201,7 +203,7 @@ Two exhibits from the live 11.0 build make the point concrete:
 
 Concretely: a role-based home that opens on the user's stage; wizardized multi-step tasks (onboarding, method authoring, policy assembly) with progressive disclosure; a shared component **and copy** library so terminology is identical everywhere by construction; bulk actions and steward task-queues as first-class citizens; empty states that surface the next best action. The v11 UI-Kit alignment is a prerequisite for this, not a substitute — consistent components don't fix an illogical workflow.
 
-Where PDC's native UX falls short of this, front it with the API-driven apps that already impose the right workflow: the [Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator), the Registry-driven [Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator), and the read-only Insights app collectively deliver the lifecycle order the native UI doesn't.
+Where PDC's native UX falls short of this, front it with the API-driven apps that already impose the right workflow: the [Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator), the Registry-driven [Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator), and the read-only [Insights app](https://github.com/jporeilly/PDC-Insights) collectively deliver the lifecycle order the native UI doesn't.
 
 ## **14. No config-as-code or environment promotion**
 
