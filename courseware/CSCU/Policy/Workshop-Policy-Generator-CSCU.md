@@ -36,9 +36,10 @@ contract.
 
 ## 2. What you will build
 
-An import-ready **Data Identification method set** for CSCU — one Data
-Pattern (`patternsRules` JSON) per regex seed, one Dictionary
-(definition JSON + values CSV) per reference-list seed, each
+An import-ready **Data Identification method set** for CSCU — one
+DataPattern envelope per regex seed, one Dictionary envelope (definition
+JSON + values CSV) per reference-list seed — the exact format PDC's own
+Export produces — each
 assigning the Registry's governed tags (`pci`, `aml`, `lending`, … always
 lower-case) and its business term — plus an `INDEX.csv` manifest. Then you
 import the set into PDC, run Data Identification, and verify the catalog now
@@ -154,8 +155,9 @@ Technical Track taught, so read it like a steward:
 - **name** — prefixed (`CSCU …`), so your methods group together in PDC.
 - **column-name hint** — a regex derived from the Registry's physical
   `sources[]` (the real columns the term maps to), not guessed from the term.
-- **contentPatterns** — the induced value signature (e.g. `^CSCU-\d{6}$` for
-  member numbers). This came from profiled sample values.
+- **regexMatch / profilePatterns** — the induced value regex (e.g.
+  `^CSCU-\d{6}$` for member numbers) and its position signature. Both came
+  from profiled sample values.
 - **actions → applyTags** — governed, lower-case, re-filtered against the
   Registry's embedded allow-list at authoring time.
 - **assignBusinessTerm** — the governed term the Glossary app owns.
