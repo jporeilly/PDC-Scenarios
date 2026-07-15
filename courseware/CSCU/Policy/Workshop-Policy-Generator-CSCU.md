@@ -192,6 +192,15 @@ the import contract, and it's why the app emits it byte-compatible.
 
 The methods appear alongside the built-ins, grouped by the `CSCU` prefix.
 
+> **Removing methods — PDC 11.0 has no Delete.** The method list's ⋮ menu
+> offers only **View** and **Edit**. To retire an authored set, use the Policy
+> Generator's **Reconcile → Retire the imported set**: it deletes your methods
+> (dictionaries and patterns) over the same GraphQL endpoint the UI uses,
+> scoped to your name prefix, built-ins refused. You rarely need it — because
+> ids are deterministic, a re-import is an **upsert** that overwrites the prior
+> set in place; retire is for when a term *leaves* the glossary and its
+> orphaned method would otherwise linger.
+
 > **Best practice:** at **Select Methods**, run identification on your
 > custom set only — leave the built-ins unselected. Every tag stamped in a
 > governed run should trace to a versioned, evidence-based method; the
