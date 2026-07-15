@@ -9,7 +9,7 @@ glossary reviewed and imported into PDC, and the app's Generate step has
 written the **Classification Registry**
 (`glossary_generator/registries/registry.<glossary-uuid>.json`). Python 3.10+
 on the host. PDC reachable over HTTPS with a user allowed to import under
-**Management → Data Identification**.
+**Data Operations → Data Identification Methods**.
 
 ---
 
@@ -38,7 +38,7 @@ contract.
 
 An import-ready **Data Identification method set** for CSCU — one Data
 Pattern (`patternsRules` JSON) per regex seed, one Dictionary
-(`dictionariesRules` JSON + values CSV) per reference-list seed, each
+(definition JSON + values CSV) per reference-list seed, each
 assigning the Registry's governed tags (`pci`, `aml`, `lending`, … always
 lower-case) and its business term — plus an `INDEX.csv` manifest. Then you
 import the set into PDC, run Data Identification, and verify the catalog now
@@ -96,11 +96,13 @@ The output mirrors what PDC's import expects:
 
 ```text
 out/
-  Patterns/          one cscu_<term>.json per regex seed             (patternsRules)
-  Dictionaries/      one cscu_<term>_rule.json + cscu_<term>.csv
-                     per reference-list seed                         (dictionariesRules)
-  INDEX.csv          kind, rule name, file, term, term_id
-  README.txt         import pointers
+  patterns-import.zip        one cscu_<term>.json per pattern (flat) — the
+                             exact layout PDC's own Pattern Export produces
+  dictionaries-import.zip    one nested cscu_<term>.zip per dictionary,
+                             pairing the definition JSON with its Term-header
+                             values CSV — PDC's Dictionary Export layout
+  INDEX.csv                  kind, rule name, file, term, term_id
+  README.txt                 import pointers
 ```
 
 Concepts without seeds are listed as **skipped**, with the reason — a concept
@@ -168,11 +170,14 @@ profiling actually saw (risk ratings, SAR statuses, account types).
 
 ### Step 5 — Import into PDC
 
-**Management → Data Identification**:
+**Data Operations → Data Identification Methods**:
 
-- **Patterns → Import** — select the files under `out/Patterns/`.
-- **Dictionaries → Import** — select each `*_rule.json` with its values CSV
-  under `out/Dictionaries/`.
+- **Patterns → Import** — upload `patterns-import.zip` (the whole zip).
+- **Dictionaries → Import** — upload `dictionaries-import.zip` (the whole
+  zip; each nested zip pairs a definition JSON with its values CSV).
+
+Both zips are in the exact layout PDC's own **Export** produces — that is
+the import contract, and it's why the app emits it byte-compatible.
 
 [SCREENSHOT: PDC Data Identification import dialog with the CSCU method set]
 
@@ -208,7 +213,7 @@ Run **Data Identification** on the CSCU sources
 | # | Check | Evidence |
 | --- | --- | --- |
 | 1 | Registry read clean | `info`: concepts with seeds > 0, off-vocabulary 0 |
-| 2 | Method set authored | `out/Patterns/` + `out/Dictionaries/` + `INDEX.csv` |
+| 2 | Method set authored | `patterns-import.zip` + `dictionaries-import.zip` + `INDEX.csv` |
 | 3 | Every tag governed | rule `applyTags` ⊆ the Registry allow-list (spot-check) |
 | 4 | Methods imported | Data Identification lists the `CSCU`-prefixed methods |
 | 5 | Identification ran | job completed on both CSCU sources |
