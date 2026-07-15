@@ -174,9 +174,16 @@ last:
   **commit** the file to the scenario's `domain_pack/` folder so every future
   install starts from evidence instead of guesses. Do both — an uncommitted
   improvement dies with the install.
-- **When**: after review, before you'd reinstall or hand the vertical to the
-  next cohort. It exports the *reviewed* state, so the richer the review, the
-  better the pack.
+- **When**: the **last** step of a full pass — after grid review, pending
+  approvals, *Suggest tags*, and Save glossary → Generate → PDC import →
+  Resolve → Apply — because it exports the *reviewed* state of all of it.
+  The exact order (and the why) is on the app's Home page ("The full
+  working cycle") and in GUIDE Part C. Two nuances that trip people up:
+  **Apply to this app IS the reseed** (never run Reseed separately unless
+  you hand-edited the pack file), and right after any reseed the facet
+  counters are all zero — that means "no scan yet", never "retire
+  everything" (bulk retire is gated until the dictionary has grown from a
+  scan).
 
 ---
 
