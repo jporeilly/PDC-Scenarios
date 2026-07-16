@@ -14,6 +14,10 @@
 #    ./load-pdc-users.sh ALL                     # all 36 users, every vertical
 #    ./load-pdc-users.sh CSCU --password 'S3cret!'   # override every password
 #    ./load-pdc-users.sh CSCU --dry-run          # show the plan, change nothing
+#    ./load-pdc-users.sh CSCU --fix-policy       # relax the realm password policy
+#                                                #   to length(8) first (LAB ONLY —
+#                                                #   policies like specialChars(1)
+#                                                #   reject the training passwords)
 #    ./load-pdc-users.sh --list-roles            # dump the realm's roles + groups
 #
 #  Roster: courseware/PDC-Users-All-Scenarios.csv when present (explicit
@@ -33,12 +37,13 @@ KC_CONTAINER="${KC_CONTAINER:-}"
 KC_PATH="/opt/keycloak/bin/kcadm.sh"
 REALM="pdc"
 
-SCENARIO=""; PASSWORD=""; DRY=0; LIST_ROLES=0
+SCENARIO=""; PASSWORD=""; DRY=0; LIST_ROLES=0; FIX_POLICY=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --password) PASSWORD="$2"; shift 2 ;;
     --dry-run)  DRY=1; shift ;;
     --list-roles) LIST_ROLES=1; shift ;;
+    --fix-policy) FIX_POLICY=1; shift ;;
     *) SCENARIO="$(printf '%s' "$1" | tr '[:lower:]' '[:upper:]')"; shift ;;
   esac
 done
@@ -107,17 +112,33 @@ echo "  Loading $SCENARIO cast into Keycloak realm '$REALM' ($KC_CONTAINER)"
 echo "  Roster: $CSV"
 echo
 
+# the realm's password policy: lab rosters use simple training passwords
+# (copperstate etc), which realm policies like specialChars(1) reject.
+# --fix-policy relaxes the LAB realm's policy to length(8), loudly.
+POLICY="$(kc "get realms/$REALM --fields passwordPolicy" | sed -n 's/.*"passwordPolicy" : "\(.*\)".*/\1/p')"
+if [ -n "$POLICY" ]; then
+  if [ "$FIX_POLICY" -eq 1 ]; then
+    warn "relaxing realm password policy (was: $POLICY -> length(8)) — training lab only"
+    kc "update realms/$REALM -s 'passwordPolicy=length(8)'" >/dev/null \
+      && ok "password policy relaxed" || warn "policy update failed — set it in the Keycloak console"
+  else
+    warn "realm password policy is '$POLICY' — simple lab passwords may be rejected; re-run with --fix-policy to relax it (lab only)"
+  fi
+fi
+
 # the realm's actual roles + groups, once (names only, one per line)
 REALM_ROLES="$(kc "get roles -r $REALM --fields name" | sed -n 's/.*"name" : "\(.*\)".*/\1/p')"
 REALM_GROUPS="$(kc "get groups -r $REALM --fields name,id")"
 
-resolve_role() {  # display name -> realm role name (or empty)
-  local norm alias
+resolve_role() {  # display name -> the realm's ACTUAL role name (or empty)
+  # case-insensitive: the realm capitalizes (Data_Steward), rosters don't
+  local norm alias cand actual
   norm="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]\{1,\}/_/g;s/^_//;s/_$//')"
   alias="$(printf '%s\n' "$ROLE_ALIASES" | sed -n "s/^${norm}=//p" | head -1)"
   for cand in "$norm" "$alias"; do
     [ -n "$cand" ] || continue
-    if printf '%s\n' "$REALM_ROLES" | grep -qx "$cand"; then echo "$cand"; return 0; fi
+    actual="$(printf '%s\n' "$REALM_ROLES" | grep -ix "$(printf '%s' "$cand" | sed 's/[^a-z0-9_]//g')" | head -1)"
+    [ -n "$actual" ] && { echo "$actual"; return 0; }
   done
   return 1
 }
@@ -161,13 +182,15 @@ ROSTER
   ROWPASS="${PASSWORD:-${PW:-$DEFPASS}}"
   if [ -n "$ROWPASS" ]; then
     kc "set-password -r $REALM --username $U --new-password '$ROWPASS'" >/dev/null \
-      && ok "password set" || warn "set-password failed"
+      && ok "password set" || warn "set-password failed (realm password policy? re-run with --fix-policy)"
   else
     warn "no password for $U (no --password, roster blank, no scenario default) — skipped"
   fi
 
-  # map each roster role -> realm role (fallback: same-named group)
-  printf '%s' "$ROLES" | tr ';' '\n' | sed 's/^ *//;s/ *$//' | while read -r R; do
+  # map each roster role -> realm role (fallback: same-named group).
+  # printf '%s\n': without the trailing newline, `read` drops the LAST role —
+  # single-role users got no role at all.
+  printf '%s\n' "$ROLES" | tr ';' '\n' | sed 's/^ *//;s/ *$//' | while read -r R; do
     [ -n "$R" ] || continue
     if ROLE="$(resolve_role "$R")"; then
       kc "add-roles -r $REALM --uusername $U --rolename $ROLE" >/dev/null \
