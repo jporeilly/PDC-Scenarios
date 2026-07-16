@@ -2,19 +2,24 @@
 # ============================================================
 #  PDC-Scenarios — load a scenario's cast into PDC's Keycloak
 #
-#  Creates the scenario's users (from the Workshop-00 roster CSV) in the
-#  `pdc` realm and maps each to the PDC roles the roster names — so the
-#  whole cast can log in and the RBAC workshops work without hand-creating
-#  users in the Keycloak console.
+#  Creates the scenario's users in the `pdc` realm and maps each to the
+#  PDC roles the roster names — so the whole cast can log in and the RBAC
+#  workshops work without hand-creating users in the Keycloak console.
 #
 #  Runs ON THE LAB VM (needs docker + the pdc-um-keycloak-1 container).
 #  Idempotent: existing users are kept (password + roles re-applied).
 #
 #  Usage:
-#    ./load-pdc-users.sh CSCU                    # cast + roles, default lab password
-#    ./load-pdc-users.sh CSCU --password 'S3cret!'
+#    ./load-pdc-users.sh CSCU                    # one scenario's cast (roster passwords)
+#    ./load-pdc-users.sh ALL                     # all 36 users, every vertical
+#    ./load-pdc-users.sh CSCU --password 'S3cret!'   # override every password
 #    ./load-pdc-users.sh CSCU --dry-run          # show the plan, change nothing
 #    ./load-pdc-users.sh --list-roles            # dump the realm's roles + groups
+#
+#  Roster: courseware/PDC-Users-All-Scenarios.csv when present (explicit
+#  Username + per-user Lab_Password; kept even in a sparse checkout — cone
+#  mode retains top-level courseware/ files); falls back to the scenario's
+#  Workshop-00 users.csv.
 #
 #  Role mapping: roster display names ("Data Steward") are normalized to
 #  snake_case and matched against the realm's ACTUAL roles; if no realm
@@ -65,8 +70,8 @@ if [ -z "$KC_CONTAINER" ]; then
 fi
 [ -n "$KC_CONTAINER" ] || die "Keycloak container not found (expected pdc-um-keycloak-1). Is PDC up?"
 
-# kcadm wrapper: logs in once per invocation batch using the container's own
-# master-admin env; the server runs under the /keycloak relative path.
+# kcadm wrapper: logs in per call using the container's own master-admin env;
+# the server runs under the /keycloak relative path (plain :8080 404s).
 kc() {
   docker exec "$KC_CONTAINER" sh -c "
     $KC_PATH config credentials --server http://localhost:8080/keycloak \
@@ -80,16 +85,26 @@ if [ "$LIST_ROLES" -eq 1 ]; then
   exit 0
 fi
 
-[ -n "$SCENARIO" ] || die "Pass a scenario id (CSCU/RETAIL/HEALTH/MFG) or --list-roles."
-CSV="courseware/$SCENARIO/Platform/Workshop-00-Preflight/assets/users.csv"
-[ -f "$CSV" ] || die "Roster not found: $CSV (is the $SCENARIO vertical checked out?)"
-[ -n "$PASSWORD" ] || PASSWORD="$(default_password "$SCENARIO")"
-[ -n "$PASSWORD" ] || die "No default password for $SCENARIO — pass --password."
+[ -n "$SCENARIO" ] || die "Pass a scenario id (CSCU/RETAIL/HEALTH/MFG), ALL, or --list-roles."
+# Preferred roster: the consolidated CSV (explicit Username + per-user
+# Lab_Password, all four verticals). Fallback: the Workshop-00 roster.
+CONS="courseware/PDC-Users-All-Scenarios.csv"
+CSV=""
+if [ -f "$CONS" ]; then
+  CSV="$CONS"
+elif [ "$SCENARIO" != "ALL" ]; then
+  CSV="courseware/$SCENARIO/Platform/Workshop-00-Preflight/assets/users.csv"
+  [ -f "$CSV" ] || die "Roster not found: $CONS or $CSV (is the $SCENARIO vertical checked out?)"
+else
+  die "ALL needs the consolidated roster: $CONS"
+fi
+DEFPASS="$(default_password "$SCENARIO")"
 
 command -v python3 >/dev/null 2>&1 && PY=python3 || PY=python
 
 echo
 echo "  Loading $SCENARIO cast into Keycloak realm '$REALM' ($KC_CONTAINER)"
+echo "  Roster: $CSV"
 echo
 
 # the realm's actual roles + groups, once (names only, one per line)
@@ -107,23 +122,27 @@ resolve_role() {  # display name -> realm role name (or empty)
   return 1
 }
 
-# CSV -> TAB rows: username, email, first, last, roles(;-joined)  (Notes has
-# quoted commas, so real CSV parsing — no awk)
-"$PY" - "$CSV" <<'PYEOF' | while IFS=$'\t' read -r U EMAIL FIRST LAST ROLES; do
+# CSV -> TAB rows: username, email, first, last, roles(;-joined), password.
+# Handles BOTH shapes: the consolidated roster (Username/Lab_Password,
+# filtered by scenario) and a Workshop-00 roster (First/Last, username
+# derived from the email). Quoted commas -> real CSV parsing, no awk.
+"$PY" - "$CSV" "$SCENARIO" <<'ROSTER' | while IFS="$(printf '\t')" read -r U EMAIL FIRST LAST ROLES PW; do
 import csv, sys
-with open(sys.argv[1], newline="", encoding="utf-8-sig") as f:
+path, scen = sys.argv[1], sys.argv[2]
+with open(path, newline="", encoding="utf-8-sig") as f:
     for row in csv.DictReader(f):
         email = (row.get("Email") or "").strip()
         if not email:
             continue
-        print("\t".join([
-            email.split("@")[0].lower(),
-            email,
-            (row.get("First_Name") or "").strip(),
-            (row.get("Last_Name") or "").strip(),
-            (row.get("PDC_Roles") or "").strip(),
-        ]))
-PYEOF
+        if "Scenario" in row and scen != "ALL" and (row.get("Scenario") or "").strip().upper() != scen:
+            continue
+        user = (row.get("Username") or "").strip().lower() or email.split("@")[0].lower()
+        first = (row.get("First_Name") or "").strip() or user.split(".")[0].title()
+        last = (row.get("Last_Name") or "").strip() or (user.split(".")[1].title() if "." in user else "")
+        print("\t".join([user, email, first, last,
+                         (row.get("PDC_Roles") or "").strip(),
+                         (row.get("Lab_Password") or "").strip()]))
+ROSTER
   printf '\033[1m  %s\033[0m  (%s)\n' "$U" "$ROLES"
   if [ "$DRY" -eq 1 ]; then continue; fi
 
@@ -137,8 +156,15 @@ PYEOF
         -s enabled=true -s emailVerified=true" >/dev/null \
       && ok "created" || { warn "create failed — skipping"; continue; }
   fi
-  kc "set-password -r $REALM --username $U --new-password '$PASSWORD'" >/dev/null \
-    && ok "password set" || warn "set-password failed"
+
+  # precedence: --password override > the roster row's Lab_Password > scenario default
+  ROWPASS="${PASSWORD:-${PW:-$DEFPASS}}"
+  if [ -n "$ROWPASS" ]; then
+    kc "set-password -r $REALM --username $U --new-password '$ROWPASS'" >/dev/null \
+      && ok "password set" || warn "set-password failed"
+  else
+    warn "no password for $U (no --password, roster blank, no scenario default) — skipped"
+  fi
 
   # map each roster role -> realm role (fallback: same-named group)
   printf '%s' "$ROLES" | tr ';' '\n' | sed 's/^ *//;s/ *$//' | while read -r R; do
