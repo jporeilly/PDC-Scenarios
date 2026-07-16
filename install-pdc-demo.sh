@@ -110,6 +110,20 @@ if [ -d "$ST/.git" ]; then
       # flat view: courseware/ at the top level beside the apps
       ln -sfn "PDC-Scenarios/courseware" "$DEMO/courseware"
       ok "Vertical $VERTICAL — data kit + domain pack + courseware (linked at $DEMO/courseware)"
+      # first-time app config: install the pack/roster/datasources into the app.
+      # Re-runs NEVER auto-reinstall — install-scenario resets the governed
+      # dictionary, so refresh/switch is always an explicit act.
+      APPDIR="$DEMO/glossary_generator"
+      if [ ! -f "$APPDIR/domain_pack.json" ] && ! grep -qs '^GLOSSARY_DOMAIN_PACK=' "$APPDIR/.env"; then
+        printf "  ${DIM}first-time app config — installing the %s scenario…${RS}\n" "$VERTICAL"
+        if (cd "$ST" && GLOSSARY_APP_DIR="$APPDIR" bash install-scenario.sh "$VERTICAL" >/dev/null); then
+          ok "Scenario installed into the Glossary app (pack, roster, datasources, company)"
+        else
+          warn "install-scenario.sh failed — run it manually: cd $ST && ./install-scenario.sh $VERTICAL"
+        fi
+      else
+        ok "Glossary app already configured — refresh/switch explicitly: cd $ST && ./install-scenario.sh $VERTICAL"
+      fi
     else
       warn "select-vertical.sh $VERTICAL failed — valid ids: CSCU RETAIL HEALTH MFG"
     fi
@@ -133,9 +147,10 @@ echo
 
 printf "${B}  Next${RS}\n"
 if [ -n "$VERTICAL" ]; then
-  printf "  ${TEAL}cd $ST && make scenario ID=$VERTICAL${RS}   ${DIM}(lab up + data sources loaded)${RS}\n"
-  printf "  ${DIM}apps:  glossary → $DEMO/glossary_generator (./run.sh, :5000)\n"
-  printf "         policy   → $DEMO/policy_generator (bash run.sh --host 0.0.0.0, :5001)${RS}\n\n"
+  printf "  ${TEAL}cd %s && make scenario ID=%s${RS}   ${DIM}(lab up + data sources loaded)${RS}\n" "$ST" "$VERTICAL"
+  printf "  ${DIM}users: cd %s && ./load-pdc-users.sh %s   (cast -> Keycloak + PDC roles)\n" "$ST" "$VERTICAL"
+  printf "  apps:  glossary → %s/glossary_generator (./run.sh, :5000)\n" "$DEMO"
+  printf "         policy   → %s/policy_generator (bash run.sh --host 0.0.0.0, :5001)${RS}\n\n" "$DEMO"
 else
   printf "  ${TEAL}install-pdc-demo.sh CSCU${RS}   ${DIM}(pick a vertical first)${RS}\n\n"
 fi
