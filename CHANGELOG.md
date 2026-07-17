@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0] — 2026-07-17
+
+### Changed
+
+- **Catalog Insights moves to port 5002** (was 8660) — the demo host now
+  runs a clean sequence: 5000 Glossary · 5001 Policy · 5002 Insights.
+  Bootstraps, README, INSTALL.md updated; Insights 1.11.0 ships the new
+  default and a first-class `run.ps1` launcher, which the docs and the
+  installers' next-steps now point at instead of `run.bat`.
+- **Docs lead with the Windows 11 host** — README's one-command sections
+  reordered (apps on the Windows host first, the Ubuntu VM lab second) to
+  match the standard demo topology.
+
 ## [1.1.0] — 2026-07-17
 
 First versioned release of the repo (the content predates the numbering).

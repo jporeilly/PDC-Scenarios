@@ -10,7 +10,7 @@ Two machines, fixed roles:
 
 | Where | What runs there | Address |
 | --- | --- | --- |
-| **Windows 11 host** | The three apps in `C:\PDC-Demo` — Glossary Generator (:5000), Policy Generator (:5001), Catalog Insights (:8660) — plus Ollama (:11434) for the AI agents | your workstation |
+| **Windows 11 host** | The three apps in `C:\PDC-Demo` — Glossary Generator (:5000), Policy Generator (:5001), Catalog Insights (:5002) — plus Ollama (:11434) for the AI agents | your workstation |
 | **Ubuntu 24.04 VM** | Pentaho Data Catalog 11 (Docker, `https://pentaho.io`) + the shared demo lab — PostgreSQL (:5433) and MinIO (:9000/:9001) — and optionally a `~/PDC-Demo` app checkout | static IP `192.168.1.200` |
 
 Conventions that everything else assumes:
@@ -39,7 +39,7 @@ This stands up (or updates — re-run it bare any time) **`C:\PDC-Demo`**:
 C:\PDC-Demo\
   glossary_generator\    the Glossary Generator app        -> .\run.ps1  :5000
   policy_generator\      the Policy Generator app (+ UI)   -> .\run.ps1  :5001
-  PDC-Insights\          Catalog Insights                  -> .\run.bat  :8660
+  PDC-Insights\          Catalog Insights                  -> .\run.ps1  :5002
   PDC-Scenarios\         the selected vertical (sparse)
   courseware\            junction -> PDC-Scenarios\courseware
   docs\                  incl. PDC-VM-TROUBLESHOOTING.md
@@ -56,7 +56,7 @@ Start each app and check it answers:
 | --- | --- | --- | --- |
 | Glossary Generator | `cd C:\PDC-Demo\glossary_generator; .\run.ps1` | <http://127.0.0.1:5000> | version pill in the sidebar |
 | Policy Generator | `cd C:\PDC-Demo\policy_generator; .\run.ps1` | <http://127.0.0.1:5001> | React UI loads (not just /docs) |
-| Catalog Insights | `cd C:\PDC-Demo\PDC-Insights; .\run.bat` | <http://127.0.0.1:8660> | `/health` is green |
+| Catalog Insights | `cd C:\PDC-Demo\PDC-Insights; .\run.ps1` | <http://127.0.0.1:5002> | `/health` is green |
 
 ## 2. Ubuntu VM — PDC + the lab data sources
 
@@ -110,7 +110,7 @@ pill (it flags a pulled-but-not-restarted build).
 | --- | --- | --- |
 | 5000 | Glossary Generator | Windows host |
 | 5001 | Policy Generator | Windows host |
-| 8660 | Catalog Insights (8765 for its optional MCP server) | Windows host |
+| 5002 | Catalog Insights (8765 for its optional MCP server) | Windows host |
 | 11434 | Ollama | Windows host |
 | 443 | PDC (`https://pentaho.io`) | VM |
 | 5433 | lab PostgreSQL (5432 belongs to PDC's own database) | VM |

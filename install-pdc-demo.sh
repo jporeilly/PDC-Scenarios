@@ -5,7 +5,7 @@
 # Stands up (or updates) the complete ~/PDC-Demo lab checkout:
 #   - the Glossary Generator (the PDC-Demo checkout itself)          :5000
 #   - the Policy Generator   (sparse: app + frontend)                :5001
-#   - Catalog Insights       (PDC-Insights, full clone)              :8660
+#   - Catalog Insights       (PDC-Insights, full clone)              :5002
 #   - PDC-Scenarios          (sparse: ONLY the selected vertical — its data
 #                             kit, domain pack and courseware + the shared lab)
 # Re-runs update all four; the selected vertical is remembered (pass an ID
@@ -202,7 +202,7 @@ if [ -n "$VERTICAL" ]; then
   printf "  ${DIM}users: cd %s && ./load-pdc-users.sh %s   (cast -> Keycloak + PDC roles)\n" "$ST" "$VERTICAL"
   printf "  apps:  glossary → %s/glossary_generator (./run.sh, :5000)\n" "$DEMO"
   printf "         policy   → %s/policy_generator (bash run.sh --host 0.0.0.0, :5001)\n" "$DEMO"
-  printf "         insights → %s/PDC-Insights (./run.sh, :8660)${RS}\n\n" "$DEMO"
+  printf "         insights → %s/PDC-Insights (./run.sh, :5002)${RS}\n\n" "$DEMO"
 else
   printf "  ${TEAL}install-pdc-demo.sh CSCU${RS}   ${DIM}(pick a vertical first)${RS}\n\n"
 fi

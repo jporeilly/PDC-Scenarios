@@ -21,7 +21,7 @@ The three apps the bootstrap deploys beside this repo:
   domain pack + roster into it.
 - **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** (:5001) —
   reads the Registry and authors PDC's Data Identification methods.
-- **[Catalog Insights](https://github.com/jporeilly/PDC-Insights)** (:8660) —
+- **[Catalog Insights](https://github.com/jporeilly/PDC-Insights)** (:5002) —
   read-only dashboards + chat over the PDC catalog (search, facets,
   freshness), with an optional MCP server (:8765).
 
@@ -39,7 +39,7 @@ flowchart LR
     subgraph WIN["Windows host — C:/PDC-Demo"]
         GA["glossary_generator :5000"]
         PA["policy_generator :5001"]
-        IA["PDC-Insights :8660"]
+        IA["PDC-Insights :5002"]
         OLL["Ollama<br/>(AI agents)"]
     end
     subgraph VM["Ubuntu VM 192.168.1.200 — ~/PDC-Demo"]
@@ -59,9 +59,26 @@ flowchart LR
     class R1,R2,R3,R4 repo
 ```
 
-## One command: the whole lab
+## One command: the apps (Windows 11 host)
 
-On the VM, **one bootstrap** stands up (or updates) the complete `~/PDC-Demo`
+The standard topology runs the **apps on the Windows host** (Ollama lives
+there) and the lab + PDC on the VM. The bootstrap stands up **`C:\PDC-Demo`**
+— all three apps + the vertical, kept separate from any dev checkouts — and
+installs the vertical's domain pack + roster into the Glossary app:
+
+```powershell
+iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
+```
+
+Re-run it bare to update everything (the vertical is remembered; pass an ID
+to switch); then launch each app with `.\run.ps1` — `glossary_generator`
+(:5000), `policy_generator` (:5001) and `PDC-Insights` (:5002). The full
+end-to-end walk-through (host + VM + PDC connections) is in
+[INSTALL.md](INSTALL.md).
+
+## One command: the lab (Ubuntu VM)
+
+On the VM, the bash twin stands up (or updates) the complete `~/PDC-Demo`
 checkout — the Glossary Generator, the Policy Generator (sparse, app +
 frontend), Catalog Insights, and this repo pulled sparse to the selected
 vertical:
@@ -70,8 +87,7 @@ vertical:
 curl -fsSL https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.sh | bash -s -- CSCU
 ```
 
-Re-run it bare to update everything (the vertical is remembered; pass an ID
-to switch). Then **one make entry** loads the vertical's data sources:
+Then **one make entry** loads the vertical's data sources:
 
 ```bash
 cd ~/PDC-Demo/PDC-Scenarios
@@ -82,23 +98,6 @@ make pack ID=CSCU          # its domain pack + roster into the Glossary app
 `make status` shows the lab and the selected vertical; `make down` stops the
 lab (data survives); `make destroy` erases the scenario data. Each app repo
 also carries its own `install-pdc-demo.sh` for single-app updates.
-
-### Windows host (the apps)
-
-The standard topology runs the **apps on the Windows host** (Ollama lives
-there) and the lab + PDC on the VM. The PowerShell twin stands up the same
-layout in **`C:\PDC-Demo`** — all three apps + the vertical, kept separate
-from any dev checkouts — and installs the vertical's domain pack + roster
-into the Glossary app:
-
-```powershell
-iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
-```
-
-Re-run it bare to update everything; then launch each app: `.\run.ps1`
-in `glossary_generator` (:5000) and `policy_generator` (:5001), and
-`.\run.bat` in `PDC-Insights` (:8660). The full end-to-end walk-through
-(host + VM + PDC connections) is in [INSTALL.md](INSTALL.md).
 
 ## Select a vertical (manual pieces)
 

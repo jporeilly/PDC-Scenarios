@@ -6,10 +6,10 @@
   updates) the complete host-side checkout:
     - the Glossary Generator (the PDC-Demo checkout itself)       :5000
     - the Policy Generator   (sparse: app + frontend)             :5001
-    - Catalog Insights       (PDC-Insights, full clone)           :8660
+    - Catalog Insights       (PDC-Insights, full clone)           :5002
     - PDC-Scenarios          (sparse: ONLY the selected vertical)
   and installs the vertical's domain pack + roster into the Glossary app.
-  Re-runs update all three; the vertical is remembered (pass an ID to
+  Re-runs update all four; the vertical is remembered (pass an ID to
   select or switch). The lab itself runs on the VM:
       curl -fsSL https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.sh | bash -s -- CSCU
       cd ~/PDC-Demo/PDC-Scenarios && make scenario ID=CSCU
@@ -218,5 +218,5 @@ Write-Host "  Next" -ForegroundColor Cyan
 Write-Host "  1. Lab (on the VM):  curl one-liner + make scenario ID=$Vertical   (see PDC-Scenarios README)"
 Write-Host ("  2. Glossary app:     cd {0}\glossary_generator; .\run.ps1  -> http://127.0.0.1:5000" -f $DemoDir)
 Write-Host ("  3. Policy app:       cd {0}\policy_generator; .\run.ps1    -> http://127.0.0.1:5001" -f $DemoDir)
-Write-Host ("  4. Insights app:     cd {0}\PDC-Insights; .\run.bat        -> http://127.0.0.1:8660" -f $DemoDir)
+Write-Host ("  4. Insights app:     cd {0}\PDC-Insights; .\run.ps1        -> http://127.0.0.1:5002" -f $DemoDir)
 Write-Host ""
