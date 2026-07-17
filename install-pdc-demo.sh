@@ -174,6 +174,19 @@ if [ -d "$ST/.git" ]; then
     cp "$DEMO/data_sources/lab/.env" "$ST/data_sources/lab/.env"
     ok "Migrated lab .env from the old in-repo location"
   fi
+  # Insights PDC login: the .env.example default (pdc_user) is the lab DATABASE
+  # user, not a PDC login — seed the vertical's catalog.admin cast user instead.
+  # Only touches the example default, so a hand-edited .env is left alone.
+  ROSTER="$ST/courseware/PDC-Users-All-Scenarios.csv"
+  if [ -n "$VERTICAL" ] && [ -f "$ROSTER" ] && [ -f "$IT/.env" ] \
+     && grep -q '^PDC_USERNAME=pdc_user$' "$IT/.env"; then
+    CAST="$(awk -F, -v v="$VERTICAL" '{gsub(/\r/,"")} $1==v && $3=="catalog.admin" {print $3","$7; exit}' "$ROSTER")"
+    if [ -n "$CAST" ]; then
+      sed -i -e "s#^PDC_USERNAME=.*#PDC_USERNAME=${CAST%%,*}#" \
+             -e "s#^PDC_PASSWORD=.*#PDC_PASSWORD=${CAST##*,}#" "$IT/.env"
+      ok "Insights .env → PDC login ${CAST%%,*} ($VERTICAL cast)"
+    fi
+  fi
 else
   warn "Skipped — pass a vertical to set it up: install-pdc-demo.sh CSCU"
 fi

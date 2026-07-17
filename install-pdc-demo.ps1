@@ -187,6 +187,23 @@ foreach ($d in @('.pdc-policy-generator/','PDC-Insights/','PDC-Scenarios/','poli
 }
 Write-Host ""
 
+# Insights PDC login: the .env.example default (pdc_user) is the lab DATABASE
+# user, not a PDC login — seed the vertical's catalog.admin cast user instead.
+# Only touches the example default, so a hand-edited .env is left alone.
+$rosterCsv = Join-Path $ST 'courseware\PDC-Users-All-Scenarios.csv'
+$insEnv = Join-Path $DemoDir 'PDC-Insights\.env'
+if ($Vertical -and (Test-Path $rosterCsv) -and (Test-Path $insEnv) -and
+    (Select-String -Path $insEnv -Pattern '^PDC_USERNAME=pdc_user$' -Quiet)) {
+    $cast = Import-Csv $rosterCsv | Where-Object { $_.Scenario -eq $Vertical -and $_.Username -eq 'catalog.admin' } | Select-Object -First 1
+    if ($cast) {
+        (Get-Content $insEnv) `
+            -replace '^PDC_USERNAME=.*', "PDC_USERNAME=$($cast.Username)" `
+            -replace '^PDC_PASSWORD=.*', "PDC_PASSWORD=$($cast.Lab_Password)" |
+            Set-Content -Encoding ascii $insEnv
+        Ok "Insights .env -> PDC login $($cast.Username) ($Vertical cast)"
+    }
+}
+
 # --- 4. install the vertical's pack into the Glossary app --------------------
 if ($Vertical -and (Test-Path (Join-Path $ST "data_sources\$Vertical"))) {
     Write-Host "  Domain pack -> Glossary app"
