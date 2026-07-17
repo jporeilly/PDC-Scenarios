@@ -16,14 +16,17 @@ their own repos — this repo is what gets deployed when you pick a vertical.
 The three apps the bootstrap deploys beside this repo:
 
 - **[Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator)** (:5000) —
-  scans the scenario's sources, builds the governed glossary, writes the
-  Classification Registry. `install-scenario.sh <ID>` installs the vertical's
-  domain pack + roster into it.
+  scans the scenario's sources (schema browser with ER diagrams, files,
+  DDL), builds the governed glossary, writes the Classification Registry.
+  `install-scenario.sh <ID>` installs the vertical's domain pack + roster
+  into it.
 - **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** (:5001) —
-  reads the Registry and authors PDC's Data Identification methods.
+  reads the Registry and runs PDC's full Data Identification lifecycle:
+  author → reconcile → deploy (over PDC's import API) → drift-check.
 - **[Catalog Insights](https://github.com/jporeilly/PDC-Insights)** (:5002) —
-  read-only dashboards + chat over the PDC catalog (search, facets,
-  freshness), with an optional MCP server (:8765).
+  read-only dashboards (18 built-in, 3 per section, each view can flip to
+  demo data) + chat over the PDC catalog (search, facets, freshness), with
+  an optional MCP server (:8765).
 
 ## The estate at a glance
 

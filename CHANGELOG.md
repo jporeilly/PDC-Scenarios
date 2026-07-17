@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.1] — 2026-07-17
+
+### Changed — docs sync
+
+- README's three app blurbs caught up with today's app releases: the
+  Glossary Generator's schema browser now carries ER diagrams (1.10.x),
+  the Policy Generator runs the full Data Identification lifecycle incl.
+  Deploy + Drift-check (1.8.x), and Catalog Insights ships 18 built-in
+  dashboards with a per-view demo-data option (1.15.x). No script changes.
+
 ## [1.3.0] — 2026-07-17
 
 ### Changed
