@@ -4,8 +4,9 @@
   The standard topology runs the APPS on the Windows host (Ollama lives
   here) and the lab + PDC on the Ubuntu VM. This script stands up (or
   updates) the complete host-side checkout:
-    - the Glossary Generator (the PDC-Demo checkout itself)
-    - the Policy Generator   (sparse: the app only)
+    - the Glossary Generator (the PDC-Demo checkout itself)       :5000
+    - the Policy Generator   (sparse: app + frontend)             :5001
+    - Catalog Insights       (PDC-Insights, full clone)           :8660
     - PDC-Scenarios          (sparse: ONLY the selected vertical)
   and installs the vertical's domain pack + roster into the Glossary app.
   Re-runs update all three; the vertical is remembered (pass an ID to
@@ -30,9 +31,10 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-$GlossUrl  = if ($env:GLOSSARY_REPO_URL)  { $env:GLOSSARY_REPO_URL }  else { 'https://github.com/jporeilly/PDC-Glossary-Generator.git' }
-$PolicyUrl = if ($env:POLICY_REPO_URL)    { $env:POLICY_REPO_URL }    else { 'https://github.com/jporeilly/PDC-Policy-Generator.git' }
-$ScenUrl   = if ($env:SCENARIOS_REPO_URL) { $env:SCENARIOS_REPO_URL } else { 'https://github.com/jporeilly/PDC-Scenarios.git' }
+$GlossUrl    = if ($env:GLOSSARY_REPO_URL)  { $env:GLOSSARY_REPO_URL }  else { 'https://github.com/jporeilly/PDC-Glossary-Generator.git' }
+$PolicyUrl   = if ($env:POLICY_REPO_URL)    { $env:POLICY_REPO_URL }    else { 'https://github.com/jporeilly/PDC-Policy-Generator.git' }
+$InsightsUrl = if ($env:INSIGHTS_REPO_URL)  { $env:INSIGHTS_REPO_URL }  else { 'https://github.com/jporeilly/PDC-Insights.git' }
+$ScenUrl     = if ($env:SCENARIOS_REPO_URL) { $env:SCENARIOS_REPO_URL } else { 'https://github.com/jporeilly/PDC-Scenarios.git' }
 if (-not $DemoDir) { $DemoDir = if ($env:PDC_DEMO_DIR) { $env:PDC_DEMO_DIR } else { 'C:\PDC-Demo' } }
 if ($Vertical) { $Vertical = $Vertical.ToUpper() }
 
@@ -42,14 +44,14 @@ function Die  ($m) { Write-Host "  X  $m" -ForegroundColor Red; exit 1 }
 
 Write-Host ""
 Write-Host "  PDC-Demo - one-command host install/update" -ForegroundColor Cyan
-Write-Host "  Glossary Generator + Policy Generator + the selected vertical." -ForegroundColor DarkGray
+Write-Host "  Glossary + Policy + Insights apps + the selected vertical." -ForegroundColor DarkGray
 Write-Host ""
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) { Die "git is not installed (install Git for Windows)." }
 Ok ("git " + ((git --version) -replace 'git version\s*',''))
 Write-Host ""
 
 # --- 1. the PDC-Demo checkout (Glossary Generator) ---------------------------
-Write-Host "  1/3  Glossary Generator (the PDC-Demo checkout)"
+Write-Host "  1/4  Glossary Generator (the PDC-Demo checkout)"
 if (Test-Path (Join-Path $DemoDir '.git')) {
     if (-not (Test-Path (Join-Path $DemoDir 'glossary_generator'))) { Die "$DemoDir is a git checkout but not the Glossary repo" }
     git -C $DemoDir pull -q --ff-only
@@ -67,22 +69,46 @@ Ok ("Glossary app " + (Get-Content (Join-Path $DemoDir 'glossary_generator\VERSI
 Write-Host ""
 
 # --- 2. the Policy Generator (hidden sparse clone, linked flat) ---------------
-Write-Host "  2/3  Policy Generator"
+Write-Host "  2/4  Policy Generator"
 $PT = Join-Path $DemoDir '.pdc-policy-generator'
 $oldPT = Join-Path $DemoDir 'PDC-Policy-Generator'
 if ((Test-Path (Join-Path $oldPT '.git')) -and -not (Test-Path $PT)) {
     Move-Item $oldPT $PT
     Ok "Migrated PDC-Policy-Generator/ -> .pdc-policy-generator/"
 }
+$policyBefore = ''
 if (Test-Path (Join-Path $PT '.git')) {
+    $policyBefore = git -C $PT rev-parse HEAD
+    git -C $PT sparse-checkout set policy_generator frontend 2>$null   # widen pre-1.7 checkouts (app only) to include the React frontend
     git -C $PT pull -q --ff-only
     if ($LASTEXITCODE -ne 0) { Warn "Policy pull failed (local changes?)" } else { Ok ("Updated to " + (git -C $PT rev-parse --short HEAD)) }
 } else {
-    Write-Host "  cloning (sparse, app only)..." -ForegroundColor DarkGray
+    Write-Host "  cloning (sparse, app + frontend)..." -ForegroundColor DarkGray
     git -C $DemoDir clone -q --filter=blob:none --sparse $PolicyUrl .pdc-policy-generator
     if ($LASTEXITCODE -ne 0) { Die "Policy clone failed" }
-    git -C $PT sparse-checkout set policy_generator
-    Ok "Cloned (app only)"
+    git -C $PT sparse-checkout set policy_generator frontend
+    Ok "Cloned (app + frontend)"
+}
+# build the React UI (1.7.0+ serves it from frontend/dist)
+$feDir = Join-Path $PT 'frontend'
+if (Test-Path (Join-Path $feDir 'package.json')) {
+    $distIndex = Join-Path $feDir 'dist\index.html'
+    $headNow = git -C $PT rev-parse HEAD
+    if (-not (Test-Path $distIndex) -or ($policyBefore -and $policyBefore -ne $headNow)) {
+        if (Get-Command npm -ErrorAction SilentlyContinue) {
+            Write-Host "  building the Policy web UI (npm install + build)..." -ForegroundColor DarkGray
+            Push-Location $feDir
+            try {
+                npm install --no-fund --no-audit --loglevel=error | Out-Null
+                if ($LASTEXITCODE -eq 0) { npm run build --loglevel=error | Out-Null }
+                if ($LASTEXITCODE -eq 0) { Ok "Policy web UI built (frontend/dist)" } else { Warn "Policy UI build failed - run npm install; npm run build in $feDir" }
+            } finally { Pop-Location }
+        } else {
+            Warn "npm not found - the Policy app will serve only the API + /docs until you build frontend/ (Node 18+)"
+        }
+    } else {
+        Ok "Policy web UI up to date (frontend/dist)"
+    }
 }
 # dot-prefix alone doesn't hide folders in Explorer — set the attribute too
 try { $i = Get-Item $PT -Force; if (-not ($i.Attributes -band 'Hidden')) { $i.Attributes = $i.Attributes -bor 'Hidden' } } catch {}
@@ -95,8 +121,32 @@ Copy-Item (Join-Path $PT 'README.md') (Join-Path $DemoDir 'README-Policy.md') -F
 Ok ("Policy app " + (Get-Content (Join-Path $PT 'policy_generator\VERSION') -Raw).Trim() + " - linked at $pgLink")
 Write-Host ""
 
-# --- 3. PDC-Scenarios (sparse: the selected vertical) -------------------------
-Write-Host "  3/3  PDC-Scenarios (the vertical)"
+# --- 3. Catalog Insights (PDC-Insights, full clone) ---------------------------
+Write-Host "  3/4  Catalog Insights (PDC-Insights)"
+$IT = Join-Path $DemoDir 'PDC-Insights'
+if (Test-Path (Join-Path $IT '.git')) {
+    git -C $IT pull -q --ff-only
+    if ($LASTEXITCODE -ne 0) { Warn "Insights pull failed (local changes?)" } else { Ok ("Updated to " + (git -C $IT rev-parse --short HEAD)) }
+} else {
+    Write-Host "  cloning..." -ForegroundColor DarkGray
+    git -C $DemoDir clone -q $InsightsUrl PDC-Insights
+    if ($LASTEXITCODE -ne 0) { Die "Insights clone failed" }
+    Ok "Cloned to $IT"
+}
+# first-run config: point the app at the demo PDC (self-signed cert on the VM)
+$envFile = Join-Path $IT '.env'
+if (-not (Test-Path $envFile) -and (Test-Path (Join-Path $IT '.env.example'))) {
+    (Get-Content (Join-Path $IT '.env.example')) `
+        -replace '^PDC_BASE_URL=.*', 'PDC_BASE_URL=https://pentaho.io' `
+        -replace '^PDC_VERIFY_TLS=.*', 'PDC_VERIFY_TLS=false' |
+        Set-Content -Encoding ascii $envFile
+    Ok ".env created (PDC_BASE_URL=https://pentaho.io, TLS verify off) - review credentials before first run"
+}
+Ok ("Insights app " + (Get-Content (Join-Path $IT 'VERSION') -Raw).Trim())
+Write-Host ""
+
+# --- 4. PDC-Scenarios (sparse: the selected vertical) -------------------------
+Write-Host "  4/4  PDC-Scenarios (the vertical)"
 $ST = Join-Path $DemoDir 'PDC-Scenarios'
 if (-not (Test-Path (Join-Path $ST '.git')) -and $Vertical) {
     Write-Host "  cloning (sparse, $Vertical only)..." -ForegroundColor DarkGray
@@ -130,7 +180,7 @@ if (Test-Path (Join-Path $ST '.git')) {
 }
 # keep the outer checkout's git status clean (nested repos, links, extras)
 $exclude = Join-Path $DemoDir '.git\info\exclude'
-foreach ($d in @('.pdc-policy-generator/','PDC-Scenarios/','policy_generator','courseware','README-Policy.md')) {
+foreach ($d in @('.pdc-policy-generator/','PDC-Insights/','PDC-Scenarios/','policy_generator','courseware','README-Policy.md')) {
     if (-not (Select-String -Path $exclude -Pattern ("^" + [regex]::Escape($d) + "$") -Quiet -ErrorAction SilentlyContinue)) {
         Add-Content -Path $exclude -Value $d
     }
@@ -149,6 +199,7 @@ if ($Vertical -and (Test-Path (Join-Path $ST "data_sources\$Vertical"))) {
 Write-Host ""
 Write-Host "  Next" -ForegroundColor Cyan
 Write-Host "  1. Lab (on the VM):  curl one-liner + make scenario ID=$Vertical   (see PDC-Scenarios README)"
-Write-Host ("  2. Glossary app:     cd {0}\glossary_generator; .\run.ps1     -> http://127.0.0.1:5000" -f $DemoDir)
-Write-Host ("  3. Policy app:       cd {0}\policy_generator; .\run.ps1  -> http://127.0.0.1:5001" -f $DemoDir)
+Write-Host ("  2. Glossary app:     cd {0}\glossary_generator; .\run.ps1  -> http://127.0.0.1:5000" -f $DemoDir)
+Write-Host ("  3. Policy app:       cd {0}\policy_generator; .\run.ps1    -> http://127.0.0.1:5001" -f $DemoDir)
+Write-Host ("  4. Insights app:     cd {0}\PDC-Insights; .\run.bat        -> http://127.0.0.1:8660" -f $DemoDir)
 Write-Host ""

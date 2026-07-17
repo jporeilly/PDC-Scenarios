@@ -14,6 +14,9 @@ changes in the documented connection values and nothing conflicts:
 | Scenario | PostgreSQL database | MinIO bucket | Read-only users |
 | --- | --- | --- | --- |
 | CSCU | `cscu_core` (11 tables) | `cscu-documents` (18 files) | `pdc_user` · `cscu_minio_user` |
+| RETAIL | `cto_retail` (11 tables) | `cto-documents` (18 files) | `pdc_user` · `cto_minio_user` |
+| HEALTH | `lhp_clinical` (11 tables) | `lhp-documents` (18 files) | `pdc_user` · `lhp_minio_user` |
+| MFG | `cpc_mfg` (11 tables) | `cpc-documents` (18 files) | `pdc_user` · `cpc_minio_user` |
 
 The stack itself is scenario-free: containers `demo-postgres` and
 `demo-minio` on the `demo-net` network, admin account `demo_admin`.
@@ -97,14 +100,18 @@ docker network rm awc-net
 
 The lab stack and PDC share the VM, so a broken PDC blocks every workshop
 even when `make status` is green. Known PDC platform issues are documented
-in [`docs/PDC-VM-TROUBLESHOOTING.md`](../../docs/PDC-VM-TROUBLESHOOTING.md):
+in the Glossary Generator repo's
+[`docs/PDC-VM-TROUBLESHOOTING.md`](https://github.com/jporeilly/PDC-Glossary-Generator/blob/main/docs/PDC-VM-TROUBLESHOOTING.md)
+(in a deployed `~/PDC-Demo` checkout that file sits at the top level:
+`~/PDC-Demo/docs/PDC-VM-TROUBLESHOOTING.md`):
 
 - **`opensearch-cluster-init ... exit 1` on `docker compose up`** — on this
   deployment (`cat-opensearch:2.19`, fresh volume) the node truststore
   omits the admin cert, so securityadmin can't initialize
   `.opendistro_security` — and the failure cascades, stranding the app
   tier in `Created` (site-wide 404). Automated end to end by
-  [`pdc-reset.sh`](../../pdc-reset.sh) at the repo root; the doc carries
+  [`pdc-reset.sh`](https://github.com/jporeilly/PDC-Glossary-Generator/blob/main/pdc-reset.sh)
+  (top level of the deployed `~/PDC-Demo` checkout); the doc carries
   the manual repair for a no-wipe fix.
 - **Chrome `NET::ERR_CERT_AUTHORITY_INVALID` at `https://pentaho.io` with
   no "Proceed anyway"** — self-signed cert + HSTS. Quick bypass: focus the

@@ -13,28 +13,33 @@ their own repos — this repo is what gets deployed when you pick a vertical.
 | **HEALTH** — Lakeshore Health Partners | Healthcare | [data_sources/HEALTH/](data_sources/HEALTH/) | [courseware/HEALTH/](courseware/HEALTH/) |
 | **MFG** — Cascade Precision Components | Manufacturing | [data_sources/MFG/](data_sources/MFG/) | [courseware/MFG/](courseware/MFG/) |
 
-The two apps this repo feeds:
+The three apps the bootstrap deploys beside this repo:
 
-- **[Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator)** —
+- **[Glossary Generator](https://github.com/jporeilly/PDC-Glossary-Generator)** (:5000) —
   scans the scenario's sources, builds the governed glossary, writes the
   Classification Registry. `install-scenario.sh <ID>` installs the vertical's
   domain pack + roster into it.
-- **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** —
+- **[Policy Generator](https://github.com/jporeilly/PDC-Policy-Generator)** (:5001) —
   reads the Registry and authors PDC's Data Identification methods.
+- **[Catalog Insights](https://github.com/jporeilly/PDC-Insights)** (:8660) —
+  read-only dashboards + chat over the PDC catalog (search, facets,
+  freshness), with an optional MCP server (:8765).
 
 ## The estate at a glance
 
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#EEF6FA','primaryBorderColor':'#1C7293','primaryTextColor':'#22333B','secondaryColor':'#DBEEF3','tertiaryColor':'#F7FBFD','lineColor':'#1C7293','fontFamily':'Segoe UI, sans-serif','fontSize':'13px','clusterBkg':'#F7FBFD','clusterBorder':'#CFE3EC'}}}%%
 flowchart LR
-    subgraph GH["GitHub — three repos"]
+    subgraph GH["GitHub — four repos"]
         R1["PDC-Glossary-Generator"]
         R2["PDC-Policy-Generator"]
+        R4["PDC-Insights"]
         R3["PDC-Scenarios<br/>all vertical assets"]
     end
     subgraph WIN["Windows host — C:/PDC-Demo"]
         GA["glossary_generator :5000"]
         PA["policy_generator :5001"]
+        IA["PDC-Insights :8660"]
         OLL["Ollama<br/>(AI agents)"]
     end
     subgraph VM["Ubuntu VM 192.168.1.200 — ~/PDC-Demo"]
@@ -44,19 +49,22 @@ flowchart LR
     R3 -- "install-pdc-demo.ps1 CSCU<br/>(apps + vertical + pack)" --> WIN
     R3 -- "install-pdc-demo.sh CSCU<br/>make scenario ID=CSCU" --> VM
     OLL --- GA
+    OLL --- IA
     GA -- "scan + profile" --> LAB
     GA -- "public API v3" --> PDC
     PA -- "public API v3" --> PDC
+    IA -- "public API v3 (read-only)" --> PDC
     PDC -- "ingest · profile · identify" --> LAB
     classDef repo fill:#EEF6FA,stroke:#1C7293
-    class R1,R2,R3 repo
+    class R1,R2,R3,R4 repo
 ```
 
 ## One command: the whole lab
 
 On the VM, **one bootstrap** stands up (or updates) the complete `~/PDC-Demo`
-checkout — the Glossary Generator, the Policy Generator (sparse, app only)
-and this repo pulled sparse to the selected vertical:
+checkout — the Glossary Generator, the Policy Generator (sparse, app +
+frontend), Catalog Insights, and this repo pulled sparse to the selected
+vertical:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.sh | bash -s -- CSCU
@@ -79,17 +87,18 @@ also carries its own `install-pdc-demo.sh` for single-app updates.
 
 The standard topology runs the **apps on the Windows host** (Ollama lives
 there) and the lab + PDC on the VM. The PowerShell twin stands up the same
-layout in **`C:\PDC-Demo`** — both apps + the vertical, kept separate from
-any dev checkouts — and installs the vertical's domain pack + roster into
-the Glossary app:
+layout in **`C:\PDC-Demo`** — all three apps + the vertical, kept separate
+from any dev checkouts — and installs the vertical's domain pack + roster
+into the Glossary app:
 
 ```powershell
 iex "& { $(irm https://raw.githubusercontent.com/jporeilly/PDC-Scenarios/main/install-pdc-demo.ps1) } CSCU"
 ```
 
-Re-run it bare to update everything; then `.
-un.ps1` in each app folder
-(Glossary :5000, Policy :5001).
+Re-run it bare to update everything; then launch each app: `.\run.ps1`
+in `glossary_generator` (:5000) and `policy_generator` (:5001), and
+`.\run.bat` in `PDC-Insights` (:8660). The full end-to-end walk-through
+(host + VM + PDC connections) is in [INSTALL.md](INSTALL.md).
 
 ## Select a vertical (manual pieces)
 
@@ -125,7 +134,7 @@ courseware/
                       (each set's tools/build-docx.py regenerates its .docx)
   PDC-Users-All-Scenarios.{csv,md}   consolidated user roster, all verticals
 diagrams/             app diagrams the courseware builders embed
-install-pdc-demo.sh   ONE bootstrap (VM): both apps + this repo (sparse) into ~/PDC-Demo
+install-pdc-demo.sh   ONE bootstrap (VM): all three apps + this repo (sparse) into ~/PDC-Demo
 install-pdc-demo.ps1  the same for the Windows host (+ installs the pack into the app)
 Makefile              make scenario ID=<ID> — select + lab up + load; pack/status/down
 install-scenario.sh   install a vertical's pack + roster into the Glossary app

@@ -3,11 +3,12 @@
 # PDC-Demo — the ONE bootstrap
 #
 # Stands up (or updates) the complete ~/PDC-Demo lab checkout:
-#   - the Glossary Generator (the PDC-Demo checkout itself)
-#   - the Policy Generator   (sparse: the app only)
+#   - the Glossary Generator (the PDC-Demo checkout itself)          :5000
+#   - the Policy Generator   (sparse: app + frontend)                :5001
+#   - Catalog Insights       (PDC-Insights, full clone)              :8660
 #   - PDC-Scenarios          (sparse: ONLY the selected vertical — its data
 #                             kit, domain pack and courseware + the shared lab)
-# Re-runs update all three; the selected vertical is remembered (pass an ID
+# Re-runs update all four; the selected vertical is remembered (pass an ID
 # to select or switch). Then `make scenario ID=<ID>` inside PDC-Scenarios
 # loads the data sources.
 #
@@ -25,6 +26,7 @@ set -euo pipefail
 
 GLOSS_URL="${GLOSSARY_REPO_URL:-https://github.com/jporeilly/PDC-Glossary-Generator.git}"
 POLICY_URL="${POLICY_REPO_URL:-https://github.com/jporeilly/PDC-Policy-Generator.git}"
+INSIGHTS_URL="${INSIGHTS_REPO_URL:-https://github.com/jporeilly/PDC-Insights.git}"
 SCEN_URL="${SCENARIOS_REPO_URL:-https://github.com/jporeilly/PDC-Scenarios.git}"
 
 if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
@@ -46,7 +48,7 @@ for arg in "$@"; do
 done
 
 printf "\n${TEAL}${B}  PDC-Demo — one-command lab install/update${RS}\n"
-printf "${DIM}  Glossary Generator + Policy Generator + the selected vertical.${RS}\n\n"
+printf "${DIM}  Glossary + Policy + Insights apps + the selected vertical.${RS}\n\n"
 
 printf "${B}  Pre-flight${RS}\n"
 command -v git >/dev/null 2>&1 || die "git is not installed."
@@ -54,7 +56,7 @@ ok "git $(git --version | awk '{print $3}')"
 echo
 
 # --- 1. the PDC-Demo checkout (Glossary Generator) ---------------------------
-printf "${B}  1/3  Glossary Generator (the PDC-Demo checkout)${RS}\n"
+printf "${B}  1/4  Glossary Generator (the PDC-Demo checkout)${RS}\n"
 if [ -d "$DEMO/.git" ]; then
   [ -d "$DEMO/glossary_generator" ] || die "$DEMO is a git checkout but not the Glossary repo"
   git -C "$DEMO" pull -q --ff-only || die "pull failed — local changes in $DEMO? Commit/stash and re-run."
@@ -70,7 +72,7 @@ ok "Glossary app $(cat "$DEMO/glossary_generator/VERSION" 2>/dev/null | tr -d '[
 echo
 
 # --- 2. the Policy Generator (hidden sparse clone, linked flat) ---------------
-printf "${B}  2/3  Policy Generator${RS}\n"
+printf "${B}  2/4  Policy Generator${RS}\n"
 PT="$DEMO/.pdc-policy-generator"
 # migrate the old visible layout
 if [ -d "$DEMO/PDC-Policy-Generator/.git" ] && [ ! -d "$PT" ]; then
@@ -78,13 +80,28 @@ if [ -d "$DEMO/PDC-Policy-Generator/.git" ] && [ ! -d "$PT" ]; then
   ok "Migrated PDC-Policy-Generator/ -> .pdc-policy-generator/"
 fi
 if [ -d "$PT/.git" ]; then
+  git -C "$PT" sparse-checkout add frontend 2>/dev/null || true   # widen pre-1.7 checkouts (app only)
   git -C "$PT" pull -q --ff-only || warn "Policy pull failed (local changes?)"
   ok "Updated to $(git -C "$PT" rev-parse --short HEAD)"
 else
-  printf "  ${DIM}cloning (sparse, app only)…${RS}\n"
+  printf "  ${DIM}cloning (sparse, app + frontend)…${RS}\n"
   git -C "$DEMO" clone -q --filter=blob:none --sparse "$POLICY_URL" .pdc-policy-generator
-  git -C "$PT" sparse-checkout set policy_generator
-  ok "Cloned (app only)"
+  git -C "$PT" sparse-checkout set policy_generator frontend
+  ok "Cloned (app + frontend)"
+fi
+# build the React UI (1.7.0+ serves it from frontend/dist)
+if [ -f "$PT/frontend/package.json" ] && [ ! -f "$PT/frontend/dist/index.html" ]; then
+  if command -v npm >/dev/null 2>&1; then
+    printf "  ${DIM}building the Policy web UI (npm install + build)…${RS}\n"
+    if (cd "$PT/frontend" && npm install --no-fund --no-audit --loglevel=error >/dev/null 2>&1 \
+        && npm run build --loglevel=error >/dev/null 2>&1); then
+      ok "Policy web UI built (frontend/dist)"
+    else
+      warn "Policy UI build failed — run: cd $PT/frontend && npm install && npm run build"
+    fi
+  else
+    warn "npm not found — the Policy app serves only the API + /docs until frontend/ is built (Node 18+)"
+  fi
 fi
 # flat view: policy_generator/ beside glossary_generator/, README kept separate
 ln -sfn ".pdc-policy-generator/policy_generator" "$DEMO/policy_generator"
@@ -92,8 +109,29 @@ cp -f "$PT/README.md" "$DEMO/README-Policy.md" 2>/dev/null || true
 ok "Policy app $(cat "$PT/policy_generator/VERSION" 2>/dev/null | tr -d '[:space:]') — linked at $DEMO/policy_generator"
 echo
 
-# --- 3. PDC-Scenarios (sparse: the selected vertical) -------------------------
-printf "${B}  3/3  PDC-Scenarios (the vertical)${RS}\n"
+# --- 3. Catalog Insights (PDC-Insights, full clone) ---------------------------
+printf "${B}  3/4  Catalog Insights (PDC-Insights)${RS}\n"
+IT="$DEMO/PDC-Insights"
+if [ -d "$IT/.git" ]; then
+  git -C "$IT" pull -q --ff-only || warn "Insights pull failed (local changes?)"
+  ok "Updated to $(git -C "$IT" rev-parse --short HEAD)"
+else
+  printf "  ${DIM}cloning…${RS}\n"
+  git -C "$DEMO" clone -q "$INSIGHTS_URL" PDC-Insights
+  ok "Cloned to $IT"
+fi
+# first-run config: point the app at the demo PDC (self-signed cert on the VM)
+if [ ! -f "$IT/.env" ] && [ -f "$IT/.env.example" ]; then
+  sed -e 's#^PDC_BASE_URL=.*#PDC_BASE_URL=https://pentaho.io#' \
+      -e 's#^PDC_VERIFY_TLS=.*#PDC_VERIFY_TLS=false#' \
+      "$IT/.env.example" > "$IT/.env"
+  ok ".env created (PDC_BASE_URL=https://pentaho.io, TLS verify off) — review credentials before first run"
+fi
+ok "Insights app $(cat "$IT/VERSION" 2>/dev/null | tr -d '[:space:]')"
+echo
+
+# --- 4. PDC-Scenarios (sparse: the selected vertical) -------------------------
+printf "${B}  4/4  PDC-Scenarios (the vertical)${RS}\n"
 ST="$DEMO/PDC-Scenarios"
 if [ ! -d "$ST/.git" ] && [ -n "$VERTICAL" ]; then
   printf "  ${DIM}cloning (sparse, %s only)…${RS}\n" "$VERTICAL"
@@ -140,7 +178,7 @@ else
   warn "Skipped — pass a vertical to set it up: install-pdc-demo.sh CSCU"
 fi
 # keep the outer checkout's git status clean (nested repos, links, extras)
-for entry in ".pdc-policy-generator/" "PDC-Scenarios/" "policy_generator" "courseware" "README-Policy.md"; do
+for entry in ".pdc-policy-generator/" "PDC-Insights/" "PDC-Scenarios/" "policy_generator" "courseware" "README-Policy.md"; do
   grep -qx "$entry" "$DEMO/.git/info/exclude" 2>/dev/null || echo "$entry" >> "$DEMO/.git/info/exclude"
 done
 echo
@@ -150,7 +188,8 @@ if [ -n "$VERTICAL" ]; then
   printf "  ${TEAL}cd %s && make scenario ID=%s${RS}   ${DIM}(lab up + data sources loaded)${RS}\n" "$ST" "$VERTICAL"
   printf "  ${DIM}users: cd %s && ./load-pdc-users.sh %s   (cast -> Keycloak + PDC roles)\n" "$ST" "$VERTICAL"
   printf "  apps:  glossary → %s/glossary_generator (./run.sh, :5000)\n" "$DEMO"
-  printf "         policy   → %s/policy_generator (bash run.sh --host 0.0.0.0, :5001)${RS}\n\n" "$DEMO"
+  printf "         policy   → %s/policy_generator (bash run.sh --host 0.0.0.0, :5001)\n" "$DEMO"
+  printf "         insights → %s/PDC-Insights (./run.sh, :8660)${RS}\n\n" "$DEMO"
 else
   printf "  ${TEAL}install-pdc-demo.sh CSCU${RS}   ${DIM}(pick a vertical first)${RS}\n\n"
 fi
