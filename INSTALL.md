@@ -23,6 +23,24 @@ Conventions that everything else assumes:
   `http://192.168.1.200:9000`.
 - One vertical at a time: **CSCU**, **RETAIL**, **HEALTH** or **MFG**.
 
+The order of operations — sections 1–3 below, one lane per machine:
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#EEF6FA','primaryBorderColor':'#1C7293','primaryTextColor':'#22333B','secondaryColor':'#DBEEF3','tertiaryColor':'#F7FBFD','lineColor':'#1C7293','fontFamily':'Segoe UI, sans-serif','fontSize':'13px','clusterBkg':'#F7FBFD','clusterBorder':'#CFE3EC'}}}%%
+flowchart LR
+    subgraph WIN["1 · Windows 11 host — the apps"]
+        direction TB
+        W1["install-pdc-demo.ps1 CSCU"] --> W2["three apps up<br/>:5000 · :5001 · :5002"]
+    end
+    subgraph VM["2 · Ubuntu VM — PDC + the lab"]
+        direction TB
+        V1["install-pdc-demo.sh CSCU"] --> V2["make scenario ID=CSCU<br/>lab up + data loaded"] --> V3["load-pdc-users.sh CSCU<br/>cast → Keycloak + roles"]
+    end
+    W2 --> P3["3 · Connect PDC to the lab sources<br/>PostgreSQL :5433 · MinIO :9000"]
+    V3 --> P3
+    P3 --> CW["the vertical's courseware<br/>Workshops 0–5 + app workshops"]
+```
+
 ## 1. Windows host — the apps (one command)
 
 Prerequisites: Git for Windows, Python 3.9+ (3.12+ recommended), Node 18+

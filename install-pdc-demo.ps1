@@ -42,6 +42,25 @@ function Ok   ($m) { Write-Host "  " -NoNewline; Write-Host "OK  " -ForegroundCo
 function Warn ($m) { Write-Host "  " -NoNewline; Write-Host "!   " -ForegroundColor Yellow -NoNewline; Write-Host $m }
 function Die  ($m) { Write-Host "  X  $m" -ForegroundColor Red; exit 1 }
 
+# Build an app's React UI (frontend/dist) when it is missing or the checkout
+# just moved to a new commit. All three apps serve dist when it exists.
+function Build-Ui ($label, $feDir, $changed) {
+    if (-not (Test-Path (Join-Path $feDir 'package.json'))) { return }
+    if ((Test-Path (Join-Path $feDir 'dist\index.html')) -and -not $changed) {
+        Ok "$label web UI up to date (frontend/dist)"; return
+    }
+    if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
+        Warn "npm not found - $label will fall back to its legacy UI / API docs until frontend/ is built (Node 18+)"; return
+    }
+    Write-Host "  building the $label web UI (npm install + build)..." -ForegroundColor DarkGray
+    Push-Location $feDir
+    try {
+        npm install --no-fund --no-audit --loglevel=error | Out-Null
+        if ($LASTEXITCODE -eq 0) { npm run build --loglevel=error | Out-Null }
+        if ($LASTEXITCODE -eq 0) { Ok "$label web UI built (frontend/dist)" } else { Warn "$label UI build failed - run npm install; npm run build in $feDir" }
+    } finally { Pop-Location }
+}
+
 Write-Host ""
 Write-Host "  PDC-Demo - one-command host install/update" -ForegroundColor Cyan
 Write-Host "  Glossary + Policy + Insights apps + the selected vertical." -ForegroundColor DarkGray
@@ -52,11 +71,14 @@ Write-Host ""
 
 # --- 1. the PDC-Demo checkout (Glossary Generator) ---------------------------
 Write-Host "  1/4  Glossary Generator (the PDC-Demo checkout)"
+$glossChanged = $true
 if (Test-Path (Join-Path $DemoDir '.git')) {
     if (-not (Test-Path (Join-Path $DemoDir 'glossary_generator'))) { Die "$DemoDir is a git checkout but not the Glossary repo" }
+    $glossBefore = git -C $DemoDir rev-parse HEAD
     git -C $DemoDir pull -q --ff-only
     if ($LASTEXITCODE -ne 0) { Die "pull failed - local changes in $DemoDir? Commit/stash and re-run." }
     Ok ("Updated to " + (git -C $DemoDir rev-parse --short HEAD))
+    $glossChanged = ($glossBefore -ne (git -C $DemoDir rev-parse HEAD))
 } elseif ((Test-Path $DemoDir) -and (Get-ChildItem $DemoDir -Force | Select-Object -First 1)) {
     Die "$DemoDir exists but is not a git checkout - move it aside and re-run."
 } else {
@@ -65,6 +87,7 @@ if (Test-Path (Join-Path $DemoDir '.git')) {
     if ($LASTEXITCODE -ne 0) { Die "clone failed" }
     Ok "Cloned to $DemoDir"
 }
+Build-Ui 'Glossary' (Join-Path $DemoDir 'frontend') $glossChanged
 Ok ("Glossary app " + (Get-Content (Join-Path $DemoDir 'glossary_generator\VERSION') -Raw).Trim())
 Write-Host ""
 
@@ -90,26 +113,7 @@ if (Test-Path (Join-Path $PT '.git')) {
     Ok "Cloned (app + frontend)"
 }
 # build the React UI (1.7.0+ serves it from frontend/dist)
-$feDir = Join-Path $PT 'frontend'
-if (Test-Path (Join-Path $feDir 'package.json')) {
-    $distIndex = Join-Path $feDir 'dist\index.html'
-    $headNow = git -C $PT rev-parse HEAD
-    if (-not (Test-Path $distIndex) -or ($policyBefore -and $policyBefore -ne $headNow)) {
-        if (Get-Command npm -ErrorAction SilentlyContinue) {
-            Write-Host "  building the Policy web UI (npm install + build)..." -ForegroundColor DarkGray
-            Push-Location $feDir
-            try {
-                npm install --no-fund --no-audit --loglevel=error | Out-Null
-                if ($LASTEXITCODE -eq 0) { npm run build --loglevel=error | Out-Null }
-                if ($LASTEXITCODE -eq 0) { Ok "Policy web UI built (frontend/dist)" } else { Warn "Policy UI build failed - run npm install; npm run build in $feDir" }
-            } finally { Pop-Location }
-        } else {
-            Warn "npm not found - the Policy app will serve only the API + /docs until you build frontend/ (Node 18+)"
-        }
-    } else {
-        Ok "Policy web UI up to date (frontend/dist)"
-    }
-}
+Build-Ui 'Policy' (Join-Path $PT 'frontend') (-not $policyBefore -or $policyBefore -ne (git -C $PT rev-parse HEAD))
 # dot-prefix alone doesn't hide folders in Explorer — set the attribute too
 try { $i = Get-Item $PT -Force; if (-not ($i.Attributes -band 'Hidden')) { $i.Attributes = $i.Attributes -bor 'Hidden' } } catch {}
 # flat view: policy_generator junction beside glossary_generator, README kept separate
@@ -124,15 +128,19 @@ Write-Host ""
 # --- 3. Catalog Insights (PDC-Insights, full clone) ---------------------------
 Write-Host "  3/4  Catalog Insights (PDC-Insights)"
 $IT = Join-Path $DemoDir 'PDC-Insights'
+$insChanged = $true
 if (Test-Path (Join-Path $IT '.git')) {
+    $insBefore = git -C $IT rev-parse HEAD
     git -C $IT pull -q --ff-only
     if ($LASTEXITCODE -ne 0) { Warn "Insights pull failed (local changes?)" } else { Ok ("Updated to " + (git -C $IT rev-parse --short HEAD)) }
+    $insChanged = ($insBefore -ne (git -C $IT rev-parse HEAD))
 } else {
     Write-Host "  cloning..." -ForegroundColor DarkGray
     git -C $DemoDir clone -q $InsightsUrl PDC-Insights
     if ($LASTEXITCODE -ne 0) { Die "Insights clone failed" }
     Ok "Cloned to $IT"
 }
+Build-Ui 'Insights' (Join-Path $IT 'frontend') $insChanged
 # first-run config: point the app at the demo PDC (self-signed cert on the VM)
 $envFile = Join-Path $IT '.env'
 if (-not (Test-Path $envFile) -and (Test-Path (Join-Path $IT '.env.example'))) {

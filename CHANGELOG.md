@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0] — 2026-07-17
+
+### Changed
+
+- **Both bootstraps build every app's React UI** — a shared `Build-Ui` /
+  `build_ui` helper builds `frontend/dist` for the Glossary Generator
+  (new in its 1.10.0), the Policy Generator and Catalog Insights when the
+  checkout is fresh or just moved commits; without npm each app falls back
+  to its legacy UI / API docs with a warning.
+- INSTALL.md gained the two-lane (Windows host / Ubuntu VM) install-order
+  diagram.
+
 ## [1.2.0] — 2026-07-17
 
 ### Changed

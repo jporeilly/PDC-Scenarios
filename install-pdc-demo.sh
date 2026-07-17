@@ -39,6 +39,26 @@ ok(){   printf "  ${GREEN}✓${RS} %s\n" "$1"; }
 warn(){ printf "  ${YELLOW}!${RS} %s\n" "$1"; }
 die(){  printf "  ${RED}✗ %s${RS}\n" "$1" >&2; exit 1; }
 
+# build_ui LABEL FRONTEND_DIR CHANGED — build an app's React UI (frontend/dist)
+# when it is missing or the checkout just moved. All three apps serve dist.
+build_ui(){
+  local label="$1" fe="$2" changed="$3"
+  [ -f "$fe/package.json" ] || return 0
+  if [ -f "$fe/dist/index.html" ] && [ "$changed" != "1" ]; then
+    ok "$label web UI up to date (frontend/dist)"; return 0
+  fi
+  if ! command -v npm >/dev/null 2>&1; then
+    warn "npm not found — $label falls back to its legacy UI / API docs until frontend/ is built (Node 18+)"; return 0
+  fi
+  printf "  ${DIM}building the %s web UI (npm install + build)…${RS}\n" "$label"
+  if (cd "$fe" && npm install --no-fund --no-audit --loglevel=error >/dev/null 2>&1 \
+      && npm run build --loglevel=error >/dev/null 2>&1); then
+    ok "$label web UI built (frontend/dist)"
+  else
+    warn "$label UI build failed — run: cd $fe && npm install && npm run build"
+  fi
+}
+
 DEMO="${PDC_DEMO_DIR:-$HOME/PDC-Demo}"
 VERTICAL="${VERTICAL:-}"
 for arg in "$@"; do
@@ -57,10 +77,13 @@ echo
 
 # --- 1. the PDC-Demo checkout (Glossary Generator) ---------------------------
 printf "${B}  1/4  Glossary Generator (the PDC-Demo checkout)${RS}\n"
+GLOSS_CHANGED=1
 if [ -d "$DEMO/.git" ]; then
   [ -d "$DEMO/glossary_generator" ] || die "$DEMO is a git checkout but not the Glossary repo"
+  GB="$(git -C "$DEMO" rev-parse HEAD)"
   git -C "$DEMO" pull -q --ff-only || die "pull failed — local changes in $DEMO? Commit/stash and re-run."
   ok "Updated to $(git -C "$DEMO" rev-parse --short HEAD)"
+  [ "$GB" != "$(git -C "$DEMO" rev-parse HEAD)" ] || GLOSS_CHANGED=0
 elif [ -e "$DEMO" ] && [ -n "$(ls -A "$DEMO" 2>/dev/null)" ]; then
   die "$DEMO exists but is not a git checkout — move it aside and re-run."
 else
@@ -68,6 +91,7 @@ else
   git clone -q "$GLOSS_URL" "$DEMO"
   ok "Cloned to $DEMO"
 fi
+build_ui "Glossary" "$DEMO/frontend" "$GLOSS_CHANGED"
 ok "Glossary app $(cat "$DEMO/glossary_generator/VERSION" 2>/dev/null | tr -d '[:space:]')"
 echo
 
@@ -79,10 +103,13 @@ if [ -d "$DEMO/PDC-Policy-Generator/.git" ] && [ ! -d "$PT" ]; then
   mv "$DEMO/PDC-Policy-Generator" "$PT"
   ok "Migrated PDC-Policy-Generator/ -> .pdc-policy-generator/"
 fi
+POLICY_CHANGED=1
 if [ -d "$PT/.git" ]; then
+  PB="$(git -C "$PT" rev-parse HEAD)"
   git -C "$PT" sparse-checkout add frontend 2>/dev/null || true   # widen pre-1.7 checkouts (app only)
   git -C "$PT" pull -q --ff-only || warn "Policy pull failed (local changes?)"
   ok "Updated to $(git -C "$PT" rev-parse --short HEAD)"
+  [ "$PB" != "$(git -C "$PT" rev-parse HEAD)" ] || POLICY_CHANGED=0
 else
   printf "  ${DIM}cloning (sparse, app + frontend)…${RS}\n"
   git -C "$DEMO" clone -q --filter=blob:none --sparse "$POLICY_URL" .pdc-policy-generator
@@ -90,19 +117,7 @@ else
   ok "Cloned (app + frontend)"
 fi
 # build the React UI (1.7.0+ serves it from frontend/dist)
-if [ -f "$PT/frontend/package.json" ] && [ ! -f "$PT/frontend/dist/index.html" ]; then
-  if command -v npm >/dev/null 2>&1; then
-    printf "  ${DIM}building the Policy web UI (npm install + build)…${RS}\n"
-    if (cd "$PT/frontend" && npm install --no-fund --no-audit --loglevel=error >/dev/null 2>&1 \
-        && npm run build --loglevel=error >/dev/null 2>&1); then
-      ok "Policy web UI built (frontend/dist)"
-    else
-      warn "Policy UI build failed — run: cd $PT/frontend && npm install && npm run build"
-    fi
-  else
-    warn "npm not found — the Policy app serves only the API + /docs until frontend/ is built (Node 18+)"
-  fi
-fi
+build_ui "Policy" "$PT/frontend" "$POLICY_CHANGED"
 # flat view: policy_generator/ beside glossary_generator/, README kept separate
 ln -sfn ".pdc-policy-generator/policy_generator" "$DEMO/policy_generator"
 cp -f "$PT/README.md" "$DEMO/README-Policy.md" 2>/dev/null || true
@@ -112,14 +127,18 @@ echo
 # --- 3. Catalog Insights (PDC-Insights, full clone) ---------------------------
 printf "${B}  3/4  Catalog Insights (PDC-Insights)${RS}\n"
 IT="$DEMO/PDC-Insights"
+INS_CHANGED=1
 if [ -d "$IT/.git" ]; then
+  IB="$(git -C "$IT" rev-parse HEAD)"
   git -C "$IT" pull -q --ff-only || warn "Insights pull failed (local changes?)"
   ok "Updated to $(git -C "$IT" rev-parse --short HEAD)"
+  [ "$IB" != "$(git -C "$IT" rev-parse HEAD)" ] || INS_CHANGED=0
 else
   printf "  ${DIM}cloning…${RS}\n"
   git -C "$DEMO" clone -q "$INSIGHTS_URL" PDC-Insights
   ok "Cloned to $IT"
 fi
+build_ui "Insights" "$IT/frontend" "$INS_CHANGED"
 # first-run config: point the app at the demo PDC (self-signed cert on the VM)
 if [ ! -f "$IT/.env" ] && [ -f "$IT/.env.example" ]; then
   sed -e 's#^PDC_BASE_URL=.*#PDC_BASE_URL=https://pentaho.io#' \
