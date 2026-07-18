@@ -76,7 +76,10 @@ On **Connect ▸ Schema**, connect to `cscu_core` (schema `cscu_core`,
 read-only `pdc_user`) — the schema browser has a Cards | ER-diagram toggle —
 and **Scan**; then on **Connect ▸ Files**, **Add to glossary** from the MinIO
 bucket so one glossary spans both sources. On the **Review** page (the "How
-to review" guide panel opens by default — read it once, then work the grid):
+to review" guide panel opens by default — it is a clickable flow: the
+**Approve pending vocabulary** box hops to the Dictionary and back, the AI
+agents appear as sequence chips that highlight the toolbar, and Govern
+navigates onward; follow it in order, then work the grid):
 
 - Check the expansions: `mbr_since_dt` → *Member Since Date*, `apr_rt` → *APR
   Rate*. Edit anything weak.
@@ -95,10 +98,15 @@ to review" guide panel opens by default — read it once, then work the grid):
 ### Step 4a — Put the agents to work
 
 The grid carries a set of local AI agents, grouped in the toolbar under
-**AI AGENTS — kept rows · propose → you apply**: they run on the KEPT rows
+**AI AGENTS — kept rows · propose → you accept**: they run on the KEPT rows
 only, and they share one contract — the deterministic rules run first, the
 model only adds judgment, every proposal is guardrailed to the governed
-vocabulary, and **nothing applies itself** — you click.
+vocabulary, and **nothing applies itself** — you click. Results land as
+**inline click-to-accept pills** right on the affected cells, batch by
+batch while the run streams (there is no proposal popup): accept a pill to
+take just that change, or **Accept all / Dismiss all** from the strip above
+the grid. The grid's **LLM** provenance pills appear only after a proposal
+is accepted.
 
 - **AI suggest (evidence)** — the model reads each row's *scan evidence* (the
   induced value format such as `^CSCU-\d{6}$`, profiled reference values, PII
@@ -113,7 +121,8 @@ vocabulary, and **nothing applies itself** — you click.
   adjudicate whatever is still unclear.
 - **AI QA definitions** — a linter (circular, vague, echoed, copy-pasted
   definitions) plus the model judging whether each definition actually explains
-  the business meaning; flagged rows get a proposed rewrite you apply per row.
+  the business meaning; flagged rows get a proposed rewrite as a pill you
+  accept per row.
   Run it before Generate — checkpoints 2 and 3 are easier to defend with clean
   definitions.
 - **AI categorize** — files any uncategorized terms into the known categories.
@@ -177,7 +186,21 @@ Set ratings (Auto/DQ), review date, and status.
 
 **Generate JSONL** (writes the Registry alongside), import it in PDC
 (**Business Glossary → Actions → Import**), **Resolve term ids**, then
-**Apply to PDC** — dry-run first, always. Finish with the Trust Score rollup.
+**Apply to PDC** — dry-run first, always. The Data Discovery watcher is
+terminal-aware: it stops the moment PDC's worker finishes and prints a
+per-file verdict — profiled ✓ / no-DQ-from-PDC / failed. The no-DQ verdict
+is **expected** for the document files (pdf/docx types get no Data Quality
+in PDC), so don't wait for 18 of 18. Finish with the Trust Score rollup.
+Note on DQ in the app's tables: a column that was never profiled shows a
+muted **DQ —** ("not profiled") chip and exports no `qualityScore` — a
+NOT-NULL constraint alone never fabricates a 100.
+
+Need an artifact on the VM? The generated JSONL and the drafted-policies
+zip (Step 7) each carry a ghost **⇪ Send to lab (MinIO)** button that
+uploads to bucket **`pdc-exports`** over a saved MinIO/S3 connection — the
+connection must be **write-capable** (the cast user's lab key is
+read-only, so use the admin key/secret). Grab it on the VM from the MinIO
+console (`:9001`) or `mc cp` to `~/Downloads`.
 
 ### Step 7 — Draft the Data Identification rules
 
