@@ -12,8 +12,10 @@ Generator app workshop + the Technical Track), picking up at the
 | `Workshop-Policy-Generator-CSCU.md` | The app-driven Data Identification workshop (Registry → `info` → `author` → PDC import → run → verify) — authoritative markdown master |
 | `Workshop-Policy-Generator-CSCU.docx` | Generated from the master in the course design ([`tools/build-docx.py`](tools/)), with amber placeholder boxes where screenshots from the CSCU lab go |
 
-Workshops for the **reconcile**, **deploy** and **drift-check** stages will be
-added as those stages ship.
+The **reconcile**, **deploy** and **drift-check** stages have shipped (app
+1.8+) — the app's Load → Author → Reconcile → Deploy → Drift-check pages run
+the full lifecycle; dedicated workshops for the later stages are still to be
+written.
 
 ## Prerequisites (owned by the Glossary repo)
 

@@ -24,18 +24,19 @@ never leaves the machine.
    ollama pull qwen2.5:14b-instruct
    ```
 
-2. Point the app at the **IPv4 loopback** in `glossary_generator/.env`:
-
-   ```
-   OLLAMA_URL=http://127.0.0.1:11434
-   LLM_MODEL=qwen2.5:14b-instruct
-   ```
+2. Point the app at the **IPv4 loopback** on the **Settings page**
+   (CONFIGURE ▸ Settings ▸ LLM): set the Ollama URL to
+   `http://127.0.0.1:11434`, pick `qwen2.5:14b-instruct` from the model
+   list (or Pull it right there), and Test. (The same values can be
+   pinned in `glossary_generator/.env` as `OLLAMA_URL` / `LLM_MODEL` —
+   env wins over saved settings on restart.)
 
    Use `127.0.0.1`, **not** `localhost` — on Windows `localhost` can resolve to
-   IPv6 `::1` and miss Ollama's IPv4 bind, which makes the header pill show
-   Ollama as offline even though it's running.
+   IPv6 `::1` and miss Ollama's IPv4 bind, which makes the app's LLM status
+   dot (sidebar footer) show Ollama as offline even though it's running.
 
-3. Verify: the app's header pill should read something like
+3. Verify: the LLM status (the dot in the sidebar footer; details on the
+   Settings page) should read something like
    `Ollama · qwen2.5:14b-instruct · 100% GPU` (the placement comes from
    Ollama's `/api/ps`, the same data as `ollama ps`). A `xx%/yy% CPU/GPU`
    split means the model is too big for VRAM — pick a smaller one or accept

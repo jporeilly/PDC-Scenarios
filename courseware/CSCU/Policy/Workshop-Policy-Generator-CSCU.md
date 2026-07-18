@@ -1,6 +1,6 @@
 # Workshop — Author Data Identification with the Policy Generator
 
-*Copper State Credit Union (CSCU) scenario · app 1.1.x · validated against PDC 11.0.0*
+*Copper State Credit Union (CSCU) scenario · app 1.8.x · validated against PDC 11.0.0*
 
 **Primary role:** Data Steward / Data Developer
 **Estimated time:** 45–60 min
@@ -68,8 +68,12 @@ python -m policy_generator info path/to/registry.<uuid>.json
 ```
 
 (When this repo is cloned into the same folder as `glossary_generator/` —
-the lab VM's `~/PDC-Demo` layout — you can omit the path: the newest
-Registry is auto-discovered, in the CLI and on the web UI's Load card.)
+the `PDC-Demo` layout the installer produces — you can omit the path: the
+newest Registry is auto-discovered, in the CLI and on the web UI's **Load**
+page. The web UI is the same steps with explainer cards on each stage:
+start it with `.\run.ps1` and open `http://127.0.0.1:5001` — its
+**Load → Author → Reconcile → Deploy → Drift-check** pages are this
+workshop's Steps 2–3 plus the automated stages of Section 5.)
 
 `info` prints what the Registry carries before you author anything: the
 glossary name and id, concept count, how many concepts carry detection seeds,
@@ -240,13 +244,16 @@ Run **Data Identification** on the CSCU sources
 ## 5. Where the story continues
 
 You authored and deployed by hand what the contract makes automatic. The
-Policy Generator's remaining stages take over from here: **reconcile** binds
-each method to its minted `term_id` once the Registry is re-exported after
-Resolve; **deploy** imports the methods and triggers the
-`DATA_IDENTIFICATION` jobs over the public API (v3); **drift-check** compares
-what deployed methods stamp — and PDC's live tag facet — against the
-Registry's governed vocabulary, flagging off-vocabulary tags, governed tags
-nothing emits, and broken term bindings.
+Policy Generator's later stages — all shipped, each a page in the app —
+take over from here: **Reconcile** binds each method to its minted `term_id`
+once the Registry is re-exported after Resolve; **Deploy** imports the
+authored set over PDC's own worker API (the same endpoint the UI's zip
+upload uses), with a dry-run preview and a name-prefix guard so only your
+`CSCU`-prefixed methods can be touched — the manual zip import you just did
+remains the valid by-hand alternative; **Drift-check** compares what
+deployed methods stamp — and PDC's live tag facet — against the Registry's
+governed vocabulary, flagging off-vocabulary tags, governed tags nothing
+emits, and broken term bindings.
 
 ---
 

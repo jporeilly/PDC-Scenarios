@@ -141,7 +141,8 @@ captures a whole scenario.
 
 1. On the Windows host, start the Glossary Generator (`.\run.ps1` in
    `glossary_generator/`) and open `http://127.0.0.1:5000`. Go to the
-   **Connections** page and open the **Bulk-load data sources** panel.
+   **Connect** page (WORKFLOW ▸ Connect) and open the **Bulk-load data
+   sources** panel.
 2. Enter the PDC connection: Base URL `https://pentaho.io` (the server root —
    the app adds `/api/public/...` itself), API version `v2`, and **Verify
    TLS off** for the lab's self-signed certificate.

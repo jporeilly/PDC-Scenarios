@@ -17,7 +17,7 @@ repository, always current:
 
 | What | Where |
 | --- | --- |
-| The app itself | `/glossary_generator/` (run with `./run.sh` / `run.ps1`) |
+| The app itself | `/glossary_generator/` (run with `.\run.ps1`; VM: `./run.sh`) — `http://127.0.0.1:5000` |
 | Scenario install | `./install-scenario.sh` at the repo root (or unzip `data_sources/CSCU/cscu-domain-pack.zip`) |
 | Workshop guide | [`../../Workshop-Glossary-Generator-CSCU.md`](../../Workshop-Glossary-Generator-CSCU.md) |
 | Topic notes | [`Tags & the Domain Pack`](../../Glossary-Generator-Tags-and-Domain-Pack.md) · [`LLM & Review`](../../Glossary-Generator-LLM-and-Review.md) · [`Object Stores`](../../PDC-Object-Stores-AWS-S3-MinIO.md) |

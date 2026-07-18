@@ -1,6 +1,6 @@
 # Workshop — Build the Business Glossary with the Glossary Generator
 
-*Copper State Credit Union (CSCU) scenario · app 1.8.x · validated against PDC 11.0.0*
+*Copper State Credit Union (CSCU) scenario · app 1.10.x · validated against PDC 11.0.0*
 
 **Primary role:** Data Steward / Solution Architect
 **Estimated time:** 60–90 min
@@ -56,7 +56,7 @@ make load SCENARIO=CSCU    # cscu_core db + cscu-documents bucket, verified
 
 ### Step 2 — Register the sources in PDC
 
-Use the app's **bulk loader** (Connections → Bulk-load data sources) with
+Use the app's **bulk loader** (WORKFLOW ▸ **Connect** → Bulk-load data sources) with
 `data_sources/CSCU/cscu-datasources.csv`, or create the two sources by hand.
 Then run **Metadata Ingest → Profile → Data Identification** in PDC, and click
 **Scan Files** on the document store. (Identify *once* — the steward's
@@ -66,14 +66,17 @@ overrides come later and must not be clobbered.)
 
 Unzip `cscu-domain-pack.zip` into `glossary_generator/` (this drops
 `domain_pack.json` and the `people.json` steward roster), delete any previous
-`tag_dictionary.json`, then `./run.sh`. Confirm on `/config` that
+`tag_dictionary.json`, then `.\run.ps1` (on the VM: `./run.sh`) and open
+`http://127.0.0.1:5000`. Confirm on **Settings** (CONFIGURE ▸ Settings) that
 `GLOSSARY_COMPANY=Copper State Credit Union`.
 
 ### Step 4 — Scan & review
 
-Connect to `cscu_core` (schema `cscu_core`, read-only `pdc_user`), **Scan**,
-then **Add to glossary** from the MinIO bucket so one glossary spans both
-sources. On the review grid:
+On **Connect ▸ Schema**, connect to `cscu_core` (schema `cscu_core`,
+read-only `pdc_user`) — the schema browser has a Cards | ER-diagram toggle —
+and **Scan**; then on **Connect ▸ Files**, **Add to glossary** from the MinIO
+bucket so one glossary spans both sources. On the **Review** page (the "How
+to review" guide panel opens by default — read it once, then work the grid):
 
 - Check the expansions: `mbr_since_dt` → *Member Since Date*, `apr_rt` → *APR
   Rate*. Edit anything weak.
@@ -91,10 +94,11 @@ sources. On the review grid:
 
 ### Step 4a — Put the agents to work
 
-The grid carries a set of local AI agents. They share one contract: the
-deterministic rules run first, the model only adds judgment, every proposal is
-guardrailed to the governed vocabulary, and **nothing applies itself** — you
-click.
+The grid carries a set of local AI agents, grouped in the toolbar under
+**AI AGENTS — kept rows · propose → you apply**: they run on the KEPT rows
+only, and they share one contract — the deterministic rules run first, the
+model only adds judgment, every proposal is guardrailed to the governed
+vocabulary, and **nothing applies itself** — you click.
 
 - **AI suggest (evidence)** — the model reads each row's *scan evidence* (the
   induced value format such as `^CSCU-\d{6}$`, profiled reference values, PII
@@ -190,7 +194,7 @@ teaches exactly what each field means).
 
 | # | Check | Evidence |
 | --- | --- | --- |
-| 1 | 11 tables + 18 documents scanned | Sources chip on the Glossary page |
+| 1 | 11 tables + 18 documents scanned | Sources chip on the Review page |
 | 2 | `cvv_cd` flagged HIGH / `pci` | The review grid row + your note |
 | 3 | SAR terms marked CDE, HIGH | `suspicious_activity` terms |
 | 4 | Tags all governed (no drift) | Dictionary page: 0 off-vocabulary |

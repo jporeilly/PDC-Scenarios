@@ -113,10 +113,11 @@ Then the rows pick up the new domain tags.
 The Dictionary page previews how the governed tags will look as **OpenSearch
 facets** in PDC (a filter on `attributes.tags.name`). Read it correctly:
 
-- **The counts are reviewed usage inside this app** — accreted on every scan —
-  **not live PDC data**. "Empty" means *no reviewed scan row has carried the
-  tag since the dictionary was last (re)seeded*; it does **not** mean no PDC
-  asset carries it.
+- **The counts are distinct terms per tag inside this app** — a
+  pre-deployment preview, **not live PDC data** — and they count *terms*, so
+  re-scanning the same source does not inflate them. "Empty" means *no
+  reviewed term has carried the tag since the dictionary was last
+  (re)seeded*; it does **not** mean no PDC asset carries it.
 - **Every tag empty at once = freshly reseeded**, not broken. A dictionary
   reseed (scenario reinstall, the Reseed button) zeroes the counters; the next
   scan + review cycle rebuilds them.
@@ -130,8 +131,9 @@ facets** in PDC (a filter on `attributes.tags.name`). Read it correctly:
   facet fills from policy runs regardless of this preview. The authoritative
   "this tag is dead" signal is the Policy Generator's **drift-check** (its
   reconciliation half): deployed methods' Assign-Tags and PDC's live facet
-  compared against the Registry vocabulary. Until that ships, the
-  after-full-scan rule of thumb above is the manual equivalent.
+  compared against the Registry vocabulary. That stage ships in the Policy
+  Generator (1.8+) — run it once methods are deployed; before deployment,
+  the after-full-scan rule of thumb above is the manual equivalent.
 
 ---
 
