@@ -9,13 +9,15 @@ Generator app workshop + the Technical Track), picking up at the
 
 | File | What it is |
 | --- | --- |
-| `Workshop-Policy-Generator-CSCU.md` | The app-driven Data Identification workshop (Registry → `info` → `author` → PDC import → run → verify) — authoritative markdown master |
+| `Workshop-Policy-Generator-CSCU.md` | The UI-first Data Identification workshop — the app's full lifecycle (launch → Load → Author → Reconcile → Deploy → Drift-check, including the deliberate-drift exercise), with the CLI as an appendix — authoritative markdown master |
 | `Workshop-Policy-Generator-CSCU.docx` | Generated from the master in the course design ([`tools/build-docx.py`](tools/)), with amber placeholder boxes where screenshots from the CSCU lab go |
 
-The **reconcile**, **deploy** and **drift-check** stages have shipped (app
-1.8+) — the app's Load → Author → Reconcile → Deploy → Drift-check pages run
-the full lifecycle; dedicated workshops for the later stages are still to be
-written.
+The **reconcile**, **deploy** and **drift-check** stages shipped in app 1.8 —
+and the workshop now covers them in the main arc: Deploy (dry-run plan, then
+programmatic import over PDC's own worker API) and Drift-check
+(clean / drifted / orphaned / missing verdicts) are workshop steps, not
+modules still to be written. The `.docx` lags the markdown master until
+regenerated with `tools/build-docx.py`.
 
 ## Prerequisites (owned by the Glossary repo)
 
