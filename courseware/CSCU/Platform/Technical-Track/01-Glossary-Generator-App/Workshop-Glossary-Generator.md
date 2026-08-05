@@ -4,7 +4,7 @@
 
 **Primary role:** Solution Architect / Developer
 **Estimated time:** 75–90 min
-**App version:** Glossary Generator 1.21.0
+**App version:** Glossary Generator 1.24.0
 
 > **Audience.** The Architect / Developer learning path. Assumes the UI-driven
 > workshops are complete — you should already have built the CSCU business
@@ -367,6 +367,50 @@ the grid to the raw scan.
 > **Run the AI pass *before* resolving duplicates.** Final names dissolve false
 > duplicates (a rename *is* disambiguation), and real definitions make the
 > remaining same-name calls easy.
+
+### What counts as evidence that two terms are one concept
+
+The advisor ranks its evidence strongest-first, and the ordering is the teaching
+point — because two of these signals are only sound in one direction:
+
+| Evidence | Verdict | Sound because |
+| --- | --- | --- |
+| A **foreign key** links the columns | `same` | one references the other; the same concept by construction |
+| Overlapping **coded** value sets (`{OPEN, CLOSED}`) | `same` | a controlled domain — both columns draw from one vocabulary |
+| Disjoint coded value sets | `different` | same word, different code lists |
+| Identical **distinctive** format (`^AWC-[A-Z]{2}-\d{6}$`) | `same` | a code minted by one system for one purpose |
+| Different formats | `different` | the values are shaped by different rules |
+| PII class mismatch | `different` | the weakest signal, used last |
+
+> **A property of the data TYPE is not identity of the CONCEPT.** This is the trap,
+> and it bit this app twice.
+>
+> `^0\.\d{2}$` means *"a small decimal"* — `lead_ppb`, `copper_ppm` and
+> `turbidity_ntu` all match it. Scoring that as *same concept* ranked
+> `Lead Ppb ← Turbidity Ntu` at **0.85 strong**, and merging it would have put one
+> regulated contaminant's limits on another's term.
+>
+> Overlap has the same failure with numbers: `Paid Bills` and `Outstanding Bills`
+> both draw from `{0, 1}`, scored **100% overlap**, and are *opposites*.
+>
+> Since **1.23.0/1.24.0** both signals are gated. A format counts only when it is
+> **distinctive** — literal text something minted (`AWC-`), not bare digit classes.
+> Overlap counts only for a **coded vocabulary** — at least one non-numeric value.
+> Otherwise the advisor returns **no verdict** and says *"too generic to identify a
+> concept — compare the definitions"*, leaving the call to you.
+
+> **Read the ranking, not just the scores.** The tell that scoring is measuring the
+> wrong thing is when a *correct* answer ranks below wrong ones. In the run that
+> exposed this, the one genuinely right merge — `Chlorine Residual ←
+> Chlorine Residual Ppm` — scored **0.84 review**, *below* three false positives at
+> 0.85 strong, because name identity was being outranked by format identity.
+
+> **Find similar is a different tool from the duplicate resolver.** The resolver
+> groups **identical names**; *Find similar* proposes merges across **different**
+> names (`phone` vs `cust_phone_no`). A pair like `Chlorine Residual` /
+> `Chlorine Residual Ppm` can only be found by the latter — and merging there
+> *renames* one to the other, which then creates a same-name group for the resolver
+> to fold. Two steps by design.
 
 ### How confidence is set
 

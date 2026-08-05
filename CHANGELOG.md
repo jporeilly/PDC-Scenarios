@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.3.6] — 2026-08-05
+
+### Added — module 01 teaches what counts as evidence that two terms are one concept
+
+- New section and three slides on the similarity advisor's evidence ranking: FK
+  link, coded value-set overlap, distinctive format identity, PII mismatch —
+  strongest first, with **why each is sound**.
+- **The teaching point: a property of the data TYPE is not identity of the
+  CONCEPT.** `^0\.\d{2}$` means *"a small decimal"*, which `lead_ppb`,
+  `copper_ppm` and `turbidity_ntu` all match; scoring that as *same concept*
+  ranked `Lead Ppb ← Turbidity Ntu` at **0.85 strong**, and merging it would put
+  one regulated contaminant's limits on another's term. Value overlap fails the
+  same way on numbers: `Paid Bills` and `Outstanding Bills` both draw from
+  `{0, 1}` and are opposites.
+- Gated in Glossary Generator **1.23.0/1.24.0** — a format counts only when
+  distinctive (minted literal text, not digit classes), overlap only for a coded
+  vocabulary. Otherwise: no verdict, *"too generic to identify a concept"*.
+- **Read the ranking, not the scores.** The tell that scoring measures the wrong
+  thing is a *correct* answer ranking below wrong ones — here the one right merge
+  scored 0.84 review, below three false positives at 0.85 strong.
+- **Find similar is not the duplicate resolver**: the resolver groups identical
+  names, Find similar spans different ones, and merging there *renames* a term,
+  which then forms a same-name group for the resolver to fold. Two steps by design.
+- App-version stamp **1.24.0**; docx 16 tables, deck 36 slides.
+
 ## [1.3.5] — 2026-08-05
 
 ### Changed — module 01 documents the harvest merge semantics
