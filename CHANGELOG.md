@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.3.4] — 2026-08-05
+
+### Changed — module 01 teaches the Data Discovery folder cascade
+
+- Lab F gained two sections, both from a live run that got this wrong:
+  **"Scope a folder, not a file"** and **"Reading the result — SKIPPED is not
+  always a failure"**. The deck gained the matching pair (33 slides).
+- **The cascade.** `scope` takes any entity id, but a FOLDER cascades to every
+  file inside it while a FILE profiles only itself — and a Data-Elements payload
+  carries *one representative file per folder*. Scope the files and you profile
+  5 documents out of 16, and the job still returns SUCCESS. The run message now
+  tells you which happened: `awc-documents/compliance` (slashed) is folder
+  scope; a dotted `bucket.folder.file` label is the fallback.
+- **The gotcha behind it.** PDC types object-store folders **`FOLDER`**, not
+  `DIRECTORY` — a live scan reports *"16 FILE + 5 FOLDER entities discovered"*.
+  A filter omitting `FOLDER` gets no folder hits at all, because PDC filters
+  them out server-side, and the miss is indistinguishable from an uncatalogued
+  folder. Fixed in Glossary Generator 1.17.1; anyone writing their own client
+  needs both type names.
+- **SKIPPED is not always a failure.** csv/tsv/json/jsonl/txt profile to
+  COMPLETED with column statistics; pdf/docx get properties and a checksum but
+  stay SKIPPED permanently, because there are no rows or columns to sample.
+  Neither PDC nor the app can ever score a PDF — so a PDF is the worst possible
+  file to verify a Discovery run against. Verify on a file that was *not* the
+  representative instead.
+- App-version stamp moved to **1.17.1**.
+
 ## [1.3.3] — 2026-08-05
 
 ### Added — module 01 finally has a markdown source

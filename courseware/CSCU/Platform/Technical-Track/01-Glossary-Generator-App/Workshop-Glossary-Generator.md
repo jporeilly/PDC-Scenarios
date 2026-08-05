@@ -4,7 +4,7 @@
 
 **Primary role:** Solution Architect / Developer
 **Estimated time:** 75–90 min
-**App version:** Glossary Generator 1.17.0
+**App version:** Glossary Generator 1.17.1
 
 > **Audience.** The Architect / Developer learning path. Assumes the UI-driven
 > workshops are complete — you should already have built the CSCU business
@@ -728,8 +728,58 @@ POST /api/public/v3/jobs/execute/data-discovery
 ```
 
 **In the app.** Open **4 · Profile documents in PDC** after a non-dry-run apply and
-click *Run Data Discovery on documents*. A folder cascades to the files inside it.
-Re-run Lab E to see each file's new PDC Data Quality next to the app's.
+click *Run Data Discovery on documents*. Re-run Lab E to see each file's new PDC
+Data Quality next to the app's.
+
+### Scope a folder, not a file — the cascade is the whole point
+
+`scope` accepts any entity id, but **what you send changes how much gets profiled**:
+
+| You scope | PDC profiles |
+| --- | --- |
+| A **FOLDER** entity | that folder **and every file inside it** — it cascades |
+| A **FILE** entity | that one file, and nothing else |
+
+This matters more than it looks, because a Data-Elements payload carries **one
+representative file per folder** — the term's first `Source_Column`. Scope those
+file ids and you profile five documents out of sixteen. The job still returns
+**SUCCESS**, because it did exactly what you asked.
+
+The app resolves each unique `(bucket, folder)` pair to its folder entity and
+scopes those, falling back to individual files only when a folder cannot be
+resolved. You can see which happened in the run message:
+
+- `awc-documents/compliance` — **slashed**: folder scope, cascading.
+- `awc-documents.compliance.epa_…pdf` — **dotted**: the file fallback. The app now
+  warns when this happens, because the siblings will not be profiled.
+
+> **The gotcha that caused this.** PDC types an object store's folders **`FOLDER`**,
+> not `DIRECTORY` — a live file scan reports *"16 FILE + 5 FOLDER entities
+> discovered"*. An entity filter that omits `FOLDER` gets **no folder hits at all**,
+> because PDC filters them out server-side; the lookup then looks indistinguishable
+> from *"that folder isn't catalogued"*. Fixed in Glossary Generator **1.17.1**. If
+> you write your own client, put both type names in the filter.
+
+### Reading the result — SKIPPED is not always a failure
+
+Discovery does two different jobs, and only one of them applies to every file:
+
+| File type | Properties & checksum | Profiled Status |
+| --- | --- | --- |
+| `.csv` `.tsv` `.json` `.jsonl` `.txt` | yes | **COMPLETED** — columns with row counts, cardinality, uniqueness, density, lengths |
+| `.pdf` `.docx` | yes — pages, author, title, producer | **SKIPPED**, permanently |
+
+A PDF has no rows or columns to sample, so profiling it is meaningless and PDC
+skips it by design. It still gains its document properties and a checksum, and it
+still carries its business term, sensitivity and rating. **`SKIPPED` on a PDF is
+the correct outcome, not a broken run** — and neither the app nor PDC can ever
+produce a Data Quality score for one.
+
+> **Verify the cascade properly.** Check a file that was **not** the
+> representative — e.g. `gis/pipe_network*.csv` when only `asset_inventory.csv` was
+> scoped. If it comes back with columns and a *Last Successful Profiled Date*, the
+> cascade reached it. Checking the representative only proves the scope, not the
+> cascade; checking a PDF proves neither, since it can never profile.
 
 ---
 
