@@ -66,10 +66,10 @@ language mid-batch, which used to leave rows with Chinese definitions and an
   row — definitions, names, QA rewrites, rationales — so the existing English
   text simply stays.
 
-If a grid already has non-English text from an earlier run: **↶ Revert
-enrich** if it was the last Enrich, otherwise just run **Enrich with LLM**
-again — the new run overwrites the drifted text with English (or reload your
-last **Save glossary** checkpoint).
+If a grid already has non-English text from an earlier run, just run the
+**AI pass** again — the new run overwrites the drifted text with English (or
+reload your last **Save glossary** checkpoint). For a single affected row,
+**AI review** on the expanded row is enough.
 
 ---
 
@@ -86,24 +86,30 @@ provenance pill appears only after a proposal is accepted.
 
 | Agent (button) | Proposes | Auto-applies? |
 | --- | --- | --- |
-| **Enrich with LLM** | rewritten definitions/purposes, name & tag suggestions | Never — **AI →** pills on Definition/Purpose (the expanded editor shows old vs proposed side by side); the name is a **→** chip |
-| **AI suggest (evidence)** | name chip, governed tags, tighten-only sensitivity — grounded in the scan evidence | Never — compact **AI → value** pills for tags/sensitivity; the name stays a chip |
+| **AI pass (all fields)** | definition, purpose, a clearer name, governed tags, and a category only when the current one is blank — one model call per **batch** of kept rows | Never — **AI →** pills on each affected cell (the expanded editor shows old vs proposed side by side); the name is a **→** chip |
+| **AI review** (expanded row) | the same pass, scoped to that one row | Never — the same pills, on that row only |
 | **AI advise** (duplicate groups) | Merge / Disambiguate / Keep separate, per group, from evidence + a live value probe + adjudication | Never — hint on the header only |
-| **AI QA definitions** | quality flags + a rewritten definition per flagged row | Never — the rewrite is a pill you accept per row |
-| **AI categorize** | a category from the known set for uncategorized terms | Never — an **AI → category** pill (off-list answers discarded) |
 | **Suggest expertise** (Govern) | roster expertise keywords | Never — marked unsaved until *Save roster* |
 | **Draft policies (AI)** (Govern) | PDC pattern/dictionary rule files from detection seeds | Never — a zip you review and import in PDC |
 
-Everything works with Ollama offline except the model-judgment parts: QA falls
-back to its deterministic linter, duplicate advice falls back to the scan
-evidence, and enrich/suggest/categorize simply report offline.
+> **One agent, on purpose.** Enrich, AI suggest, AI categorize and the AI QA
+> judge were separate buttons until **1.16.0**. They swept the same rows and
+> overlapped on name / category / tags, so the last one silently overwrote the
+> others — and each restated the guardrails in its own wording, so they drifted.
+> The AI pass absorbed all four; QA's deterministic linter survives inside it
+> (it runs *before* the model and its flags become rewrite orders), and the
+> per-row scope that Enrich/AI suggest were kept for became **AI review**.
+
+Everything works with Ollama offline except the model-judgment parts: the
+definition linter still runs (it is deterministic), duplicate advice falls back
+to the scan evidence, and the AI pass simply reports offline.
 
 ---
 
-## 3. Trying different models — Enrich never writes on its own
+## 3. Trying different models — the pass never writes on its own
 
-**Enrich with LLM** proposes rewritten definitions and purposes (and suggests
-names/tags) for the kept terms using the selected model. The proposals arrive
+The **AI pass** proposes rewritten definitions and purposes (and suggests
+names/tags/categories) for the kept terms using the selected model. The proposals arrive
 as **AI → pills** on the affected cells while the batches stream in —
 **nothing touches a row until you accept its pill** (or click **Accept all**
 on the strip above the grid). Click a Definition/Purpose preview to see the
@@ -111,8 +117,11 @@ old and proposed text side by side before deciding.
 
 That makes model comparison safe by construction:
 
-> Enrich with model A → inspect the pills → not better? **Dismiss all** →
-> switch model in Settings → Enrich with model B → accept the run you prefer.
+> Run the pass with model A → inspect the pills → not better? **Dismiss all** →
+> switch model in Settings → run with model B → accept the run you prefer.
+
+For a quick comparison you don't need a full sweep: expand one representative
+row and use **AI review** on it with each model in turn.
 
 A dismissed run changes nothing. Only one agent run can be pending at a time
 (the strip shows "N AI proposals on M rows" until you accept or dismiss).
@@ -123,13 +132,13 @@ A dismissed run changes nothing. Only one agent run can be pending at a time
 
 | Action | What it does | Loses work? |
 | --- | --- | --- |
-| **Clear** (by the Filter row) | Resets the filter/search/view only | **No** — terms, edits, enrichment all kept |
+| **Clear** (by the Filter row) | Resets the filter/search/view only | **No** — terms, edits, accepted AI text all kept |
 | **Dismiss all** (proposal strip) | Discards every pending AI proposal pill | **No** — proposals were never applied |
-| **Reset all** | Reverts the grid to the **raw scan snapshot** | **Yes** — drops edits, enrichment, prune/merge decisions |
+| **Reset all** | Reverts the grid to the **raw scan snapshot** | **Yes** — drops edits, accepted AI text, prune/merge decisions |
 | Re-scan / re-harvest the source | Rebuilds the grid from scratch | **Yes** |
 | Close / reload the tab without saving | The grid is in-memory | **Yes** — nothing persists until you Save |
 
-**Key point:** the review grid lives in memory. Enrichment and edits are **not persisted**
+**Key point:** the review grid lives in memory. Accepted AI text and edits are **not persisted**
 until you click **Save glossary** (or **Generate JSONL** on the Govern page). So before
 experimenting with models or big prune/merge operations, **Save glossary** on a state you
 like — you can reload it if an experiment goes worse.

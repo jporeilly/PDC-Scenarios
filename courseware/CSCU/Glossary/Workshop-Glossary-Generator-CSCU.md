@@ -108,10 +108,14 @@ take just that change, or **Accept all / Dismiss all** from the strip above
 the grid. The grid's **LLM** provenance pills appear only after a proposal
 is accepted.
 
-- **AI suggest (evidence)** — the model reads each row's *scan evidence* (the
-  induced value format such as `^CSCU-\d{6}$`, profiled reference values, PII
-  class) and proposes the business name (as a suggestion chip), governed tags,
-  and a tighten-only sensitivity.
+- **AI pass (all fields)** — the single grid agent. The model reads each row's
+  *scan evidence* (the induced value format such as `^CSCU-\d{6}$`, profiled
+  reference values, PII class, and why the scan proposed the term) and returns
+  the definition, the purpose, a clearer business name (as a suggestion chip),
+  governed tags, and a category *only* when the current one is blank — all in
+  **one call per batch** of rows. Sensitivity and PII are never the model's to
+  set: they stay deterministic from the scan.
+  Expand a row and use **AI review** to re-run the same pass on that row alone.
 - **Duplicate groups come with advice.** Every duplicate header now recommends
   **Merge / Disambiguate / Keep separate**, with the reason: a foreign key
   between the columns (same concept by construction), matching or conflicting
@@ -119,13 +123,13 @@ is accepted.
   the ambiguous groups — it samples live values from the member columns over
   your connection and compares the actual populations, then lets the model
   adjudicate whatever is still unclear.
-- **AI QA definitions** — a linter (circular, vague, echoed, copy-pasted
-  definitions) plus the model judging whether each definition actually explains
-  the business meaning; flagged rows get a proposed rewrite as a pill you
-  accept per row.
-  Run it before Generate — checkpoints 2 and 3 are easier to defend with clean
-  definitions.
-- **AI categorize** — files any uncategorized terms into the known categories.
+- **The definition linter rides along inside the pass** — circular, vague,
+  echoed, copy-pasted and templated definitions are flagged *before* the model
+  runs, and the flag is fed into the prompt as a **rewrite order**, so the pass
+  returns a specific sentence instead of the scan's boilerplate. Rows are
+  re-linted afterwards, so a QA ⚠ chip that survives is a definition the model
+  could not improve from the available evidence — a real signal, not repeat
+  noise. It is deterministic, so it still works with Ollama offline.
 - **Find similar** — proposes same-concept merges across *different* names
   (`phone` vs `cust_phone_no`), and now reads the data evidence too: a shape
   match is marked *strong*, while look-alike names holding different data are

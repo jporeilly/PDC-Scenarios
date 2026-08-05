@@ -20,8 +20,9 @@ LLM. They're built deterministically from:
   `identifier`.
 
 Everything stays inside the dictionary's allow-list, so tags can't drift into free-text.
-**Enrich with LLM does not change tags** — it improves definitions and purposes. If you
-want richer tags, you enrich the *vocabulary*, not run the LLM.
+**The AI pass cannot invent tags** — it may only add tags already on the governed
+allow-list, and the allow-list is re-derived from the dictionary *before* the model
+sees the row. If you want richer tags, you enrich the *vocabulary*, not the prompt.
 
 ## 2. Why some rows show only "document" (or a bare category tag)
 
@@ -91,8 +92,9 @@ pack does **not** retroactively change a running catalog. After adding or changi
 1. **Dictionary page → Reseed** — rebuilds the vocabulary from the generic baseline + the
    pack. (This discards un-approved scan-grown additions; approved/steward items are the
    governed set.)
-2. **Glossary grid → Suggest tags** — re-derives `Suggested_Tags` for the shown rows from
-   the refreshed vocabulary.
+2. **Glossary grid → AI pass** — re-derives `Suggested_Tags` for the kept rows from
+   the refreshed vocabulary. That half is deterministic and costs no model time; it
+   runs before the model, which can then only add from the same allow-list.
 
 Then the rows pick up the new domain tags.
 
@@ -177,7 +179,7 @@ last:
   install starts from evidence instead of guesses. Do both — an uncommitted
   improvement dies with the install.
 - **When**: the **last** step of a full pass — after grid review, pending
-  approvals, *Suggest tags*, and Save glossary → Generate → PDC import →
+  approvals, the *AI pass*, and Save glossary → Generate → PDC import →
   Resolve → Apply — because it exports the *reviewed* state of all of it.
   The exact order (and the why) is on the app's Home page ("The full
   working cycle") and in GUIDE Part C. Two nuances that trip people up:
@@ -193,9 +195,9 @@ last:
 
 | Want to… | Do this |
 | --- | --- |
-| Make a domain's terms tag meaningfully | Add a `tag_rules` entry to `domain_pack.json` → Reseed → Suggest tags |
+| Make a domain's terms tag meaningfully | Add a `tag_rules` entry to `domain_pack.json` → Reseed → AI pass |
 | Add an allowed tag with no rule yet | Add it to `extra_tags` → Reseed |
-| Change a category's default tag | Edit `category_tags` → Reseed → Suggest tags |
+| Change a category's default tag | Edit `category_tags` → Reseed → AI pass |
 | Approve a scan-grown tag | Dictionary page → review pending → approve |
 | Understand why a tag is bare | The name didn't match any rule — add one to the pack |
 | Make the pack learn from this scan | Dictionary → Export domain pack → Apply / commit |

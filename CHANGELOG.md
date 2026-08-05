@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.3.2] — 2026-08-05
+
+### Changed — CSCU Glossary courseware follows the app's agent consolidation
+
+- The Glossary Generator shipped **1.15.0** (Enrich / AI suggest / AI categorize
+  / the AI QA judge folded into one batched **AI pass**) and **1.16.0** (the two
+  leftover buttons removed; an expanded row gained **AI review**, the same pass
+  scoped to one row). The CSCU courseware still taught the old roster, so the
+  agent tables, the model-comparison exercise, the tag-refresh steps and the
+  Technical-Track module 01 blurb are updated to match.
+- The definition linter is now described where it actually lives: inside the
+  pass, running *before* the model so its flags become rewrite orders, and
+  re-running afterwards so a surviving QA chip means the model could not improve
+  the definition from the available evidence.
+- Files: `courseware/CSCU/Glossary/Glossary-Generator-LLM-and-Review.md`,
+  `Glossary-Generator-Tags-and-Domain-Pack.md`,
+  `Workshop-Glossary-Generator-CSCU.md`, and
+  `courseware/CSCU/Platform/Technical-Track/01-Glossary-Generator-App/README.md`.
+
+### Known stale — module 01's binary deliverables
+- `Glossary-Generator-1_6_19.pptx` and `Workshop-Glossary-Generator-1_6_19.docx`
+  are still pinned to app **1.6.19**: they teach **Docker** (removed from the app
+  in 1.9.0) and the pre-consolidation agent roster. Module 01 is also the only
+  module with no markdown source to regenerate from. Rebuilding them is tracked
+  separately — the markdown above is the current truth in the meantime.
+
 ## [1.3.1] — 2026-07-17
 
 ### Changed — docs sync
