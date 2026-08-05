@@ -4,7 +4,7 @@
 
 **Primary role:** Solution Architect / Developer
 **Estimated time:** 75–90 min
-**App version:** Glossary Generator 1.17.1
+**App version:** Glossary Generator 1.21.0
 
 > **Audience.** The Architect / Developer learning path. Assumes the UI-driven
 > workshops are complete — you should already have built the CSCU business
@@ -816,6 +816,32 @@ POST /api/public/v2/entities/filter?extended=true
 with its current sensitivity, trust score and linked terms. The generator suggests
 but never silently overwrites a steward's work — the same merge discipline Apply
 uses, surfaced earlier in the pipeline.
+
+### Harvest replaces an empty grid and merges into a loaded one
+
+The order you do things in decides what you end up with:
+
+| Grid before | **Harvest** does |
+| --- | --- |
+| empty | starts a fresh **unnamed** workspace — nothing autosaves until you name it, so a saved glossary cannot be damaged |
+| a glossary loaded | **merges** — new terms append, existing ones absorb the harvested source and evidence |
+
+So to add harvested terms to an existing glossary: **load the glossary first**
+(Home → the saved row), *then* Harvest. Do it the other way round and you are
+looking at the harvest on its own, with your glossary still safe on disk but not
+in the grid.
+
+> **Harvest is not *Add to glossary*.** The button on a Connect row runs the app's
+> **own scan** of that source; Harvest reads **PDC's catalog**. On an object store
+> they return different things: *Add to glossary* gives one term per file, while
+> Harvest — once Data Discovery has profiled those files — gives a term per
+> **column inside** them. On the AWC estate that is 5 terms versus 47.
+
+> **Same concept, two categories = two rows.** Rows key on **Category + Term**, so
+> a `Turbidity Ntu` already filed under *Water Quality* and a harvested one
+> categorised *Water System* will not merge — they append. The duplicate resolver
+> on Review flags them, but the real fix is upstream: correct the category mapping
+> in the domain pack so both land in the same place.
 
 > **The base URL is the server root.** Give the app `https://host`, not the
 > Keycloak realm URL — the app appends `/keycloak/realms/<realm>/…` and

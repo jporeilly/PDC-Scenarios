@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.5] — 2026-08-05
+
+### Changed — module 01 documents the harvest merge semantics
+
+- New Lab section **"Harvest replaces an empty grid and merges into a loaded
+  one"**. The order decides the outcome and nothing said so: harvest with no
+  glossary open starts a fresh *unnamed* workspace (which is why it cannot
+  damage a saved glossary — nothing autosaves until you name it), while harvest
+  with a glossary loaded merges into it. To add harvested terms to an existing
+  glossary you must **load the glossary first, then harvest**.
+- **Harvest is not *Add to glossary*.** The Connect-row button runs the app's own
+  scan of a source; Harvest reads PDC's catalog. On an object store they return
+  different things — one term per file versus a term per **column inside** them
+  once Data Discovery has profiled the files. On the AWC estate: 5 versus 47.
+- **Same concept, two categories = two rows.** Rows key on Category + Term, so a
+  `Turbidity Ntu` already in *Water Quality* and a harvested one categorised
+  *Water System* append rather than merge. The duplicate resolver flags them; the
+  real fix is the category mapping in the domain pack.
+- App-version stamp moved to **1.21.0**; the `.docx` regenerated (15 tables).
+
 ## [1.3.4] — 2026-08-05
 
 ### Changed — module 01 teaches the Data Discovery folder cascade
