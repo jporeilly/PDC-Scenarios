@@ -1,5 +1,43 @@
 # Changelog
 
+## [1.3.3] — 2026-08-05
+
+### Added — module 01 finally has a markdown source
+
+- `courseware/CSCU/Platform/Technical-Track/01-Glossary-Generator-App/Workshop-Glossary-Generator.md`
+  is now the source of truth for the technical workshop, matching the pattern
+  modules 02–04 already used. `Workshop-Glossary-Generator.docx` and
+  `Glossary-Generator.pptx` (31 slides) are generated from it.
+- **Why this mattered.** Module 01 shipped only binaries, stamped `1_6_19` — app
+  version 1.6.19. They had drifted ten minor releases: still teaching **Docker**
+  (dropped in 1.9.0), the pre-FastAPI layout, and the four-agent toolbar retired
+  in 1.15.0/1.16.0. With no text source, every correction meant rewriting a
+  binary by hand, which is why nobody did.
+
+### Changed — the content is current to Glossary Generator 1.17.0
+
+- Native launchers (`run.sh` / `run.ps1` / `run.bat`) replace the container
+  instructions; API docs at `/docs`; the vhost-not-IP warning for PDC's proxy.
+- The **AI pass** replaces the Enrich / AI suggest / AI categorize / AI QA
+  roster, with **AI review** for a single row, and the definition linter
+  described where it lives — inside the pass, its flags becoming rewrite orders.
+- New material the old deck never covered: structural-key auto-pruning and the
+  Registry's physical model, the duplicate-resolution escalation ladder
+  (evidence → live probe → adjudicator), hosted LLM providers, object-store
+  file-scan-before-discovery, and the `Quality/` DQ-expectation rules.
+- **Same-named terms must be disambiguated, not kept separate** — Resolve
+  matches by name and takes the first hit, so a collision silently mis-links one
+  group's columns. Taught explicitly now.
+- **Scenario correctness:** water-utility examples had leaked into what is a
+  credit-union scenario (`sewer|wastewater|effluent` tag rules, the Arizona ADEQ
+  reference set). Replaced with CSCU material — member ids, NACHA return codes,
+  BSA/AML vocabulary.
+
+### Removed
+
+- `Workshop-Glossary-Generator-1_6_19.docx` and `Glossary-Generator-1_6_19.pptx`.
+  Superseded, and recoverable from git history.
+
 ## [1.3.2] — 2026-08-05
 
 ### Changed — CSCU Glossary courseware follows the app's agent consolidation

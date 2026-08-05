@@ -22,12 +22,27 @@ repository, always current:
 | --- | --- |
 | The app itself | `/glossary_generator/` (run with `.\run.ps1`; VM: `./run.sh`) — `http://127.0.0.1:5000` |
 | Scenario install | `./install-scenario.sh` at the repo root (or unzip `data_sources/CSCU/cscu-domain-pack.zip`) |
-| Workshop guide | [`../../Workshop-Glossary-Generator-CSCU.md`](../../Workshop-Glossary-Generator-CSCU.md) |
+| **Technical workshop (this module)** | [`Workshop-Glossary-Generator.md`](Workshop-Glossary-Generator.md) — **the source of truth**; `.docx` and `.pptx` are built from it |
+| UI workshop guide | [`../../Workshop-Glossary-Generator-CSCU.md`](../../Workshop-Glossary-Generator-CSCU.md) |
 | Topic notes | [`Tags & the Domain Pack`](../../Glossary-Generator-Tags-and-Domain-Pack.md) · [`LLM & Review`](../../Glossary-Generator-LLM-and-Review.md) · [`Object Stores`](../../PDC-Object-Stores-AWS-S3-MinIO.md) |
 | App documentation | `/docs/` (REFERENCE, GUIDE, INSTALL, CHALLENGE-AND-GOAL) |
 | Architecture figures | `/glossary_generator/diagrams/` (PNG + SVG) |
 
-Deck and Word builds for the CSCU edition are pending — produce them from the
-workshop guide and capture screenshots on the CSCU lab.
+## Deliverables, and how to rebuild them
+
+| File | Built from |
+| --- | --- |
+| `Workshop-Glossary-Generator.md` | **hand-edited — this is the source** |
+| `Workshop-Glossary-Generator.docx` | the markdown above |
+| `Glossary-Generator.pptx` | a curated selection of the same material |
+
+The markdown is what you edit. Module 01 previously shipped only a `.docx` and
+`.pptx` stamped `1_6_19`, with no markdown behind them — so they drifted ten
+minor releases out of date (they still taught Docker, which the app dropped in
+1.9.0) and every correction meant rewriting a binary. Modules 02–04 already
+carried a markdown source; this one now matches, and the binaries are builds.
+
+Screenshots are still worth capturing on the CSCU lab and dropping into the
+`.docx` by hand — the generator does not place images.
 
 All Copper State Credit Union data is fictional and generated for training.
