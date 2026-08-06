@@ -21,6 +21,22 @@
   by hostname), `-SkipTlsCheck` for a self-signed cert, and `-FixPolicy` when a
   realm policy such as `specialChars(1)` rejects the simple training passwords.
 
+### Added — rosters from outside the repo
+- `-RosterPath` takes any CSV, so course files on a mapped drive work directly:
+  `-RosterPath "P:\Arizona Water\course files\Workshop-00-Preflight\assets\users.csv"`.
+  Must be **absolute** — the script sets its working directory to its own folder,
+  so a relative path would resolve against the repo rather than the caller's
+  shell — and quoted if it has spaces. A `Scenario` column is only used for
+  filtering when present, so a single-vertical roster needs none.
+- **An unloadable roster is now caught before any writes.** The AWC roster has no
+  `Lab_Password` column and `AWC` had no built-in default, so every user would
+  have been created *without a way to log in* — surfaced as one warning per user,
+  after the accounts already existed. That is precisely what the read-only
+  checkpoints exist to prevent. Checkpoint 2 now resolves passwords for the whole
+  roster first: none at all stops the run and names the three fixes; a partially
+  passworded roster warns with a count.
+- `AWC` (Arizona Water Company) added to the scenario password defaults.
+
 ### Added — make targets
 - `make users ID=CSCU` — dispatches to the **shell** runner when a Keycloak
   container is present (you are on the VM) and otherwise prints the exact
