@@ -355,8 +355,14 @@ if ($ExportPeople) {
         New-Item -ItemType Directory -Path $outDir -Force | Out-Null
     }
     # -Depth matters: the default of 2 flattens the roles array into type names.
-    @{ people = $people } | ConvertTo-Json -Depth 6 |
-        Set-Content -LiteralPath $ExportPeople -Encoding UTF8
+    #
+    # And NO BYTE-ORDER MARK: Set-Content -Encoding UTF8 writes one in PowerShell
+    # 5.1, while the Glossary Generator reads its state with encoding="utf-8"
+    # (not utf-8-sig) inside a try/except that returns the DEFAULT on failure. A
+    # BOM therefore does not raise - it silently yields an EMPTY roster, so the
+    # export looks successful and the app shows nobody.
+    $json = (@{ people = $people } | ConvertTo-Json -Depth 6)
+    [IO.File]::WriteAllText($ExportPeople, $json, (New-Object System.Text.UTF8Encoding($false)))
 
     Write-Ok ("wrote " + $people.Count + " people to " + $ExportPeople)
     $noEmail = @($people | Where-Object { -not $_.email }).Count

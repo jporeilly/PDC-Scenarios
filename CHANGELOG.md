@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.1] - 2026-08-06
+
+### Fixed - the exported roster would have come back empty
+
+`Set-Content -Encoding UTF8` writes a byte-order mark in PowerShell 5.1, and the
+Glossary Generator reads its state with `encoding="utf-8"` (not `utf-8-sig`)
+inside a `try/except` that returns the **default** on failure. So a BOM never
+raised - `people.json` simply parsed as an empty roster, after an export that
+reported every user written.
+
+Now written with `UTF8Encoding($false)`.
+
 ## [1.5.0] - 2026-08-06
 
 ### Added - `-ExportPeople`: build the Glossary Generator's roster from the realm
