@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.5.0] - 2026-08-06
+
+### Added - `-ExportPeople`: build the Glossary Generator's roster from the realm
+
+Writes `people.json` from the Keycloak users, over **HTTPS** via the Admin REST
+API - no SSH, no container access, the same transport the loader already uses.
+It prompts for the Keycloak admin password because that API is bearer-token
+only. Read-only: nothing in Keycloak is created or modified.
+
+The account **UUID** is the reason this exists. Names, emails and roles can be
+typed by hand; the UUID cannot, and without it a glossary term cannot be bound to
+a real steward - the app keeps such a person visible but will not offer them as a
+binding.
+
+- Disabled accounts are skipped.
+- `default-roles-*` is filtered out: it is Keycloak plumbing, and listing it
+  makes every steward look identically privileged.
+- Persona detail Keycloak knows nothing about - `stakeholder_role`, `community`,
+  `owns`, `expertise` - is merged forward by email from an existing file, so
+  refreshing the roster does not discard curation.
+- `ConvertTo-Json -Depth 6`, because the default of 2 flattens the roles array
+  into type names.
+
+`make users-people` prints the command and where to copy the result.
+
 ## [1.4.0] — 2026-08-05
 
 ### Added — `load-pdc-users.ps1`: load the cast into Keycloak from Windows

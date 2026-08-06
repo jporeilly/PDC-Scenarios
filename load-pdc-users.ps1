@@ -43,6 +43,14 @@
 .PARAMETER DryRun
     Show the plan; change nothing.
 
+.PARAMETER ExportPeople
+    Write the realm's users to this path as the Glossary Generator's people.json
+    and exit. Read-only: no users are created or modified. Needs the same admin
+    credentials as a load, because the Admin REST API is bearer-token only - you
+    will be prompted for the Keycloak admin password exactly as you are for a
+    load. Persona fields (stakeholder_role, community, owns, expertise) in an
+    existing file at that path are merged forward by email.
+
 .PARAMETER ListRoles
     Dump the realm's roles and groups, then exit. Use this when a roster role
     does not match, and extend $RoleAliases below.
@@ -63,6 +71,9 @@
 .EXAMPLE
     .\load-pdc-users.ps1 -ListRoles
 .EXAMPLE
+    # Build the Glossary Generator's steward roster from the realm. Read-only.
+    .\load-pdc-users.ps1 -ExportPeople .\people.json -SkipTlsCheck
+.EXAMPLE
     # A roster outside the repo. Absolute path, quoted - it has spaces.
     .\load-pdc-users.ps1 -Scenario AWC -SkipTlsCheck -RosterPath "P:\Arizona Water\course files\Workshop-00-Preflight\assets\users.csv"
 #>
@@ -77,6 +88,7 @@ param(
     [string] $RosterPath,
     [switch] $DryRun,
     [switch] $ListRoles,
+    [string] $ExportPeople,
     [switch] $FixPolicy,
     [switch] $SkipTlsCheck
 )
@@ -257,8 +269,107 @@ if ($ListRoles) {
     exit 0
 }
 
+# --------------------------------------------------------- export people ----
+# Build the Glossary Generator's people.json from the realm.
+#
+# The point is the ACCOUNT ID. Names, emails and roles can be typed by hand; the
+# Keycloak UUID cannot, and without it a glossary term cannot be bound to a real
+# steward - the app keeps such a person visible but will not offer them as a
+# binding. This is the same shape build_roster.py produces from two CSVs, minus
+# the hand-authored persona columns.
+#
+# Reads only. Writing users is the -Scenario path and is not involved here.
+if ($ExportPeople) {
+    Write-Checkpoint 2 "Export the realm as a steward roster" ("Reads every enabled user and its realm " +
+        "roles. Nothing in Keycloak is modified.")
+
+    $existing = @{}
+    if (Test-Path -LiteralPath $ExportPeople) {
+        # Persona detail - stakeholder_role, community, owns, expertise - is
+        # authored by a human and Keycloak knows nothing about it. Overwriting it
+        # on every refresh would quietly discard the curation that makes the
+        # roster worth reading, so it is merged forward by email.
+        try {
+            $prev = Get-Content -LiteralPath $ExportPeople -Raw | ConvertFrom-Json
+            foreach ($p in @($prev.people)) {
+                if ($p -and $p.email) { $existing[("" + $p.email).ToLowerInvariant()] = $p }
+            }
+            Write-Ok ("merging persona detail from " + $existing.Count + " existing entries")
+        } catch {
+            Write-Warn "existing people.json could not be read - writing a fresh roster"
+        }
+    }
+
+    $users = @(Invoke-Kc -Path '/users?max=1000' -Raw)
+    $people = @()
+    foreach ($u in $users) {
+        if (-not $u -or -not ($u.PSObject.Properties.Name -contains 'id')) { continue }
+        if (($u.PSObject.Properties.Name -contains 'enabled') -and (-not $u.enabled)) { continue }
+
+        $roles = @()
+        try {
+            $rm = ConvertTo-NamedList (Invoke-Kc -Path ("/users/" + $u.id + "/role-mappings/realm") -Raw)
+            # default-roles-* is Keycloak plumbing, not a governance role, and
+            # listing it makes every steward look identically privileged.
+            $roles = @($rm | ForEach-Object { $_.name } | Where-Object { $_ -notlike 'default-roles-*' })
+        } catch {}
+
+        $first = ''; $last = ''
+        if ($u.PSObject.Properties.Name -contains 'firstName') { $first = "" + $u.firstName }
+        if ($u.PSObject.Properties.Name -contains 'lastName')  { $last  = "" + $u.lastName }
+        $display = ($first + " " + $last).Trim()
+        if (-not $display) { $display = "" + $u.username }
+
+        $email = ''
+        if ($u.PSObject.Properties.Name -contains 'email') { $email = "" + $u.email }
+
+        # Mirrors build_roster.py's mapping so a roster built either way agrees.
+        $stakeholder = 'Steward'
+        if ($roles.Count -gt 0 -and ($roles[0] -notmatch '(?i)steward')) { $stakeholder = $roles[0] }
+
+        $entry = [ordered]@{
+            name             = "" + $u.username
+            display_name     = $display
+            email            = $email
+            id               = "" + $u.id
+            roles            = $roles
+            stakeholder_role = $stakeholder
+            community        = ''
+            owns             = ''
+            expertise        = ''
+        }
+        $key = $email.ToLowerInvariant()
+        if ($key -and $existing.ContainsKey($key)) {
+            foreach ($f in @('stakeholder_role', 'community', 'owns', 'expertise')) {
+                $was = $existing[$key].$f
+                if ($was) { $entry[$f] = $was }
+            }
+        }
+        $people += [pscustomobject]$entry
+    }
+
+    if ($people.Count -eq 0) { Stop-Now "No enabled users found in realm '$Realm' - nothing written." }
+
+    $outDir = Split-Path -Parent $ExportPeople
+    if ($outDir -and -not (Test-Path -LiteralPath $outDir)) {
+        New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+    }
+    # -Depth matters: the default of 2 flattens the roles array into type names.
+    @{ people = $people } | ConvertTo-Json -Depth 6 |
+        Set-Content -LiteralPath $ExportPeople -Encoding UTF8
+
+    Write-Ok ("wrote " + $people.Count + " people to " + $ExportPeople)
+    $noEmail = @($people | Where-Object { -not $_.email }).Count
+    if ($noEmail -gt 0) {
+        Write-Warn ("" + $noEmail + " account(s) have no email - they cannot be merged with persona detail on a re-run")
+    }
+    Write-Hint "copy it to the Glossary Generator's state directory as people.json (its /config endpoint prints the path)"
+    Write-Host ""
+    exit 0
+}
+
 if ([string]::IsNullOrWhiteSpace($Scenario)) {
-    Stop-Now "Pass -Scenario (CSCU/RETAIL/HEALTH/MFG), -Scenario ALL, or -ListRoles."
+    Stop-Now "Pass -Scenario (CSCU/RETAIL/HEALTH/MFG), -Scenario ALL, -ListRoles or -ExportPeople."
 }
 $Scenario = $Scenario.ToUpperInvariant()
 

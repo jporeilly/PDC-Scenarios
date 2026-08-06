@@ -8,6 +8,7 @@
 #   make users    ID=CSCU    load that vertical's cast into PDC's Keycloak
 #   make users-check ID=CSCU dry run: show the plan, change nothing
 #   make users-roles         list the realm's ACTUAL roles + groups (no changes)
+#   make users-people        export the realm as the Glossary Generator's people.json
 #   make remove   ID=CSCU    drop that vertical's db + bucket
 #   make status              lab containers + which vertical is selected
 #   make down                stop the lab (data volumes survive)
@@ -18,7 +19,7 @@
 LAB     := data_sources/lab
 IDU      = $(shell echo $(ID) | tr a-z A-Z)
 
-.PHONY: scenario select up load pack users users-check users-roles remove status down destroy _need_id _users_note
+.PHONY: scenario select up load pack users users-check users-roles users-people remove status down destroy _need_id _users_note
 
 scenario: _need_id select up load
 	@echo ""
@@ -79,6 +80,18 @@ users-roles:
 	@echo "  The realm's ACTUAL roles and groups. Roster names are matched against"
 	@echo "  these, never assumed - extend the alias table if one does not match."
 	@if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -q um-keycloak; then 	  bash load-pdc-users.sh --list-roles; 	else 	  echo "      .\load-pdc-users.ps1 -ListRoles"; 	fi
+
+users-people:
+	@echo "  Build the Glossary Generator's steward roster (people.json) from the realm."
+	@echo "  Read-only: no users are created or changed. Needs the Keycloak admin"
+	@echo "  password, because the Admin REST API is bearer-token only."
+	@echo "  The account UUID is the point - a glossary term cannot be bound to a"
+	@echo "  steward without it, and it is the one field nobody can type by hand."
+	@echo ""
+	@echo "      .\load-pdc-users.ps1 -ExportPeople .\people.json -SkipTlsCheck"
+	@echo ""
+	@echo "  Then copy people.json into the Glossary Generator's state directory"
+	@echo "  (its /config endpoint prints the path)."
 
 _need_id:
 	@test -n "$(ID)" || { echo "usage: make $(MAKECMDGOALS) ID=<CSCU|RETAIL|HEALTH|MFG>"; exit 1; }
