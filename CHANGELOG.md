@@ -37,6 +37,18 @@
   passworded roster warns with a count.
 - `AWC` (Arizona Water Company) added to the scenario password defaults.
 
+### Changed - the consolidated roster is authoritative
+- `courseware/PDC-Users-All-Scenarios.csv` is the single source of truth for who
+  gets created. The per-workshop `users.csv` files are course **material** -
+  they carry `First_Name`, `Last_Name`, `Community` and `Notes` for teaching -
+  and are no longer a competing roster.
+- `-RosterPath` still overrides, but now **says when it is shadowing**: if the
+  authoritative file already holds rows for that scenario, the run warns with the
+  count and names the file, because edits to the other copy would look applied
+  and would not be. Falling back to a per-workshop roster warns too.
+- A `README-users.md` sits beside the Arizona Water `users.csv` explaining which
+  file creates the accounts and what to do when the cast changes.
+
 ### Added — make targets
 - `make users ID=CSCU` — dispatches to the **shell** runner when a Keycloak
   container is present (you are on the VM) and otherwise prints the exact

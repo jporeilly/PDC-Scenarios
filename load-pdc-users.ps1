@@ -233,16 +233,38 @@ if ([string]::IsNullOrWhiteSpace($Scenario)) {
 $Scenario = $Scenario.ToUpperInvariant()
 
 # ----------------------------------------------------------------- roster ---
-# Preferred: the consolidated CSV (explicit Username + per-user Lab_Password,
-# all four verticals) - kept even in a sparse checkout, because cone mode
-# retains top-level courseware/ files. Fallback: the Workshop-00 roster.
+# courseware\PDC-Users-All-Scenarios.csv is AUTHORITATIVE. It carries every
+# vertical with an explicit Username and per-user Lab_Password, and it survives a
+# sparse checkout because cone mode retains top-level courseware/ files. The
+# per-workshop users.csv files are course MATERIAL - they carry First/Last,
+# Community and Notes for teaching - and are not the loader's source of truth.
+#
+# -RosterPath still overrides, for a roster that lives outside the repo, but if
+# the authoritative file already has rows for this scenario the override is
+# SHADOWING them: edits made to the other file would look applied and would not
+# be. Say so rather than let the two drift apart silently.
 $consolidated = 'courseware\PDC-Users-All-Scenarios.csv'
 if ($RosterPath) {
     $csvPath = $RosterPath
+    if ((Test-Path -LiteralPath $consolidated) -and
+        ((Resolve-Path -LiteralPath $RosterPath -ErrorAction SilentlyContinue).Path -ne
+         (Resolve-Path -LiteralPath $consolidated -ErrorAction SilentlyContinue).Path)) {
+        $inAuth = @(Import-Csv -LiteralPath $consolidated |
+                    Where-Object { $_.PSObject.Properties.Name -contains 'Scenario' -and
+                                   ('' + $_.Scenario).Trim().ToUpperInvariant() -eq $Scenario })
+        if ($inAuth.Count -gt 0) {
+            Write-Warn ("-RosterPath is SHADOWING the authoritative roster, which already has " +
+                        $inAuth.Count + " row(s) for $Scenario")
+            Write-Hint "authoritative: $consolidated"
+            Write-Hint "drop -RosterPath to use it, or update it so the two cannot drift"
+        }
+    }
 } elseif (Test-Path -LiteralPath $consolidated) {
     $csvPath = $consolidated
 } elseif ($Scenario -ne 'ALL') {
     $csvPath = "courseware\$Scenario\Platform\Workshop-00-Preflight\assets\users.csv"
+    Write-Warn "using a per-workshop roster - that is course material, not the authoritative list"
+    Write-Hint "authoritative: $consolidated (missing from this checkout)"
 } else {
     Stop-Now "ALL needs the consolidated roster: $consolidated"
 }
