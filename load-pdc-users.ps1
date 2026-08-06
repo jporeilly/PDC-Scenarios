@@ -258,6 +258,40 @@ Write-Checkpoint 2 "Read the roster" ("The cast list is the source of truth for 
 Write-Host ("     roster: $csvPath")
 if ($DryRun) { Write-Warn "DRY RUN - nothing will be changed" }
 
+# THE STANDARD ROSTER FORMAT
+#
+#   Scenario,Company,Username,Email,PDC_Roles,Tier,Lab_Password
+#
+# Only Email is strictly required; everything else is derived when missing, which
+# is what lets a Workshop-00 roster (First_Name/Last_Name/Email/PDC_Roles) load
+# unchanged. But deriving silently is how a roster ends up half-working - a
+# missing Lab_Password creates users who cannot log in, a missing Scenario means
+# no filtering happens at all - so the shape is reported before anything is read.
+$StandardColumns = @('Scenario', 'Company', 'Username', 'Email', 'PDC_Roles', 'Tier', 'Lab_Password')
+$header = @()
+$firstRow = Import-Csv -LiteralPath $csvPath | Select-Object -First 1
+if ($firstRow) { $header = $firstRow.PSObject.Properties.Name }
+if ($header -notcontains 'Email') {
+    Write-Hint "the standard format is: $($StandardColumns -join ',')"
+    Stop-Now "Roster has no Email column - that is the one field nothing can be derived from."
+}
+$missing = @($StandardColumns | Where-Object { $header -notcontains $_ })
+if ($missing.Count -eq 0) {
+    Write-Ok "roster matches the standard format"
+} else {
+    Write-Warn ("non-standard roster - missing: " + ($missing -join ', '))
+    foreach ($m in $missing) {
+        switch ($m) {
+            'Username'     { Write-Hint "Username     -> derived from the email local-part" }
+            'Lab_Password' { Write-Hint "Lab_Password -> falls back to -Password or the scenario default" }
+            'Scenario'     { Write-Hint "Scenario     -> no filtering; EVERY row in this file will be loaded" }
+            'Company'      { Write-Hint "Company      -> not used by the loader (documentation only)" }
+            'Tier'         { Write-Hint "Tier         -> not used by the loader (documentation only)" }
+            'PDC_Roles'    { Write-Hint "PDC_Roles    -> users are created with NO roles" }
+        }
+    }
+}
+
 # Import-Csv handles quoted commas natively, so no hand-rolled parsing.
 $rows = @()
 foreach ($row in (Import-Csv -LiteralPath $csvPath)) {
