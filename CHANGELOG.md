@@ -49,6 +49,29 @@
 - A `README-users.md` sits beside the Arizona Water `users.csv` explaining which
   file creates the accounts and what to do when the cast changes.
 
+### Fixed - PowerShell unrolls collections, twice
+
+Checkpoint 4 threw `The property 'Count' cannot be found on this object`. Same
+root cause as the `ConvertTo-Json` bug below, one layer up: a function's output
+is **enumerated on the way out**, so `return @(...)` hands back a scalar for one
+match and *nothing* for none - and `$realmGroups.Count` then throws under
+`Set-StrictMode`. `ConvertTo-NamedList` now returns `,@(...)`; the leading comma
+wraps the array so the unrolling gives it back intact.
+
+Fixed inside the function rather than by wrapping the four call sites in `@()` -
+the function exists precisely so callers get a list they can `.Count` and index
+without guarding, and pushing that back onto callers is what produced this class
+of bug in the first place.
+
+### Changed - stop crying wolf about the password policy
+
+The live realm has `length(1)`, and the checkpoint warned about it and suggested
+`-FixPolicy` - i.e. pushed the operator into relaxing a realm setting that was
+doing no harm. The check now compares the policy against the passwords actually
+about to be set: `length(n)` passes when `n` is no longer than the shortest one,
+and only genuinely restrictive clauses (`specialChars`, `upperCase`, `digits`,
+`notUsername`, `passwordHistory`) warn - naming which clause is the problem.
+
 ### Fixed - two bugs the dry run surfaced
 
 - **The password-policy checkpoint could not run at all.** Reading the realm

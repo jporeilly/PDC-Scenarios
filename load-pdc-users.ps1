@@ -190,8 +190,15 @@ function ConvertTo-NamedList {
     # no groups was enough to break -ListRoles, and would have crashed the group
     # fallback mid-load the first time a role did not match. Coerce to an array
     # and keep only entries that actually carry a name.
+    #
+    # The leading comma is load-bearing. A function's output is ENUMERATED on the
+    # way out, so plain `return @(...)` hands back a scalar for one match and
+    # NOTHING for none - and $realmGroups.Count then throws under StrictMode.
+    # `,@(...)` wraps the array so the unrolling gives it back intact. Do not
+    # "tidy" it away; the whole point of this function is that callers get a real
+    # list they can .Count and index without guarding.
     param($Response)
-    return @(@($Response) | Where-Object {
+    return ,@(@($Response) | Where-Object {
         $_ -and ($_.PSObject.Properties.Name -contains 'name')
     })
 }
@@ -406,6 +413,32 @@ $policy = ''
 if ($realmCfg -and ($realmCfg.PSObject.Properties.Name -contains 'passwordPolicy')) {
     $policy = '' + $realmCfg.passwordPolicy
 }
+# Not every policy is a problem, and crying wolf here pushes the operator into
+# relaxing a realm setting that was doing no harm. length(n) is fine as long as
+# n is not longer than the shortest password we are about to set; anything else
+# (specialChars, upperCase, digits, notUsername, passwordHistory) can reject a
+# simple training password, so that is what we warn about.
+$shortestPw = 0
+$pwCandidates = @($rows | ForEach-Object { $_.Password }) + @($defPass, $Password) |
+    Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+if (@($pwCandidates).Count -gt 0) {
+    $shortestPw = (@($pwCandidates) | ForEach-Object { $_.Length } | Sort-Object)[0]
+}
+$blocking = @()
+foreach ($clause in ($policy -split '\s+and\s+|;')) {
+    $c = $clause.Trim()
+    if ($c -eq '') { continue }
+    $m = [regex]::Match($c, '^length\((\d+)\)$')
+    if ($m.Success) {
+        if ($shortestPw -gt 0 -and [int]$m.Groups[1].Value -le $shortestPw) { continue }
+    }
+    $blocking += $c
+}
+if ($blocking.Count -eq 0 -and -not [string]::IsNullOrWhiteSpace($policy)) {
+    Write-Ok ("policy is '$policy' - harmless for these passwords (shortest is $shortestPw chars)")
+    $policy = ''
+}
+
 if (-not [string]::IsNullOrWhiteSpace($policy)) {
     if ($FixPolicy) {
         Write-Warn ("relaxing realm password policy (was: $policy -> length(8)) - training lab only")
@@ -418,8 +451,9 @@ if (-not [string]::IsNullOrWhiteSpace($policy)) {
             }
         }
     } else {
-        Write-Warn ("realm password policy is '$policy' - simple lab passwords may be rejected; " +
-                    "re-run with -FixPolicy to relax it (lab only)")
+        Write-Warn ("realm password policy is '$policy' - the restrictive part is: " +
+                    ($blocking -join ', ') + "; simple lab passwords may be rejected. " +
+                    "Re-run with -FixPolicy to relax it (lab only)")
     }
 } else {
     Write-Ok "no password policy set - training passwords will be accepted"
