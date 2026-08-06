@@ -29,6 +29,17 @@
 .PARAMETER Password
     Override every user's password with this one value.
 
+.PARAMETER RosterPath
+    Use a roster from anywhere instead of the repo's - e.g. course files on a
+    mapped drive. Give an ABSOLUTE path: the script sets its working directory to
+    its own folder, so a relative path would resolve against the repo rather than
+    your shell. Quote it if it contains spaces.
+
+    Any CSV works. Username and Lab_Password are used when present; otherwise the
+    username is derived from the email and the password comes from -Password or
+    the scenario default. A Scenario column is only used for filtering when it
+    exists, so a single-vertical roster needs no such column.
+
 .PARAMETER DryRun
     Show the plan; change nothing.
 
@@ -51,6 +62,9 @@
     .\load-pdc-users.ps1 -Scenario CSCU -DryRun
 .EXAMPLE
     .\load-pdc-users.ps1 -ListRoles
+.EXAMPLE
+    # A roster outside the repo. Absolute path, quoted - it has spaces.
+    .\load-pdc-users.ps1 -Scenario AWC -SkipTlsCheck -RosterPath "P:\Arizona Water\course files\Workshop-00-Preflight\assets\users.csv"
 #>
 [CmdletBinding()]
 param(
@@ -100,6 +114,7 @@ function Write-Hint {
 $DefaultPassword = @{
     CSCU = 'copperstate'; RETAIL = 'canyontrail'
     HEALTH = 'lakeshore'; MFG = 'cascade'
+    AWC  = 'arizonawater'          # Arizona Water Company course files
 }
 
 # Roster display-name -> realm role, when snake_casing alone is not enough.
@@ -285,6 +300,23 @@ if ($rows.Count -eq 0) {
     Stop-Now "No users matched scenario '$Scenario' in $csvPath"
 }
 Write-Ok ("" + $rows.Count + " user(s) to load")
+
+# Catch an unloadable roster HERE, while nothing has been written, rather than
+# as one warning per user after the accounts already exist. A roster with no
+# Lab_Password column, for a scenario with no default, and no -Password, would
+# create every user WITHOUT a way to log in - which looks like success.
+$withPw = @($rows | Where-Object { -not [string]::IsNullOrWhiteSpace($_.Password) }).Count
+if ((-not $Password) -and $withPw -eq 0 -and [string]::IsNullOrWhiteSpace($defPass)) {
+    Write-Warn ("this roster has no Lab_Password column, and '$Scenario' has no built-in default")
+    Write-Hint "pass -Password '<value>' to set one for every user"
+    Write-Hint "or add a Lab_Password column to the CSV for per-user passwords"
+    Write-Hint ("or add '$Scenario' to the `$DefaultPassword table at the top of this script")
+    Stop-Now "No password could be resolved for any user - nothing written."
+}
+if ($withPw -lt $rows.Count -and (-not $Password) -and [string]::IsNullOrWhiteSpace($defPass)) {
+    Write-Warn ("" + ($rows.Count - $withPw) + " of " + $rows.Count +
+                " row(s) have no Lab_Password and there is no default - those users will have no login")
+}
 
 # ------------------------------------------------------- password policy ----
 Write-Checkpoint 3 "Check the realm password policy" ("Lab rosters use simple training passwords " +
