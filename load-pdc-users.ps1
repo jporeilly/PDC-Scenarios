@@ -200,14 +200,21 @@ function Invoke-Kc {
     # Thin wrapper so every call carries the bearer token and TLS settings.
     param(
         [string] $Method = 'Get',
-        [Parameter(Mandatory)] [string] $Path,   # relative to the realm admin API
+        # Relative to the realm admin API. EMPTY IS LEGAL and means the realm
+        # itself (GET/PUT on /admin/realms/{realm}) - Mandatory alone rejects an
+        # empty string, which is what broke the password-policy checkpoint.
+        [Parameter(Mandatory)] [AllowEmptyString()] [string] $Path,
         $Body,
         [switch] $Raw                            # return $null instead of throwing on 404
     )
     $uri = if ($Path -match '^https?://') { $Path } else { "$AdminApi$Path" }
     $args = @{ Method = $Method; Uri = $uri; Headers = @{ Authorization = "Bearer $script:Token" } }
     if ($null -ne $Body) {
-        $args['Body'] = ($Body | ConvertTo-Json -Depth 10 -Compress)
+        # -InputObject, NOT the pipeline. Piping UNROLLS the array, so a
+        # single-element array serializes as a bare object - and the
+        # role-mappings endpoint requires an array, so every user with exactly
+        # one role would have been rejected.
+        $args['Body'] = (ConvertTo-Json -InputObject $Body -Depth 10 -Compress)
         $args['ContentType'] = 'application/json'
     }
     try {
@@ -454,7 +461,33 @@ $created = 0; $kept = 0; $failed = 0; $unmatched = @()
 
 foreach ($u in $rows) {
     Write-Host ("  " + $u.Username + "  (" + $u.Roles + ")") -ForegroundColor White
-    if ($DryRun) { continue }
+
+    # precedence: -Password override > the roster row's Lab_Password > scenario default
+    $rowPass = $defPass
+    if (-not [string]::IsNullOrWhiteSpace($u.Password)) { $rowPass = $u.Password }
+    if (-not [string]::IsNullOrWhiteSpace($Password))   { $rowPass = $Password }
+
+    if ($DryRun) {
+        # A dry run that only echoed the roster proved nothing. Resolve the roles
+        # for real - unmatched roles are the one failure that survives a load and
+        # leaves a user who can log in but cannot see anything.
+        if ([string]::IsNullOrWhiteSpace($rowPass)) {
+            Write-Warn "no password (no -Password, roster blank, no scenario default) - would be skipped"
+        }
+        foreach ($r in ($u.Roles -split ';')) {
+            $role = $r.Trim()
+            if ([string]::IsNullOrWhiteSpace($role)) { continue }
+            $realmRole = Resolve-RealmRole $role
+            if ($realmRole) { Write-Ok ("role: " + $role + " -> " + $realmRole.name); continue }
+            $grp = Resolve-RealmGroup $role
+            if ($grp) { Write-Ok ("group: " + $role) }
+            else {
+                $unmatched += $role
+                Write-Warn ("NO realm role or group matches '" + $role + "'")
+            }
+        }
+        continue
+    }
 
     # create-or-keep. emailVerified so the direct grant works at once.
     $existing = @(Invoke-Kc -Path ("/users?username=" + [uri]::EscapeDataString($u.Username) + "&exact=true") -Raw)
@@ -481,11 +514,6 @@ foreach ($u in $rows) {
         }
     }
     if (-not $userId) { Write-Warn "could not resolve the user id - skipping"; continue }
-
-    # precedence: -Password override > the roster row's Lab_Password > scenario default
-    $rowPass = $defPass
-    if (-not [string]::IsNullOrWhiteSpace($u.Password)) { $rowPass = $u.Password }
-    if (-not [string]::IsNullOrWhiteSpace($Password))   { $rowPass = $Password }
 
     if (-not [string]::IsNullOrWhiteSpace($rowPass)) {
         try {
@@ -539,6 +567,12 @@ foreach ($u in $rows) {
 Write-Checkpoint 6 "Verify" "A user that cannot get a token cannot do the workshop - check one before you teach."
 if ($DryRun) {
     Write-Ok ("Dry run complete - " + $rows.Count + " user(s) would be processed.")
+    if ($unmatched.Count -gt 0) {
+        Write-Warn ("Unmatched roles: " + (($unmatched | Sort-Object -Unique) -join ', '))
+        Write-Warn "Fix these BEFORE loading: run -ListRoles and extend `$RoleAliases at the top of this script."
+    } else {
+        Write-Ok "every roster role resolved - safe to re-run without -DryRun"
+    }
 } else {
     Write-Ok ("Done. created=$created kept=$kept failed=$failed")
     if ($unmatched.Count -gt 0) {

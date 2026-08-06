@@ -49,6 +49,28 @@
 - A `README-users.md` sits beside the Arizona Water `users.csv` explaining which
   file creates the accounts and what to do when the cast changes.
 
+### Fixed - two bugs the dry run surfaced
+
+- **The password-policy checkpoint could not run at all.** Reading the realm
+  config is a `GET` on the realm root, i.e. `Invoke-Kc -Path ''` - but
+  `[Parameter(Mandatory)][string]` rejects an empty string, so checkpoint 3
+  aborted the whole script. `-Path` now carries `[AllowEmptyString()]`, with a
+  comment saying empty *means* the realm itself so it does not get "tidied" back.
+- **Every single-role user would have failed role assignment.** `$Body |
+  ConvertTo-Json` pipes the value, and the pipeline UNROLLS an array - so the
+  one-element array the role-mappings endpoint requires serialized as a bare
+  object and Keycloak rejected it. Every AWC user has exactly one role, so this
+  was 7 for 7. Now `ConvertTo-Json -InputObject $Body`.
+
+### Changed - the dry run now proves something
+
+It previously echoed the roster and `continue`d, so it exercised nothing past
+checkpoint 2. It now resolves each roster role against the realm (still writing
+nothing) and checkpoint 6 reports unmatched roles, because an unmatched role is
+the one failure that survives a load: the user logs in fine and sees nothing.
+The effective password source is resolved too, so a blank one is called out
+before the load rather than during it.
+
 ### Fixed - an empty realm collection crashed the run
 - A realm with **no groups** made `-ListRoles` throw
   `The property 'name' cannot be found on this object`. Keycloak returns `[]`,
