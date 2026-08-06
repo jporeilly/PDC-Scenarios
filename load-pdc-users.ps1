@@ -183,6 +183,19 @@ function Get-AdminToken {
     }
 }
 
+function ConvertTo-NamedList {
+    # Keycloak returns [] for an empty collection, which Invoke-RestMethod can
+    # surface as an empty string rather than an empty array - and ForEach-Object
+    # then iterates it ONCE, so $_.name throws under Set-StrictMode. A realm with
+    # no groups was enough to break -ListRoles, and would have crashed the group
+    # fallback mid-load the first time a role did not match. Coerce to an array
+    # and keep only entries that actually carry a name.
+    param($Response)
+    return @(@($Response) | Where-Object {
+        $_ -and ($_.PSObject.Properties.Name -contains 'name')
+    })
+}
+
 function Invoke-Kc {
     # Thin wrapper so every call carries the bearer token and TLS settings.
     param(
@@ -220,9 +233,12 @@ Write-Hint "if this fails: use the VHOST not an IP, add -SkipTlsCheck for a self
 if ($ListRoles) {
     Write-Host ""
     Write-Host ("  Realm '$Realm' roles:") -ForegroundColor Cyan
-    Invoke-Kc -Path '/roles' | ForEach-Object { Write-Host ("    " + $_.name) }
+    $r = ConvertTo-NamedList (Invoke-Kc -Path '/roles')
+    if ($r.Count -eq 0) { Write-Host "    (none)" } else { $r | ForEach-Object { Write-Host ("    " + $_.name) } }
     Write-Host ("  Realm '$Realm' groups:") -ForegroundColor Cyan
-    Invoke-Kc -Path '/groups' | ForEach-Object { Write-Host ("    " + $_.name) }
+    $g = ConvertTo-NamedList (Invoke-Kc -Path '/groups')
+    if ($g.Count -eq 0) { Write-Host "    (none - role matching will have no group fallback)" }
+    else { $g | ForEach-Object { Write-Host ("    " + $_.name) } }
     Write-Host ""
     exit 0
 }
@@ -405,8 +421,8 @@ if (-not [string]::IsNullOrWhiteSpace($policy)) {
 # --------------------------------------------------- realm roles + groups ---
 Write-Checkpoint 4 "Read the realm's ACTUAL roles and groups" ("Roster names are matched against what the " +
     "realm really has, never assumed. An unmatched role is reported loudly rather than silently skipped.")
-$realmRoles  = @(Invoke-Kc -Path '/roles')
-$realmGroups = @(Invoke-Kc -Path '/groups')
+$realmRoles  = ConvertTo-NamedList (Invoke-Kc -Path '/roles')
+$realmGroups = ConvertTo-NamedList (Invoke-Kc -Path '/groups')
 Write-Ok ("" + $realmRoles.Count + " realm role(s), " + $realmGroups.Count + " group(s) available")
 
 function Resolve-RealmRole {

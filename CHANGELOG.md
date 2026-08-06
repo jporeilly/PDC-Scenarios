@@ -49,6 +49,22 @@
 - A `README-users.md` sits beside the Arizona Water `users.csv` explaining which
   file creates the accounts and what to do when the cast changes.
 
+### Fixed - an empty realm collection crashed the run
+- A realm with **no groups** made `-ListRoles` throw
+  `The property 'name' cannot be found on this object`. Keycloak returns `[]`,
+  which `Invoke-RestMethod` can surface as an empty string rather than an empty
+  array; `ForEach-Object` then iterates it **once**, and `$_.name` fails under
+  `Set-StrictMode -Version Latest`.
+- Not cosmetic: the same untyped value feeds `$realmGroups`, so the **group
+  fallback would have crashed mid-load** the first time a roster role did not
+  match a realm role. It went unnoticed only because the AWC roster's four roles
+  all resolve directly.
+- `ConvertTo-NamedList` now coerces every collection response to an array and
+  keeps only entries that carry a `name`. An empty realm reports
+  `(none - role matching will have no group fallback)` instead of throwing.
+- Confirmed against the live realm: `Admin`, `Data_Steward`, `Business_Steward`
+  and `Data_User` all resolve for the AWC roster, so no aliases are needed.
+
 ### Added — make targets
 - `make users ID=CSCU` — dispatches to the **shell** runner when a Keycloak
   container is present (you are on the VM) and otherwise prints the exact
