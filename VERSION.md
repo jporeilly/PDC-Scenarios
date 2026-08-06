@@ -1,6 +1,6 @@
 # Version
 
-**1.3.6** — 2026-08-05
+**1.4.0** — 2026-08-05
 
 Scenario/content repo for the PDC-Demo estate. The version tracks the
 bootstrap scripts and repo structure, not the four verticals' content

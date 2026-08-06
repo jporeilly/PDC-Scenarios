@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.4.0] — 2026-08-05
+
+### Added — `load-pdc-users.ps1`: load the cast into Keycloak from Windows
+
+- The bash loader runs **on the lab VM** and drives `kcadm.sh` inside the
+  `pdc-um-keycloak-1` container, which a Windows host cannot reach. The
+  PowerShell counterpart talks to Keycloak's **Admin REST API over HTTPS**
+  instead — no Docker, no SSH, no shell on the VM.
+- Same roster, same role matching, same options: `-Scenario`, `ALL`, `-DryRun`,
+  `-Password`, `-FixPolicy`, `-ListRoles`, plus `-SkipTlsCheck` for the lab's
+  self-signed certificate. Idempotent — an existing user is kept and has its
+  password and roles re-applied.
+- **Six named checkpoints** so a failed run says *where* it stopped and what that
+  stage proves: connect → roster → password policy → realm roles → load → verify.
+  Only checkpoint 5 writes anything; the first four are read-only, which means a
+  bad base URL or credential is caught before a single user is touched.
+- Each checkpoint carries the hint for its usual failure, because these are
+  environmental rather than code: use the **vhost not an IP** (PDC's proxy routes
+  by hostname), `-SkipTlsCheck` for a self-signed cert, and `-FixPolicy` when a
+  realm policy such as `specialChars(1)` rejects the simple training passwords.
+
+### Added — make targets
+- `make users ID=CSCU` — dispatches to the **shell** runner when a Keycloak
+  container is present (you are on the VM) and otherwise prints the exact
+  PowerShell command, rather than failing obscurely on a missing Docker.
+- `make users-check ID=CSCU` — dry run, changes nothing.
+- `make users-roles` — the realm's **actual** roles and groups. Roster names are
+  matched against these, never assumed; unmatched names are reported loudly so
+  the alias table can be extended.
+
 ## [1.3.6] — 2026-08-05
 
 ### Added — module 01 teaches what counts as evidence that two terms are one concept
