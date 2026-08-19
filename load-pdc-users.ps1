@@ -43,6 +43,13 @@
 .PARAMETER DryRun
     Show the plan; change nothing.
 
+.PARAMETER Verify
+    Read-only login test: one direct token grant per roster user, with the
+    same password precedence a load uses (-Password > Lab_Password > scenario
+    default). Proves what actually matters - each user can log in - and needs
+    NO admin credential. Run it after a load, or any time "did the cast
+    take?" comes up. Exits 1 if any user fails.
+
 .PARAMETER ExportPeople
     Write the realm's users to this path as the Glossary Generator's people.json
     and exit. Read-only: no users are created or modified. Needs the same admin
@@ -69,6 +76,9 @@
 .EXAMPLE
     .\load-pdc-users.ps1 -Scenario CSCU -DryRun
 .EXAMPLE
+    # Did the cast take? Read-only, no admin password needed.
+    .\load-pdc-users.ps1 -Scenario AWC -SkipTlsCheck -Password azwater -Verify
+.EXAMPLE
     .\load-pdc-users.ps1 -ListRoles
 .EXAMPLE
     # Build the Glossary Generator's steward roster from the realm. Read-only.
@@ -87,9 +97,11 @@ param(
     [string] $Password,
     [string] $RosterPath,
     [switch] $DryRun,
+    [switch] $Verify,
     [switch] $ListRoles,
     [string] $ExportPeople,
     [switch] $FixPolicy,
+    [string] $PolicyValue = 'length(8)',
     [switch] $SkipTlsCheck
 )
 
@@ -245,15 +257,19 @@ function Invoke-Kc {
 }
 
 # ------------------------------------------------------------ credentials ---
-Write-Checkpoint 1 "Connect to Keycloak" ("Proves the base URL, the admin account and TLS are all good " +
-    "BEFORE anything is written. Nothing is changed by this step.")
-Write-Host ("     server: $KcBase")
-if (-not $AdminPassword) {
-    $AdminPassword = Read-Host -AsSecureString ("Keycloak admin password for '$AdminUser' (master realm)")
-}
-$script:Token = Get-AdminToken -User $AdminUser -Secret $AdminPassword
-Write-Ok "admin token obtained"
-Write-Hint "if this fails: use the VHOST not an IP, add -SkipTlsCheck for a self-signed cert, check -AdminUser" 
+# -Verify is read-only DIRECT GRANTS - it never touches the Admin API, so it
+# neither needs nor asks for the master-realm admin password.
+if (-not $Verify) {
+    Write-Checkpoint 1 "Connect to Keycloak" ("Proves the base URL, the admin account and TLS are all good " +
+        "BEFORE anything is written. Nothing is changed by this step.")
+    Write-Host ("     server: $KcBase")
+    if (-not $AdminPassword) {
+        $AdminPassword = Read-Host -AsSecureString ("Keycloak admin password for '$AdminUser' (master realm)")
+    }
+    $script:Token = Get-AdminToken -User $AdminUser -Secret $AdminPassword
+    Write-Ok "admin token obtained"
+    Write-Hint "if this fails: use the VHOST not an IP, add -SkipTlsCheck for a self-signed cert, check -AdminUser"
+} 
 
 # ------------------------------------------------------------- list-roles ---
 if ($ListRoles) {
@@ -521,6 +537,38 @@ if ($withPw -lt $rows.Count -and (-not $Password) -and [string]::IsNullOrWhiteSp
                 " row(s) have no Lab_Password and there is no default - those users will have no login")
 }
 
+# ------------------------------------------------------------------ verify --
+# Read-only login test: one direct grant per roster user, same password
+# precedence as a load. Proves what matters - the user can actually log in -
+# rather than what the Admin API says about stored credentials.
+if ($Verify) {
+    Write-Checkpoint 3 "Verify logins" ("Read-only: one direct token grant per roster user against " +
+        "realm '$Realm'. No admin credential involved.")
+    $bad = 0
+    foreach ($u in $rows) {
+        $rowPass = $defPass
+        if (-not [string]::IsNullOrWhiteSpace($u.Password)) { $rowPass = $u.Password }
+        if (-not [string]::IsNullOrWhiteSpace($Password))   { $rowPass = $Password }
+        try {
+            $null = Invoke-RestMethod -Method Post `
+                -Uri "$KcBase/realms/$Realm/protocol/openid-connect/token" `
+                -Body @{ client_id = 'pdc-client'; grant_type = 'password'
+                         username = $u.Username; password = $rowPass } `
+                -ContentType 'application/x-www-form-urlencoded' @script:CommonArgs
+            Write-Ok ($u.Username + "  login OK  (" + $u.Roles + ")")
+        } catch {
+            $bad++
+            Write-Err ($u.Username + "  FAILED - " + $_.Exception.Message)
+        }
+    }
+    if ($bad -eq 0) {
+        Write-Ok ("all " + $rows.Count + " roster user(s) authenticate - the cast took")
+    } else {
+        Write-Err ("" + $bad + " of " + $rows.Count + " cannot log in - re-run the loader for this scenario")
+    }
+    exit ([int]($bad -gt 0))
+}
+
 # ------------------------------------------------------- password policy ----
 Write-Checkpoint 3 "Check the realm password policy" ("Lab rosters use simple training passwords " +
     "(copperstate etc). A policy such as specialChars(1) rejects them, and the failure shows up later " +
@@ -558,10 +606,10 @@ if ($blocking.Count -eq 0 -and -not [string]::IsNullOrWhiteSpace($policy)) {
 
 if (-not [string]::IsNullOrWhiteSpace($policy)) {
     if ($FixPolicy) {
-        Write-Warn ("relaxing realm password policy (was: $policy -> length(8)) - training lab only")
+        Write-Warn ("relaxing realm password policy (was: $policy -> $PolicyValue) - training lab only")
         if (-not $DryRun) {
             try {
-                Invoke-Kc -Method Put -Path '' -Body @{ passwordPolicy = 'length(8)' } | Out-Null
+                Invoke-Kc -Method Put -Path '' -Body @{ passwordPolicy = $PolicyValue } | Out-Null
                 Write-Ok "password policy relaxed"
             } catch {
                 Write-Warn "policy update failed - set it in the Keycloak console"
