@@ -508,9 +508,19 @@ foreach ($row in (Import-Csv -LiteralPath $csvPath)) {
     $pw = ''
     if ($cols -contains 'Lab_Password') { $pw = ('' + $row.Lab_Password).Trim() }
 
+    # Optional columns: Expertise (comma-separated) and Title land as Keycloak
+    # USER ATTRIBUTES, which the Glossary Generator's roster fetch reads to
+    # prefill stewardship expertise - the identity system stays the source of
+    # truth for who-knows-what (walk-log W10, 2026-08-24). Blank = no attribute.
+    $expertise = ''
+    if ($cols -contains 'Expertise') { $expertise = ('' + $row.Expertise).Trim() }
+    $title = ''
+    if ($cols -contains 'Title') { $title = ('' + $row.Title).Trim() }
+
     $rows += [pscustomobject]@{
         Username = $user; Email = $email; First = $first
         Last = $last; Roles = $roles; Password = $pw
+        Expertise = $expertise; Title = $title
     }
 }
 
@@ -713,6 +723,29 @@ foreach ($u in $rows) {
         }
     }
     if (-not $userId) { Write-Warn "could not resolve the user id - skipping"; continue }
+
+    # Expertise / Title -> Keycloak user attributes (read-modify-write: PUT of
+    # a UserRepresentation replaces what it carries, so the current rep is
+    # fetched and only .attributes is amended - never a bare partial PUT).
+    # Requires the realm to accept unmanaged attributes on Keycloak 24+
+    # (Realm settings -> General -> Unmanaged attributes: Enabled).
+    if (-not [string]::IsNullOrWhiteSpace($u.Expertise) -or
+        -not [string]::IsNullOrWhiteSpace($u.Title)) {
+        try {
+            $rep = Invoke-Kc -Path "/users/$userId" -Raw
+            $attrs = @{}
+            if ($rep.PSObject.Properties.Name -contains 'attributes' -and $rep.attributes) {
+                foreach ($p in $rep.attributes.PSObject.Properties) { $attrs[$p.Name] = $p.Value }
+            }
+            if (-not [string]::IsNullOrWhiteSpace($u.Expertise)) { $attrs['expertise'] = @($u.Expertise) }
+            if (-not [string]::IsNullOrWhiteSpace($u.Title))     { $attrs['title'] = @($u.Title) }
+            $rep | Add-Member -NotePropertyName attributes -NotePropertyValue $attrs -Force
+            Invoke-Kc -Method Put -Path "/users/$userId" -Body $rep | Out-Null
+            Write-Ok ("attributes: expertise=" + $u.Expertise + ($(if ($u.Title) { " title=" + $u.Title } else { "" })))
+        } catch {
+            Write-Warn ("attribute set failed (unmanaged attributes disabled in the realm?) - " + $_.Exception.Message)
+        }
+    }
 
     if (-not [string]::IsNullOrWhiteSpace($rowPass)) {
         try {
