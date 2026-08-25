@@ -1,0 +1,1291 @@
+{
+  "table_category": {
+    "csv": "Infrastructure and Assets",
+    "customer_billing_summary": "Customer Management",
+    "system_water_quality_status": "Water Quality and Compliance",
+    "system_usage_conservation": "Operations and Monitoring",
+    "water_systems": "Operations and Monitoring",
+    "account_alerts": "Operations and Monitoring",
+    "tiered_rates": "Billing and Revenue",
+    "systems": "Infrastructure and Assets",
+    "readings": "Operations and Monitoring",
+    "water_quality_reports": "Water Quality and Compliance",
+    "export_metadata": "Pinal Valley Pressure 2026 05 14",
+    "monthly_usage": "Billing and Revenue",
+    "customers": "Customer Management"
+  },
+  "table_terms": {
+    "water_quality_reports": "Water Quality Report Record",
+    "monthly_usage": "Monthly Usage Record",
+    "customers": "Customer Record",
+    "customer_billing_summary": "Customer Billing Summary Record",
+    "account_alerts": "Account Alert Record",
+    "system_water_quality_status": "System Water Quality Status Record",
+    "tiered_rates": "Tiered Rate Record",
+    "system_usage_conservation": "System Usage Conservation Record",
+    "water_systems": "Water System Record"
+  },
+  "cat_keywords": [
+    [
+      "customer",
+      "Customer Management"
+    ],
+    [
+      "system",
+      "Water Quality and Compliance"
+    ],
+    [
+      "system",
+      "Operations and Monitoring"
+    ],
+    [
+      "water",
+      "Operations and Monitoring"
+    ],
+    [
+      "account",
+      "Operations and Monitoring"
+    ],
+    [
+      "tiered",
+      "Billing and Revenue"
+    ],
+    [
+      "systems",
+      "Infrastructure and Assets"
+    ],
+    [
+      "readings",
+      "Operations and Monitoring"
+    ],
+    [
+      "water",
+      "Water Quality and Compliance"
+    ],
+    [
+      "export",
+      "Pinal Valley Pressure 2026 05 14"
+    ],
+    [
+      "monthly",
+      "Billing and Revenue"
+    ],
+    [
+      "customers",
+      "Customer Management"
+    ],
+    [
+      "export",
+      "Operations and Monitoring"
+    ]
+  ],
+  "abbreviations": {
+    "avg": "Average",
+    "ntu": "(ntu)",
+    "ppb": "(ppb)",
+    "pct": "Percent",
+    "psi": "(psi)",
+    "gpm": "(gpm)",
+    "ppm": "(ppm)"
+  },
+  "category_tags": {
+    "Records & Documents": [
+      "document"
+    ]
+  },
+  "terms": {
+    "Account Status": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "identifier",
+        "customer"
+      ]
+    },
+    "Active Customers": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Alert Date": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "temporal",
+        "identifier"
+      ]
+    },
+    "Alert Type": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "identifier"
+      ]
+    },
+    "Amount Paid": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Asset ID": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Asset Type": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Average Customer Usage": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Average Monthly Usage": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "customer"
+      ]
+    },
+    "Bacteria Present": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Base Charge (Tiered Rates)": {
+      "aliases": [
+        "Base Charge",
+        "Base Charge (Monthly Usage)"
+      ],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Billing Address": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial"
+      ]
+    },
+    "Billing City": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial"
+      ]
+    },
+    "Billing Month": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "temporal"
+      ]
+    },
+    "Billing ZIP": {
+      "aliases": [
+        "Service ZIP"
+      ],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial"
+      ]
+    },
+    "Bills Generated": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer"
+      ]
+    },
+    "Capacity": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Capacity Units": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Chlorine Residual": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Chlorine Residual Ppm": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Compliance": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "document",
+        "compliance",
+        "maskable",
+        "cde"
+      ]
+    },
+    "Compliance Status": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "operational",
+        "cde"
+      ]
+    },
+    "Condition Rating": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Conservation Focus": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Contaminant Level (ppm)": {
+      "aliases": [
+        "Contaminant Level"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Copper Ppm": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Correspondence": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "document"
+      ]
+    },
+    "County": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy"
+      ]
+    },
+    "Criticality": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Customer Type": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "customer"
+      ]
+    },
+    "Diameter (inches)": {
+      "aliases": [
+        "Diameter Inches",
+        "Diameter (inches"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Due Date": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "temporal"
+      ]
+    },
+    "Effective Date": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal"
+      ]
+    },
+    "Flow (gpm)": {
+      "aliases": [
+        "Flow Gpm"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Gis": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "document"
+      ]
+    },
+    "Hardness (ppm)": {
+      "aliases": [
+        "Hardness Ppm"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Inspections": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "document"
+      ]
+    },
+    "Install Year": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal"
+      ]
+    },
+    "Last Compliance Check": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "cde"
+      ]
+    },
+    "Last Inspection Date": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal"
+      ]
+    },
+    "Last Maintenance": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Latitude": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location"
+      ]
+    },
+    "Lead (ppb)": {
+      "aliases": [
+        "Lead Ppb"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Length (ft)": {
+      "aliases": [
+        "Length Feet"
+      ],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial"
+      ]
+    },
+    "Longitude": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location"
+      ]
+    },
+    "Material": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Meter ID": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Meter Reading": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Number Of Customers": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Opted Out Marketing": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "customer"
+      ]
+    },
+    "Outstanding Bills": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer"
+      ]
+    },
+    "Paid Bills": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "customer",
+        "cde"
+      ]
+    },
+    "Payment Collection Rate": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial"
+      ]
+    },
+    "Payment Date": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "temporal"
+      ]
+    },
+    "Payment Status (Customer Billing Summary)": {
+      "aliases": [
+        "Payment Status",
+        "Payment Status (Monthly Usage)"
+      ],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "operational"
+      ]
+    },
+    "Peak Usage": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "customer"
+      ]
+    },
+    "pH Level": {
+      "aliases": [
+        "Ph Level",
+        "pH Level"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Population Served": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location"
+      ]
+    },
+    "Primary Source": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Pump Status": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational"
+      ]
+    },
+    "Quality Rating": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Rate Period": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal"
+      ]
+    },
+    "Recommended Action": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "identifier"
+      ]
+    },
+    "Report Month": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal"
+      ]
+    },
+    "Reservoir Level Percent": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Resolved Date": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "temporal",
+        "identifier"
+      ]
+    },
+    "SCADA System Data": {
+      "aliases": [
+        "Scada"
+      ],
+      "sensitivity": "LOW",
+      "tags": [
+        "document"
+      ]
+    },
+    "Segment ID": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Service Area System": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "customer"
+      ]
+    },
+    "Service Cities": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational"
+      ]
+    },
+    "Service City": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer"
+      ]
+    },
+    "Service County": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer"
+      ]
+    },
+    "Service Start Date": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal",
+        "customer"
+      ]
+    },
+    "Severity": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "identifier"
+      ]
+    },
+    "Site Name": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": []
+    },
+    "Source Type": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Status (Tiered Rates)": {
+      "aliases": [
+        "Status",
+        "Status (Csv)",
+        "Status (Infrastructure And Assets)",
+        "Status (Account Alerts)"
+      ],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational"
+      ]
+    },
+    "Street Name": {
+      "aliases": [],
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "personal-data",
+        "direct-identifier",
+        "privacy"
+      ]
+    },
+    "System Alert Level": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational"
+      ]
+    },
+    "System Name (System Usage Conservation)": {
+      "aliases": [
+        "System Name",
+        "System Name (Csv)",
+        "System Name (Infrastructure And Assets)",
+        "System Name (Customer Billing Summary)",
+        "System Name (System Water Quality Status)"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "System Status": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": [
+        "operational"
+      ]
+    },
+    "System Type": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tax Amount": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "tax"
+      ]
+    },
+    "Tier 1 Charge": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Tier 1 From Gallons": {
+      "aliases": [
+        "Tier1 From Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 1 Rate Per 1000 Gallons": {
+      "aliases": [
+        "Tier1 Rate Per 1000gal"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 2 Charge": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Tier 2 From Gallons": {
+      "aliases": [
+        "Tier2 From Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 2 Rate Per 1000 Gallons": {
+      "aliases": [
+        "Tier2 Rate Per 1000gal",
+        "Tier 2 Rate Per 1,000 Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 2 To Gallons": {
+      "aliases": [
+        "Tier2 To Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 3 Charge": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Tier 3 From Gallons": {
+      "aliases": [
+        "Tier3 From Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 3 Rate Per 1000 Gallons": {
+      "aliases": [
+        "Tier3 Rate Per 1000gal"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 3 To Gallons": {
+      "aliases": [
+        "Tier3 To Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 4 Charge": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Tier 4 From Gallons": {
+      "aliases": [
+        "Tier4 From Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 4 Rate Per 1000 Gallons": {
+      "aliases": [
+        "Tier4 Rate Per 1000gal"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier 4 To Gallons": {
+      "aliases": [
+        "Tier4 To Gallons"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier Rate": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Tier1 To Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Total Annual Usage Acre Feet": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial"
+      ]
+    },
+    "Total Before Tax": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "tax"
+      ]
+    },
+    "Total Dissolved Solids (ppm)": {
+      "aliases": [
+        "Total Dissolved Solids Ppm"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Total Due": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    },
+    "Total Outstanding": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer"
+      ]
+    },
+    "Total System Usage (1000 Gallons)": {
+      "aliases": [
+        "Total System Usage 1000gal"
+      ],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Unpaid Accounts": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "identifier"
+      ]
+    },
+    "Usage Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Usage Tier 1 Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Usage Tier 2 Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Usage Tier 3 Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Usage Tier 4 Gallons": {
+      "aliases": [],
+      "sensitivity": "LOW",
+      "tags": []
+    },
+    "Wastewater Charge": {
+      "aliases": [],
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "cde"
+      ]
+    }
+  },
+  "curated_seeds": {
+    "System Name (Csv)": {
+      "type": "dictionary",
+      "values": [
+        "Apache Junction",
+        "Lakeside",
+        "Pinal Valley",
+        "Sedona",
+        "Sierra Vista",
+        "White Tank"
+      ]
+    },
+    "System Name (Infrastructure And Assets)": {
+      "type": "dictionary",
+      "values": [
+        "Apache Junction",
+        "Lakeside",
+        "Oracle",
+        "Pinal Valley",
+        "Sierra Vista",
+        "White Tank"
+      ]
+    },
+    "System Name (Customer Billing Summary)": {
+      "type": "dictionary",
+      "values": [
+        "Apache Junction System",
+        "Bisbee System",
+        "Lakeside System",
+        "Oracle System",
+        "Pinal Valley System",
+        "Sedona System",
+        "Sierra Vista System",
+        "White Tank System"
+      ]
+    },
+    "Material": {
+      "type": "dictionary",
+      "values": [
+        "Asbestos Cement",
+        "Cast Iron",
+        "Ductile Iron",
+        "HDPE",
+        "PVC"
+      ]
+    },
+    "Segment ID": {
+      "type": "pattern",
+      "regex": "^[A-Z]{3}\\-[0-9]{5}$",
+      "signature": null
+    },
+    "Street Name": {
+      "type": "dictionary",
+      "values": [
+        "American Ave",
+        "Apache Trail",
+        "Brown Rd",
+        "Cotton Ln",
+        "Florence Blvd",
+        "Fry Blvd",
+        "Highway 89A",
+        "Main St",
+        "Pinal Ave",
+        "Porter Mtn Rd",
+        "Tombstone Canyon",
+        "Val Vista Dr"
+      ]
+    },
+    "Status (Csv)": {
+      "type": "dictionary",
+      "values": [
+        "Decommissioned",
+        "In Service",
+        "Under Repair"
+      ]
+    },
+    "Status (Infrastructure And Assets)": {
+      "type": "dictionary",
+      "values": [
+        "Active",
+        "Maintenance",
+        "Retired"
+      ]
+    },
+    "Status (Account Alerts)": {
+      "type": "dictionary",
+      "values": [
+        "Acknowledged",
+        "Open",
+        "Resolved",
+        "active",
+        "inactive",
+        "suspended"
+      ]
+    },
+    "Status (Tiered Rates)": {
+      "type": "dictionary",
+      "values": [
+        "Active",
+        "active",
+        "inactive",
+        "suspended"
+      ]
+    },
+    "Pump Status": {
+      "type": "dictionary",
+      "values": [
+        "RUNNING",
+        "STANDBY"
+      ]
+    },
+    "Asset Type": {
+      "type": "dictionary",
+      "values": [
+        "Booster Station",
+        "Control Valve",
+        "Groundwater Well",
+        "Pump Station",
+        "Storage Tank",
+        "Treatment Facility"
+      ]
+    },
+    "Capacity Units": {
+      "type": "dictionary",
+      "values": [
+        "MGD",
+        "gallons",
+        "gpm",
+        "n/a"
+      ]
+    },
+    "Asset ID": {
+      "type": "pattern",
+      "regex": "^[A-Z]{3}\\-[0-9]{4}$",
+      "signature": null
+    },
+    "Criticality": {
+      "type": "dictionary",
+      "values": [
+        "Critical",
+        "High",
+        "Low",
+        "Medium"
+      ]
+    },
+    "Quality Rating": {
+      "type": "dictionary",
+      "values": [
+        "Excellent",
+        "Fair",
+        "Good",
+        "Poor"
+      ]
+    },
+    "Contaminant Level (ppm)": {
+      "type": "dictionary",
+      "values": [
+        "Elevated",
+        "Low"
+      ]
+    },
+    "Compliance Status": {
+      "type": "dictionary",
+      "values": [
+        "Compliant",
+        "Warning",
+        "compliant",
+        "violation"
+      ]
+    },
+    "Payment Status (Monthly Usage)": {
+      "type": "dictionary",
+      "values": [
+        "Overdue",
+        "Paid",
+        "Unpaid"
+      ]
+    },
+    "Payment Status (Customer Billing Summary)": {
+      "type": "dictionary",
+      "values": [
+        "At Risk",
+        "Good Standing"
+      ]
+    },
+    "Meter ID": {
+      "type": "pattern",
+      "regex": "^(?:[A-Z]{2}[0-9]{6}|[A-Z]{3}\\-[0-9]{6})$",
+      "signature": null
+    },
+    "Account Number": {
+      "type": "pattern",
+      "regex": "^(?:[A-Z]{3}\\-[A-Z]{2}\\-[0-9]{6}|[A-Z]{3}\\-[A-Z]{3}\\-[0-9]{6})$",
+      "signature": null
+    },
+    "Service County": {
+      "type": "dictionary",
+      "values": [
+        "Cochise",
+        "Coconino",
+        "Maricopa",
+        "Navajo",
+        "Pinal"
+      ]
+    },
+    "Account Status": {
+      "type": "dictionary",
+      "values": [
+        "Active",
+        "Suspended",
+        "active",
+        "inactive",
+        "suspended"
+      ]
+    },
+    "Service Area System": {
+      "type": "dictionary",
+      "values": [
+        "Apache Junction System",
+        "Bisbee System",
+        "Lakeside System",
+        "Oracle System",
+        "Pinal Valley System",
+        "Sedona System",
+        "Sierra Vista System",
+        "White Tank System"
+      ]
+    },
+    "Phone": {
+      "type": "pattern",
+      "regex": "^[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}$",
+      "signature": null
+    },
+    "Customer Type": {
+      "type": "dictionary",
+      "values": [
+        "Agriculture",
+        "Commercial",
+        "Residential",
+        "commercial",
+        "residential"
+      ]
+    },
+    "Recommended Action": {
+      "type": "dictionary",
+      "values": [
+        "Contact customer for payment. Assess risk of service suspension after 60 days.",
+        "Continue monitoring. Usage consistent with summer tourism season.",
+        "Follow collection procedure. Consider account closeout if payment not received by 2026-06-10.",
+        "Follow collection procedure. Consider account closeout if payment not received.",
+        "Issue 30-day notice. If unpaid by 2026-06-15, schedule service suspension review.",
+        "Issue 30-day notice. If unpaid, schedule service suspension review.",
+        "Remind of summer irrigation best practices per AWC conservation program.",
+        "Suggest leak check. Review for irrigation/HVAC efficiency opportunities."
+      ]
+    },
+    "Alert Type": {
+      "type": "dictionary",
+      "values": [
+        "Conservation Notice",
+        "High Usage",
+        "Payment Overdue",
+        "high_usage",
+        "leak_detected",
+        "payment_due",
+        "quality_notice",
+        "service_interruption"
+      ]
+    },
+    "Severity": {
+      "type": "dictionary",
+      "values": [
+        "High",
+        "Low",
+        "Medium"
+      ]
+    },
+    "Service Cities": {
+      "type": "dictionary",
+      "values": [
+        "Apache Junction, Superstition",
+        "Bisbee, Naco",
+        "Casa Grande, Coolidge, Stanfield",
+        "Lakeside, Pinetop",
+        "Oracle, San Manuel",
+        "Sedona, Oak Creek",
+        "Sierra Vista, Huachuca City",
+        "White Tank, Buckeye Area"
+      ]
+    },
+    "System Alert Level": {
+      "type": "dictionary",
+      "values": [
+        "ATTENTION",
+        "OK"
+      ]
+    },
+    "Source Type": {
+      "type": "dictionary",
+      "values": [
+        "Wells + Fort Huachuca Allocation",
+        "Wells + Local Surface Water",
+        "Wells + Watershed Recharge",
+        "Wells - Harquahala Valley Aquifer",
+        "Wells - Lower Hassayampa",
+        "Wells - Mule Creek",
+        "Wells - Oracle Ridge",
+        "Wells - San Tan Valley"
+      ]
+    },
+    "System Status": {
+      "type": "dictionary",
+      "values": [
+        "Active",
+        "active",
+        "inactive",
+        "suspended"
+      ]
+    },
+    "System Type": {
+      "type": "dictionary",
+      "values": [
+        "Groundwater",
+        "Mixed"
+      ]
+    },
+    "County": {
+      "type": "dictionary",
+      "values": [
+        "Cochise",
+        "Coconino",
+        "Maricopa",
+        "Navajo",
+        "Pinal"
+      ]
+    },
+    "Conservation Focus": {
+      "type": "dictionary",
+      "values": [
+        "Expanding metro area, new customer acquisition, infrastructure growth",
+        "Historic mining town, limited groundwater availability, reuse programs",
+        "Military installation coordination, population growth planning",
+        "Mountain community, seasonal variation, wildlife protection",
+        "Residential conservation, tourism water efficiency, seasonal management",
+        "Rural agriculture, small system management, reliability focus",
+        "Suburban growth management, new development standards",
+        "Tier-based conservation, agricultural water reuse, desert landscaping education"
+      ]
+    },
+    "Primary Source": {
+      "type": "dictionary",
+      "values": [
+        "Groundwater Wells",
+        "Local Springs & Wells",
+        "Military Water Allocation + Wells",
+        "Mountain Springs + Wells"
+      ]
+    }
+  },
+  "domain": "water_utility",
+  "note": " [refreshed from scan results by the pack generator — review the additions, then commit]",
+  "labels": {
+    "retention": {
+      "awc-documents": "7y",
+      "billing": "10y",
+      "customer": "7y",
+      "infrastructure": "10y",
+      "operations": "3y",
+      "quality": "10y",
+      "default": "7y"
+    }
+  },
+  "company": "Arizona Water"
+}

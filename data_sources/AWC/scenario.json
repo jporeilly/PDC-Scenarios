@@ -1,0 +1,22 @@
+{
+  "id": "AWC",
+  "name": "Arizona Water Company",
+  "industry": "Water utility",
+  "company": "Arizona Water",
+  "pack": "domain_pack/water_utility.example.json",
+  "people": "domain_pack/water_utility.people.json",
+  "courseware": "courseware/AWC",
+  "description": "Water-utility workshop: 9-table awc_operations schema (customers, billing, tiered rates, usage, water systems, quality reports) plus the awc-documents bucket (asset inventory, pipe network segments, SCADA JSON snapshots). The estate behind the 2026-08 clean-walkthrough deliverables in deliverables/.",
+  "database": "awc_operations",
+  "schema": "awc_operations",
+  "tables": 9,
+  "bucket": "awc-documents",
+  "db_user": "pdc_user",
+  "identification_targets": 11,
+  "deliverables": {
+    "registry": "deliverables/registry.ef40b8e7-cdd6-553d-93d1-7d51159b1105.json",
+    "glossary_import": "deliverables/arizona-water-glossary-import.jsonl",
+    "dq_expectations": "deliverables/dq-expectations.zip",
+    "governance_audit": "deliverables/governance_audit.json"
+  }
+}

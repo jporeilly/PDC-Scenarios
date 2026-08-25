@@ -1,0 +1,5575 @@
+{
+  "schema": "classification-registry/1",
+  "glossary": "Arizona Water",
+  "glossary_id": "ef40b8e7-cdd6-553d-93d1-7d51159b1105",
+  "pack": null,
+  "concepts": [
+    {
+      "concept": "install_year",
+      "term_name": "Install Year",
+      "term_id": "c5cf92a1-c2c0-5103-97c3-b584a11f08d7",
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The calendar year in which the physical asset was installed or commissioned into service.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.install_year",
+        "public.asset_inventory.csv.install_year"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "last_inspection_date",
+      "term_name": "Last Inspection Date",
+      "term_id": "27018f50-5dc7-5b34-a153-e97a8c2ed5b2",
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The date on which the most recent physical inspection of a pipe network segment was performed.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.last_inspection_date"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "system_name_csv",
+      "term_name": "System Name (Csv)",
+      "term_id": "a9d39122-666f-5b84-8f3f-682455ef07d4",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "governance",
+        "identifier"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The specific name of the water distribution system associated with a pipe network segment.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Apache Junction",
+            "Lakeside",
+            "Pinal Valley",
+            "Sedona",
+            "Sierra Vista",
+            "White Tank"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.pipe_network_segments.csv.system_name"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_name_infrastructure_and_assets",
+      "term_name": "System Name (Infrastructure And Assets)",
+      "term_id": "9cce30fc-ecbe-5326-8b1b-3395b5c3fb45",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The specific name of the infrastructure component or facility within the asset inventory.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Apache Junction",
+            "Lakeside",
+            "Oracle",
+            "Pinal Valley",
+            "Sierra Vista",
+            "White Tank"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.system_name"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_name_customer_billing_summary",
+      "term_name": "System Name (Customer Billing Summary)",
+      "term_id": "31adb54f-424b-5cbe-9d12-58c63dcdae6a",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "customer",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The specific water distribution system name where the customer's billing summary is recorded.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Apache Junction System",
+            "Bisbee System",
+            "Lakeside System",
+            "Oracle System",
+            "Pinal Valley System",
+            "Sedona System",
+            "Sierra Vista System",
+            "White Tank System"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customer_billing_summary.system_name"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.system_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_name_system_water_quality_status",
+      "term_name": "System Name (System Water Quality Status)",
+      "term_id": "5b79341a-9179-5a89-adfd-558bc2a30aee",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The name of the water quality monitoring system associated with a specific status record.",
+      "detect": [],
+      "sources": [
+        "public.system_water_quality_status.system_name"
+      ],
+      "source_types": {
+        "public.system_water_quality_status.system_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "system_name_system_usage_conservation",
+      "term_name": "System Name (System Usage Conservation)",
+      "term_id": "63d4fa03-82cf-509b-a36e-b77d861c5942",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The specific name of the infrastructure or software system associated with a conservation record.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.system_name"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.system_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "system_name_water_systems",
+      "term_name": "System Name (Water Systems)",
+      "term_id": "e5a797f1-1457-5311-8035-e2924aaee3e7",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The official name of the water distribution or infrastructure system.",
+      "detect": [],
+      "sources": [
+        "public.water_systems.system_name"
+      ],
+      "source_types": {
+        "public.water_systems.system_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "length_ft",
+      "term_name": "Length (ft)",
+      "term_id": "a10d1bef-251b-5d2a-acd0-21abc51f71ed",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The total linear distance of a pipe network segment measured in feet.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.length_feet"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "material",
+      "term_name": "Material",
+      "term_id": "ddc5b3b4-a411-53e2-bdcd-01e34565a05b",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The physical composition of the pipe material used in a specific network segment.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Asbestos Cement",
+            "Cast Iron",
+            "Ductile Iron",
+            "HDPE",
+            "PVC"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.pipe_network_segments.csv.material"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "latitude",
+      "term_name": "Latitude",
+      "term_id": "bf1ebd9c-06f3-5940-b7a2-f475dc9d824c",
+      "sensitivity": "LOW",
+      "tags": [
+        "location",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The geographic coordinate representing the north-south position of a physical asset within the inventory.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.latitude",
+        "public.asset_inventory.csv.latitude"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "segment_id",
+      "term_name": "Segment ID",
+      "term_id": "f3d14c31-9aab-5659-a8db-657043014ada",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "identifier",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The unique identifier for a specific section of the pipe network infrastructure.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^[A-Z]{3}\\-[0-9]{5}$",
+          "signature": null,
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.pipe_network_segments.csv.segment_id"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "diameter_inches",
+      "term_name": "Diameter (inches)",
+      "term_id": "8caa0d29-7ff5-5e25-97b4-31d2eb100d48",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The internal diameter of a pipe segment measured in inches.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.diameter_inches"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "street_name",
+      "term_name": "Street Name",
+      "term_id": "42261223-56fd-5f62-b308-018e143bbbfe",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "direct-identifier",
+        "privacy",
+        "location",
+        "infrastructure-and-assets",
+        "maskable"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The name of the thoroughfare or road where a specific pipe network segment is located.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "American Ave",
+            "Apache Trail",
+            "Brown Rd",
+            "Cotton Ln",
+            "Florence Blvd",
+            "Fry Blvd",
+            "Highway 89A",
+            "Main St",
+            "Pinal Ave",
+            "Porter Mtn Rd",
+            "Tombstone Canyon",
+            "Val Vista Dr"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.pipe_network_segments.csv.street_name"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "longitude",
+      "term_name": "Longitude",
+      "term_id": "0353832c-49b0-5688-bba7-8bab6cd52ee4",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The geographic longitude coordinate of a physical asset within the inventory.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.longitude",
+        "public.asset_inventory.csv.longitude"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "condition_rating",
+      "term_name": "Condition Rating",
+      "term_id": "ab0ae6d5-0f59-56b7-85b6-5aefa7496c4b",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "governance",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The qualitative or quantitative assessment of the physical integrity and operational status of a pipe network segment.",
+      "detect": [],
+      "sources": [
+        "public.pipe_network_segments.csv.condition_rating"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "status_csv",
+      "term_name": "Status (Csv)",
+      "term_id": "b6a7844a-b933-52c7-9cde-3293526966fe",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "infrastructure-and-assets"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The current operational state of a pipe network segment, such as being in service, under repair, or decommissioned.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Decommissioned",
+            "In Service",
+            "Under Repair"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.pipe_network_segments.csv.status"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "status_infrastructure_and_assets",
+      "term_name": "Status (Infrastructure And Assets)",
+      "term_id": "1694dade-f006-5c17-b9da-00313005d38f",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "infrastructure-and-assets",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The current operational state of an asset, such as Active, Maintenance, or Retired.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Active",
+            "Maintenance",
+            "Retired"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.status"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "status_account_alerts",
+      "term_name": "Status (Account Alerts)",
+      "term_id": "e7c7cf0b-03fc-56f1-a240-16c9999070f3",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "operations-and-monitoring",
+        "identifier",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The current lifecycle stage of an account alert, such as Open, Acknowledged, or Resolved.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Acknowledged",
+            "Open",
+            "Resolved",
+            "active",
+            "inactive",
+            "suspended"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.account_alerts.status"
+      ],
+      "source_types": {
+        "public.account_alerts.status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "status_tiered_rates",
+      "term_name": "Status (Tiered Rates)",
+      "term_id": "0e3836b2-643f-5abe-8843-1f94f3200a63",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "operational",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The current operational state of a tiered rate record, such as active, inactive, or suspended.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Active",
+            "active",
+            "inactive",
+            "suspended"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.tiered_rates.status"
+      ],
+      "source_types": {
+        "public.tiered_rates.status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "population_served",
+      "term_name": "Population Served",
+      "term_id": "66e42c89-fd67-547e-a883-ddc4cb4c8557",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location",
+        "infrastructure-and-assets",
+        "operations-and-monitoring",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The total number of residents or individuals served by a specific water system.",
+      "detect": [],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.population_served",
+        "public.water_systems.population_served"
+      ],
+      "source_types": {
+        "public.water_systems.population_served": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "reservoir_level_percent",
+      "term_name": "Reservoir Level Percent",
+      "term_id": "b91e0709-7101-56d7-93af-26f9da77ab37",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "operations-and-monitoring",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The percentage of the current reservoir's total capacity that is occupied by water.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.reservoir_level_pct",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.reservoir_level_pct"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "pump_status",
+      "term_name": "Pump Status",
+      "term_id": "953766b2-94fb-5704-b939-304873b95ef7",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "infrastructure-and-assets",
+        "operations-and-monitoring",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The current operational state of a water pump, such as being in a running or standby mode.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "RUNNING",
+            "STANDBY"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.pump_status",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.pump_status"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "chlorine_residual_ppm",
+      "term_name": "Chlorine Residual (ppm)",
+      "term_id": "ec447935-9e92-53f0-833c-b04c6cf01868",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "governance",
+        "compliance",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The amount of chlorine remaining in the water supply after treatment to ensure continued disinfection and safety.",
+      "detect": [],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.chlorine_residual_ppm",
+        "public.water_quality_reports.chlorine_residual"
+      ],
+      "source_types": {
+        "public.water_quality_reports.chlorine_residual": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "pressure_psi",
+      "term_name": "Pressure (psi)",
+      "term_id": "822c8663-7ca5-5556-b227-19d3e87e3a21",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "operations-and-monitoring",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The measured pressure in pounds per square inch (psi) within the Pinal Valley system.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.pressure_psi",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.pressure_psi"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "flow_gpm",
+      "term_name": "Flow (gpm)",
+      "term_id": "a5907ee0-51eb-51fd-8225-3a5ab8ed4b56",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "operations-and-monitoring",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The rate of water flow measured in gallons per minute within the Pinal Valley pressure system.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.flow_gpm",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.flow_gpm"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "last_maintenance",
+      "term_name": "Last Maintenance",
+      "term_id": "61096f7a-6333-59cc-b679-063cf6207592",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "record",
+        "temporal"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The date of the most recent maintenance performed on the infrastructure component.",
+      "detect": [],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.last_maintenance"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "site_name",
+      "term_name": "Site Name",
+      "term_id": "bb9e806f-6341-5749-b609-45a01931801f",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "identifier",
+        "location",
+        "record",
+        "direct-identifier",
+        "privacy",
+        "operations-and-monitoring",
+        "maskable",
+        "cde",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The official name of the physical location or facility where water infrastructure and assets are located.",
+      "detect": [],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.site_name",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.site_name"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "turbidity_ntu",
+      "term_name": "Turbidity (ntu)",
+      "term_id": "fc4efbc9-846c-5b1a-a885-db7bdb7b5a09",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "governance",
+        "compliance",
+        "water-quality-and-compliance"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "water-quality-and-compliance"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The measure of water clarity or cloudiness caused by suspended particles in the water supply.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.turbidity_ntu",
+        "public.water_quality_reports.turbidity_ntu",
+        "public.system_water_quality_status.turbidity_ntu"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_id",
+      "term_name": "System ID",
+      "term_id": "7b9c3a84-e439-5319-a244-e6bfcc897d85",
+      "sensitivity": "LOW",
+      "tags": [
+        "identifier",
+        "infrastructure-and-assets",
+        "governance",
+        "pinal-valley-pressure-2026-05-14",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "pinal-valley-pressure-2026-05-14"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The unique identifier for a specific system component within the Pinal Valley Pressure monitoring network.",
+      "detect": [],
+      "sources": [
+        "public.all_systems_snapshot_2026-05-15.json.systems.system_id",
+        "public.pinal_valley_pressure_2026-05-14.json.export_metadata.system_id",
+        "public.pinal_valley_pressure_2026-05-14.json.readings.system_id"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "date",
+      "term_name": "Date",
+      "term_id": "993a2a25-6e9c-593d-bd86-84e3f4480286",
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal",
+        "pinal-valley-pressure-2026-05-14"
+      ],
+      "off_vocabulary_tags": [
+        "pinal-valley-pressure-2026-05-14"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "Readings.timestamp associated with a pinal valley pressure 2026-05-14.json record.",
+      "detect": [],
+      "sources": [
+        "public.pinal_valley_pressure_2026-05-14.json.readings.timestamp"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "alarm",
+      "term_name": "Alarm",
+      "term_id": "f7c9ba61-a9b9-5dec-9695-4eb324a6fd06",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The status of a pressure alert triggered by the Pinal Valley system.",
+      "detect": [],
+      "sources": [
+        "public.pinal_valley_pressure_2026-05-14.json.readings.alarm"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "asset_type",
+      "term_name": "Asset Type",
+      "term_id": "9299d7b2-7622-5cd6-8ea5-b7750234981b",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "governance",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The specific classification of a physical infrastructure component, such as a pump station or storage tank, within the asset inventory.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Booster Station",
+            "Control Valve",
+            "Groundwater Well",
+            "Pump Station",
+            "Storage Tank",
+            "Treatment Facility"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.asset_type"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "capacity_units",
+      "term_name": "Capacity Units",
+      "term_id": "cec8dc02-4c92-58f5-9653-a55b7c09b901",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The measurement units (e.g., MGD, gallons, gpm) used to quantify the capacity of a specific infrastructure asset.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "MGD",
+            "gallons",
+            "gpm",
+            "n/a"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.capacity_units"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "asset_id",
+      "term_name": "Asset ID",
+      "term_id": "46040b8a-e4ed-5bb0-91bd-8bc8e0a71026",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "identifier",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The unique identifier for a physical or digital asset within the organization's inventory system.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^[A-Z]{3}\\-[0-9]{4}$",
+          "signature": null,
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.asset_id"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "capacity",
+      "term_name": "Capacity",
+      "term_id": "2efb92b3-d573-50dc-a2c4-1c2974653190",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "operational",
+        "operations-and-monitoring",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets",
+        "operations-and-monitoring"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The maximum volume or output a specific infrastructure asset can accommodate or produce.",
+      "detect": [],
+      "sources": [
+        "public.asset_inventory.csv.capacity",
+        "public.water_systems.capacity"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "criticality",
+      "term_name": "Criticality",
+      "term_id": "0dfa62e2-fc09-5981-8f40-7780eb056cec",
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "governance",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The priority level of an asset based on its importance to operations and infrastructure.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Critical",
+            "High",
+            "Low",
+            "Medium"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.asset_inventory.csv.criticality"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "scada_system_data",
+      "term_name": "SCADA System Data",
+      "term_id": "55dbde33-a6a5-5948-9787-99364662a425",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record",
+        "compliance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The real-time and historical data captured from Supervisory Control and Data Acquisition systems for monitoring and controlling water infrastructure.",
+      "detect": [],
+      "sources": [
+        "awc-documents/scada/all_systems_snapshot_2026-05-15.json",
+        "awc-documents/scada/pinal_valley_pressure_2026-05-14.json"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "gis",
+      "term_name": "Gis",
+      "term_id": null,
+      "sensitivity": "LOW",
+      "tags": [
+        "infrastructure-and-assets",
+        "record",
+        "location"
+      ],
+      "off_vocabulary_tags": [
+        "infrastructure-and-assets"
+      ],
+      "category": "Infrastructure and Assets",
+      "definition": "The geographic information system data providing spatial coordinates and attributes for water infrastructure assets.",
+      "detect": [],
+      "sources": [
+        "awc-documents/gis/asset_inventory.csv",
+        "awc-documents/gis/pipe_network_segments.csv"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "correspondence",
+      "term_name": "Correspondence",
+      "term_id": "1facdde9-5d75-5b06-80dc-e1638651bac1",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "document",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "Official communications, including service requests, leak notifications, and water quality notices, exchanged between Arizona Water and its customers.",
+      "detect": [],
+      "sources": [
+        "awc-documents/correspondence/email_service_request_thread.txt",
+        "awc-documents/correspondence/letter_leak_notification_AWC-SF-001004.docx",
+        "awc-documents/correspondence/letter_disconnection_warning_AWC-SF-101528.docx",
+        "awc-documents/correspondence/letter_overdue_notice_AWC-SV-001007.docx",
+        "awc-documents/correspondence/letter_water_quality_notice_sedona.docx",
+        "awc-documents/correspondence/letter_optout_confirmation_AWC-CG-101392.docx",
+        "awc-documents/correspondence/letter_dispute_response_AWC-AJ-101091.docx",
+        "awc-documents/correspondence/email_conservation_inquiry.txt",
+        "awc-documents/correspondence/letter_service_interruption_pinal_valley_PS012.docx"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "inspections",
+      "term_name": "Inspections",
+      "term_id": "441c1c1d-0044-595d-98c6-019ffde7815f",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "operations-and-monitoring",
+        "document",
+        "record",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "Documents containing records of physical inspections performed on water infrastructure assets.",
+      "detect": [],
+      "sources": [
+        "awc-documents/inspections/inspection_pinal_valley_pump_PS012.docx",
+        "awc-documents/inspections/inspection_apache_junction_main_break.docx",
+        "awc-documents/inspections/inspection_sierra_vista_tank_T03.docx"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "compliance",
+      "term_name": "Compliance",
+      "term_id": "564c3738-51d4-5dd9-adc8-50a522181234",
+      "sensitivity": "HIGH",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "maskable",
+        "cde",
+        "document",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The official documentation and records regarding environmental and regulatory compliance standards for water quality.",
+      "detect": [],
+      "sources": [
+        "awc-documents/compliance/epa_compliance_sedona_2026Q1.pdf",
+        "awc-documents/compliance/epa_compliance_bisbee_2026Q1.pdf",
+        "awc-documents/compliance/epa_compliance_pinal_valley_2026Q1.pdf",
+        "awc-documents/compliance/epa_compliance_apache_junction_2026Q1.pdf"
+      ],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "report_month",
+      "term_name": "Report Month",
+      "term_id": "1f6fa1a3-4b96-561c-b53c-03aa5410b563",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "temporal",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The calendar month in which a water quality report is officially recorded and submitted.",
+      "detect": [],
+      "sources": [
+        "public.water_quality_reports.report_month",
+        "public.system_water_quality_status.report_month"
+      ],
+      "source_types": {
+        "public.water_quality_reports.report_month": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "p_h_level",
+      "term_name": "pH Level",
+      "term_id": "d7bec475-557f-599e-b3ea-ed7330b385a9",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The acidity or alkalinity of a water sample as recorded in a water quality report.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)"
+          ]
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.ph_level",
+        "public.system_water_quality_status.ph_level"
+      ],
+      "source_types": {
+        "public.water_quality_reports.ph_level": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "quality_rating",
+      "term_name": "Quality Rating",
+      "term_id": "d8f042da-9920-51c6-96a2-9eaa311f5b28",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The qualitative assessment of water quality based on specific testing parameters and compliance standards.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Excellent",
+            "Fair",
+            "Good",
+            "Poor"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.quality_rating",
+        "public.system_water_quality_status.quality_rating"
+      ],
+      "source_types": {
+        "public.water_quality_reports.quality_rating": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "copper_ppm",
+      "term_name": "Copper (ppm)",
+      "term_id": "b68dac0a-d7fa-5fc9-b542-7933bf3b18d1",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The concentration of copper in water samples measured in parts per million.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.copper_ppm"
+      ],
+      "source_types": {
+        "public.water_quality_reports.copper_ppm": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "total_dissolved_solids_ppm",
+      "term_name": "Total Dissolved Solids (ppm)",
+      "term_id": "54a27f93-ac7c-5989-9f6e-504e87f267bf",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The concentration of dissolved inorganic salts and organic materials in water measured in parts per million.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.total_dissolved_solids_ppm"
+      ],
+      "source_types": {
+        "public.water_quality_reports.total_dissolved_solids_ppm": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "bacteria_present",
+      "term_name": "Bacteria Present",
+      "term_id": "e016b5a6-cf36-5505-9738-529312845a15",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "Indicates whether bacterial contaminants are detected in a specific water quality report.",
+      "detect": [],
+      "sources": [
+        "public.water_quality_reports.bacteria_present"
+      ],
+      "source_types": {
+        "public.water_quality_reports.bacteria_present": "BIT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "hardness_ppm",
+      "term_name": "Hardness (ppm)",
+      "term_id": "6edfed0e-d19f-5377-927c-aa1b2993d4be",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The concentration of minerals, such as calcium and magnesium, in water measured in parts per million.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Lead (ppb)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.hardness_ppm"
+      ],
+      "source_types": {
+        "public.water_quality_reports.hardness_ppm": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "contaminant_level_ppm",
+      "term_name": "Contaminant Level (ppm)",
+      "term_id": "51ceb13a-f565-58de-865a-a2170e2ff8cb",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The risk level of a contaminant based on regulated readings and compliance status.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Elevated",
+            "Low"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.contaminant_level"
+      ],
+      "source_types": {
+        "public.water_quality_reports.contaminant_level": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "lead_ppb",
+      "term_name": "Lead (ppb)",
+      "term_id": "501cf796-3a14-5f69-a035-5030deeeb761",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "record",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The concentration of lead in water samples measured in parts per billion.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^-?[0-9]+(\\.[0-9]+)?$",
+          "signature": null,
+          "source": "name-anchored",
+          "identity": "column_name",
+          "shared_with": [
+            "Copper (ppm)",
+            "Flow (gpm)",
+            "Hardness (ppm)",
+            "Pressure (psi)",
+            "Reservoir Level Percent",
+            "Total Dissolved Solids (ppm)",
+            "Turbidity (ntu)",
+            "pH Level"
+          ]
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.lead_ppb",
+        "public.system_water_quality_status.lead_ppb"
+      ],
+      "source_types": {
+        "public.water_quality_reports.lead_ppb": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "compliance_status",
+      "term_name": "Compliance Status",
+      "term_id": "b3232373-7b28-5268-ade4-00d7e5598a41",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "operational",
+        "water-quality-and-compliance",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The current regulatory status of a water quality measurement relative to established safety standards.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Compliant",
+            "Warning",
+            "compliant",
+            "violation"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_quality_reports.compliance_status",
+        "public.system_water_quality_status.compliance_status"
+      ],
+      "source_types": {
+        "public.system_water_quality_status.compliance_status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "meter_reading",
+      "term_name": "Meter Reading",
+      "term_id": "919f1c99-945f-5161-9b57-2a4717c9fa9e",
+      "sensitivity": "LOW",
+      "tags": [
+        "monthly-usage"
+      ],
+      "off_vocabulary_tags": [
+        "monthly-usage"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed in gallons as recorded by the meter at the end of the billing cycle.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.meter_reading"
+      ],
+      "source_types": {
+        "public.monthly_usage.meter_reading": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "payment_status_monthly_usage",
+      "term_name": "Payment Status (Monthly Usage)",
+      "term_id": "0f865358-3c45-5085-99a6-73c5b83f6f15",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "operational",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The current payment state of a customer's bill, including paid, unpaid, overdue, or disputed statuses.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Overdue",
+            "Paid",
+            "Unpaid"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.monthly_usage.payment_status"
+      ],
+      "source_types": {
+        "public.monthly_usage.payment_status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "payment_status_customer_billing_summary",
+      "term_name": "Payment Status (Customer Billing Summary)",
+      "term_id": "24b8f7e3-4c64-505b-b518-c5086864d76c",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "operational",
+        "customer-management",
+        "customer"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The current standing of a customer's account regarding outstanding balances and payment history.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "At Risk",
+            "Good Standing"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customer_billing_summary.payment_status"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.payment_status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "tier_2_charge",
+      "term_name": "Tier 2 Charge",
+      "term_id": "8158bdaa-9588-5712-8a83-66360f02510a",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The additional cost applied to water usage exceeding the base tier threshold in a monthly billing cycle.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.tier_2_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.tier_2_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_4_charge",
+      "term_name": "Tier 4 Charge",
+      "term_id": "19e22f1c-b1c9-5b3f-8b54-e77e613513f1",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The monthly fee applied to water usage exceeding the fourth tier threshold.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.tier_4_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.tier_4_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tax_amount",
+      "term_name": "Tax Amount",
+      "term_id": "6ef3c097-7087-5c18-9518-f4fbde4f2917",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "tax",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total amount of tax applied to a monthly water usage record for billing purposes.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.tax_amount"
+      ],
+      "source_types": {
+        "public.monthly_usage.tax_amount": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "usage_tier_2_gallons",
+      "term_name": "Usage Tier 2 Gallons",
+      "term_id": "6ccce973-511c-5379-bd64-c3e66d810754",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed by a customer in the second billing tier, measured in gallons.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.usage_tier_2_gallons"
+      ],
+      "source_types": {
+        "public.monthly_usage.usage_tier_2_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_3_charge",
+      "term_name": "Tier 3 Charge",
+      "term_id": "f7a8f492-e26c-5d41-ae49-f35341c31dba",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The specific monetary amount charged to a customer for water usage exceeding the Tier 3 threshold.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.tier_3_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.tier_3_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "base_charge_monthly_usage",
+      "term_name": "Base Charge (Monthly Usage)",
+      "term_id": "42335754-902f-5609-b4f7-4e807e88a06a",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The fixed monthly fee applied to a customer's water usage record for service maintenance and infrastructure.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.base_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.base_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "base_charge_tiered_rates",
+      "term_name": "Base Charge (Tiered Rates)",
+      "term_id": "df85618a-902a-537d-aa19-909a63fbf3ef",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The fixed amount applied to a tiered rate record before additional usage-based charges are calculated.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.base_charge"
+      ],
+      "source_types": {
+        "public.tiered_rates.base_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "total_before_tax",
+      "term_name": "Total Before Tax",
+      "term_id": "31815e8d-dbe8-57a8-ba7c-dda55406db93",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "tax",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total amount of the monthly usage fee before any applicable taxes or surcharges are applied.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.total_before_tax"
+      ],
+      "source_types": {
+        "public.monthly_usage.total_before_tax": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "billing_month",
+      "term_name": "Billing Month",
+      "term_id": "9811331e-488e-50eb-a7da-4a0051edbd0a",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "temporal",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The specific calendar month and year in which a customer's water usage is recorded and billed.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.billing_month"
+      ],
+      "source_types": {
+        "public.monthly_usage.billing_month": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "usage_tier_4_gallons",
+      "term_name": "Usage Tier 4 Gallons",
+      "term_id": "a2fd4fa0-2046-5536-95b0-1c78c10a0060",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed by a customer in the fourth billing tier, measured in gallons.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.usage_tier_4_gallons"
+      ],
+      "source_types": {
+        "public.monthly_usage.usage_tier_4_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_1_charge",
+      "term_name": "Tier 1 Charge",
+      "term_id": "2a1afa62-2d4b-5e1d-ac71-3616611a2b7d",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The base monthly fee applied to water usage within the first tier of the established rate structure.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.tier_1_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.tier_1_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "meter_id",
+      "term_name": "Meter ID",
+      "term_id": "5e72eadf-3ebd-5f47-ade4-a78e325b677b",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "identifier"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The unique identifier for a customer's water meter connection, formatted as MTR-NNNNNN.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^(?:[A-Z]{2}[0-9]{6}|[A-Z]{3}\\-[0-9]{6})$",
+          "signature": null,
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.monthly_usage.meter_id"
+      ],
+      "source_types": {
+        "public.monthly_usage.meter_id": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "total_due",
+      "term_name": "Total Due",
+      "term_id": "9e745840-84d5-5a26-b13f-f5ea56662370",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total amount of money owed by a customer for their monthly water usage.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.total_due"
+      ],
+      "source_types": {
+        "public.monthly_usage.total_due": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "usage_gallons",
+      "term_name": "Usage Gallons",
+      "term_id": "08ad3aff-60dd-5bb4-9eda-c1fc1dedcf49",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed by a customer during a specific billing cycle.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.usage_gallons"
+      ],
+      "source_types": {
+        "public.monthly_usage.usage_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "usage_tier_3_gallons",
+      "term_name": "Usage Tier 3 Gallons",
+      "term_id": "097f6cf6-5b74-5e93-9f0b-06e220418317",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed by a customer in the third billing tier, measured in gallons.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.usage_tier_3_gallons"
+      ],
+      "source_types": {
+        "public.monthly_usage.usage_tier_3_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "wastewater_charge",
+      "term_name": "Wastewater Charge",
+      "term_id": "c9babe43-3f9b-5dc7-a173-ab181022285f",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total cost of wastewater treatment services associated with a customer's monthly usage record.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.wastewater_charge",
+        "public.tiered_rates.wastewater_charge"
+      ],
+      "source_types": {
+        "public.monthly_usage.wastewater_charge": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "usage_tier_1_gallons",
+      "term_name": "Usage Tier 1 Gallons",
+      "term_id": "5ee2f0ac-3307-5e2e-85eb-5293e3c9b4a9",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total volume of water consumed by a customer within the first billing tier of the monthly usage cycle.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.usage_tier_1_gallons"
+      ],
+      "source_types": {
+        "public.monthly_usage.usage_tier_1_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "amount_paid",
+      "term_name": "Amount Paid",
+      "term_id": "8309bd10-6ccb-5be4-8591-b9136cfad4f7",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total monetary value of the monthly usage record that has been successfully processed and paid by the customer.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.amount_paid"
+      ],
+      "source_types": {
+        "public.monthly_usage.amount_paid": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "due_date",
+      "term_name": "Due Date",
+      "term_id": "1fe5c9ca-b814-5c96-a515-4bcf0aef0229",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "temporal",
+        "billing-and-revenue",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The date by which the customer's monthly water usage payment must be submitted to avoid late fees.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.due_date"
+      ],
+      "source_types": {
+        "public.monthly_usage.due_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "payment_date",
+      "term_name": "Payment Date",
+      "term_id": "b87655bc-8789-579a-9a31-7f922d798f7d",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "temporal",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The calendar date on which a customer's monthly usage payment was processed.",
+      "detect": [],
+      "sources": [
+        "public.monthly_usage.payment_date"
+      ],
+      "source_types": {
+        "public.monthly_usage.payment_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "customer_email",
+      "term_name": "Customer Email",
+      "term_id": "503651a0-96e1-521a-accb-7e5d341b7d02",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "contact",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The primary electronic mail address used to communicate with the customer.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+          "signature": null,
+          "source": "recognised"
+        }
+      ],
+      "sources": [
+        "public.customers.email"
+      ],
+      "source_types": {
+        "public.customers.email": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "billing_zip",
+      "term_name": "Billing ZIP",
+      "term_id": "a01e337f-f572-5cb8-ade6-72cc0fce2076",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The five-digit postal code where the customer's billing statements and official correspondence are mailed.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^\\d{5}(-\\d{4})?$",
+          "signature": null,
+          "source": "recognised",
+          "identity": "column_name",
+          "shared_with": [
+            "Service ZIP"
+          ]
+        }
+      ],
+      "sources": [
+        "public.customers.billing_zip"
+      ],
+      "source_types": {
+        "public.customers.billing_zip": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "account_number",
+      "term_name": "Account Number",
+      "term_id": "1b8ad394-f01d-5e4c-ae9d-23fdd0e8d09f",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "financial",
+        "sensitive",
+        "identifier",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The unique identifier for a customer's account used for billing and service tracking.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^(?:[A-Z]{3}\\-[A-Z]{2}\\-[0-9]{6}|[A-Z]{3}\\-[A-Z]{3}\\-[0-9]{6})$",
+          "signature": null,
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.account_number",
+        "public.customer_billing_summary.account_number"
+      ],
+      "source_types": {
+        "public.customers.account_number": "VARCHAR",
+        "public.customer_billing_summary.account_number": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "customer_name",
+      "term_name": "Customer Name",
+      "term_id": "c2d0870b-eb07-5064-80e7-8f60010ce585",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "personal-data",
+        "direct-identifier",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The full legal name of the individual or entity associated with a customer account.",
+      "detect": [],
+      "sources": [
+        "public.customers.customer_name",
+        "public.customer_billing_summary.customer_name"
+      ],
+      "source_types": {
+        "public.customers.customer_name": "VARCHAR",
+        "public.customer_billing_summary.customer_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "customer_address",
+      "term_name": "Customer Address",
+      "term_id": "7a997c17-fbbb-5ce9-9ac8-2461c7655dc4",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The physical location where water services are provided to the customer.",
+      "detect": [],
+      "sources": [
+        "public.customers.service_address"
+      ],
+      "source_types": {
+        "public.customers.service_address": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "service_county",
+      "term_name": "Service County",
+      "term_id": "a813a7c9-55b4-584e-90af-89e2ff490b4a",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The county where the customer's primary service location is situated.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Cochise",
+            "Coconino",
+            "Maricopa",
+            "Navajo",
+            "Pinal"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.service_county"
+      ],
+      "source_types": {
+        "public.customers.service_county": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "service_city",
+      "term_name": "Service City",
+      "term_id": "3be26f06-8ba5-55c0-b08c-3484b0869e6d",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The city where the customer's service location is physically situated.",
+      "detect": [],
+      "sources": [
+        "public.customers.service_city",
+        "public.customer_billing_summary.service_city"
+      ],
+      "source_types": {
+        "public.customers.service_city": "VARCHAR",
+        "public.customer_billing_summary.service_city": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "account_status",
+      "term_name": "Account Status",
+      "term_id": "355d813e-f1b7-5538-b11f-c43be10f7372",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "identifier",
+        "customer-management",
+        "customer"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The current operational state of a customer's account, such as active, suspended, or inactive.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Active",
+            "Suspended",
+            "active",
+            "inactive",
+            "suspended"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.account_status"
+      ],
+      "source_types": {
+        "public.customers.account_status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "billing_name",
+      "term_name": "Billing Name",
+      "term_id": "7dd5ec1a-20b0-515f-9d35-b45670f7a8eb",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "personal-data",
+        "direct-identifier",
+        "privacy",
+        "financial",
+        "customer-management",
+        "maskable"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The legal name of the customer as it appears on official billing statements and invoices.",
+      "detect": [],
+      "sources": [
+        "public.customers.billing_name"
+      ],
+      "source_types": {
+        "public.customers.billing_name": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "service_area_system",
+      "term_name": "Service Area System",
+      "term_id": "2d059b1c-d346-5f4f-853a-614c3e67915b",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "customer",
+        "location",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The specific water distribution system that serves a customer and determines their applicable rates and water quality.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Apache Junction System",
+            "Bisbee System",
+            "Lakeside System",
+            "Oracle System",
+            "Pinal Valley System",
+            "Sedona System",
+            "Sierra Vista System",
+            "White Tank System"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.service_area_system"
+      ],
+      "source_types": {
+        "public.customers.service_area_system": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "billing_address",
+      "term_name": "Billing Address",
+      "term_id": "4ad06a1e-5d64-517a-bee0-e7e0186b2c8a",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The physical street address where the customer receives invoices and official correspondence.",
+      "detect": [],
+      "sources": [
+        "public.customers.billing_address"
+      ],
+      "source_types": {
+        "public.customers.billing_address": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "service_start_date",
+      "term_name": "Service Start Date",
+      "term_id": "86df7f94-6aa1-518f-a885-6a43d57896b7",
+      "sensitivity": "LOW",
+      "tags": [
+        "temporal",
+        "customer-management",
+        "customer",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The date the customer's water service was officially activated and recorded in the system.",
+      "detect": [],
+      "sources": [
+        "public.customers.service_start_date"
+      ],
+      "source_types": {
+        "public.customers.service_start_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "billing_city",
+      "term_name": "Billing City",
+      "term_id": "aea7b353-aa41-504f-a3d1-4c62d9cf015d",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "financial",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The city where the customer's billing statement is sent and where the service address is located.",
+      "detect": [],
+      "sources": [
+        "public.customers.billing_city"
+      ],
+      "source_types": {
+        "public.customers.billing_city": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "phone",
+      "term_name": "Phone",
+      "term_id": "2e4ebbc5-2533-5044-b53e-5b61a56ca544",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "contact",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The primary telephone number associated with a customer's account for communication.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}$",
+          "signature": null,
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.phone"
+      ],
+      "source_types": {
+        "public.customers.phone": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "opted_out_marketing",
+      "term_name": "Opted Out Marketing",
+      "term_id": "28d54a3a-9f13-5857-8949-b1d34444022d",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "compliance",
+        "privacy",
+        "customer"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "A flag indicating whether a customer has chosen to decline marketing communications and must not receive marketing emails.",
+      "detect": [],
+      "sources": [
+        "public.customers.opted_out_marketing"
+      ],
+      "source_types": {
+        "public.customers.opted_out_marketing": "BIT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "customer_type",
+      "term_name": "Customer Type",
+      "term_id": "c6027672-399a-5bda-b797-232fea4abe3c",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "customer",
+        "operational",
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management",
+        "billing-and-revenue"
+      ],
+      "category": "Customer Management",
+      "definition": "The classification of a customer based on their primary usage of water, such as residential, commercial, industrial, or agricultural.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Agriculture",
+            "Commercial",
+            "Residential",
+            "commercial",
+            "residential"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.customers.customer_type",
+        "public.customer_billing_summary.customer_type",
+        "public.tiered_rates.customer_type"
+      ],
+      "source_types": {
+        "public.customers.customer_type": "VARCHAR",
+        "public.customer_billing_summary.customer_type": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "service_zip",
+      "term_name": "Service ZIP",
+      "term_id": "f9ac3b07-780d-5a8e-b8ed-04ffceebe308",
+      "sensitivity": "HIGH",
+      "tags": [
+        "pii",
+        "location",
+        "privacy",
+        "customer-management",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The postal code where the customer's water service is located.",
+      "detect": [
+        {
+          "type": "pattern",
+          "regex": "^\\d{5}(-\\d{4})?$",
+          "signature": null,
+          "source": "recognised",
+          "identity": "column_name",
+          "shared_with": [
+            "Billing ZIP"
+          ]
+        }
+      ],
+      "sources": [
+        "public.customers.service_zip"
+      ],
+      "source_types": {
+        "public.customers.service_zip": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "bills_generated",
+      "term_name": "Bills Generated",
+      "term_id": "7e2fe9a3-e17a-5c22-9758-b3d939038895",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer-management",
+        "customer",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total number of invoices issued to a customer's account within a specific billing cycle.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.bills_generated"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.bills_generated": "BIGINT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "peak_usage",
+      "term_name": "Peak Usage",
+      "term_id": "cd39663c-8d3e-52aa-8633-291d1b9ba772",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "customer",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The maximum amount of water consumed by a customer during a specific billing period.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.peak_usage"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.peak_usage": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "average_monthly_usage",
+      "term_name": "Average Monthly Usage",
+      "term_id": "822d0b3b-3ca9-5ce0-9f01-effa2fee4cda",
+      "sensitivity": "LOW",
+      "tags": [
+        "customer-management",
+        "customer",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The mean amount of water consumed by a customer during a billing cycle.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.avg_monthly_usage"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.avg_monthly_usage": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "total_outstanding",
+      "term_name": "Total Outstanding",
+      "term_id": "f5c264f6-5e61-5439-9fee-cb9619b3df90",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer-management",
+        "customer"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Customer Management",
+      "definition": "The total amount of money currently owed by a customer on their account.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.total_outstanding"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.total_outstanding": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "outstanding_bills",
+      "term_name": "Outstanding Bills",
+      "term_id": "18aefde9-0037-5c27-8606-0eba9bf4c8e5",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "customer-management",
+        "customer"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total amount of unpaid invoices currently owed by a customer on their billing summary record.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.outstanding_bills"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.outstanding_bills": "BIGINT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "paid_bills",
+      "term_name": "Paid Bills",
+      "term_id": "e9fc77d1-56c6-5b8e-86f2-4541f54aca34",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "customer-management",
+        "cde",
+        "pii"
+      ],
+      "off_vocabulary_tags": [
+        "customer-management"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The total number of payments successfully processed and recorded against a customer's billing summary.",
+      "detect": [],
+      "sources": [
+        "public.customer_billing_summary.paid_bills"
+      ],
+      "source_types": {
+        "public.customer_billing_summary.paid_bills": "BIGINT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "resolved_date",
+      "term_name": "Resolved Date",
+      "term_id": "4941083b-7bb0-5c00-b11a-92a56d51a591",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "temporal",
+        "operations-and-monitoring",
+        "identifier"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The date and time when an account alert status was changed to resolved.",
+      "detect": [],
+      "sources": [
+        "public.account_alerts.resolved_date"
+      ],
+      "source_types": {
+        "public.account_alerts.resolved_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "recommended_action",
+      "term_name": "Recommended Action",
+      "term_id": "dd9722a6-da99-5543-a2c5-33d6edaac03a",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "identifier",
+        "operational",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The specific instruction or next step for staff to take regarding a customer account alert.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Contact customer for payment. Assess risk of service suspension after 60 days.",
+            "Continue monitoring. Usage consistent with summer tourism season.",
+            "Follow collection procedure. Consider account closeout if payment not received by 2026-06-10.",
+            "Follow collection procedure. Consider account closeout if payment not received.",
+            "Issue 30-day notice. If unpaid by 2026-06-15, schedule service suspension review.",
+            "Issue 30-day notice. If unpaid, schedule service suspension review.",
+            "Remind of summer irrigation best practices per AWC conservation program.",
+            "Suggest leak check. Review for irrigation/HVAC efficiency opportunities."
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.account_alerts.recommended_action"
+      ],
+      "source_types": {
+        "public.account_alerts.recommended_action": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "alert_type",
+      "term_name": "Alert Type",
+      "term_id": "a2139624-c8fd-5adf-bde4-db05aa1d533c",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "operations-and-monitoring",
+        "identifier"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The specific category of notification issued to a customer regarding their account status or service conditions.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Conservation Notice",
+            "High Usage",
+            "Payment Overdue",
+            "high_usage",
+            "leak_detected",
+            "payment_due",
+            "quality_notice",
+            "service_interruption"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.account_alerts.alert_type"
+      ],
+      "source_types": {
+        "public.account_alerts.alert_type": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "severity",
+      "term_name": "Severity",
+      "term_id": "5945566b-a80e-5317-95a6-23668f39c132",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "operations-and-monitoring",
+        "identifier",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The priority level of an account alert, indicating the urgency of the required action.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "High",
+            "Low",
+            "Medium"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.account_alerts.severity"
+      ],
+      "source_types": {
+        "public.account_alerts.severity": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "alert_date",
+      "term_name": "Alert Date",
+      "term_id": "22af676d-1d02-5c21-b710-6db0052a1c50",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "temporal",
+        "operations-and-monitoring",
+        "identifier"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The specific date on which an account alert was generated or triggered within the monitoring system.",
+      "detect": [],
+      "sources": [
+        "public.account_alerts.alert_date"
+      ],
+      "source_types": {
+        "public.account_alerts.alert_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "service_cities",
+      "term_name": "Service Cities",
+      "term_id": "2290ba4f-2a6f-50ab-a79d-29db357b9240",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "water-quality-and-compliance",
+        "location",
+        "operations-and-monitoring",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance",
+        "operations-and-monitoring"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The specific geographic locations or municipalities served by the water system associated with a water quality status record.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Apache Junction, Superstition",
+            "Bisbee, Naco",
+            "Casa Grande, Coolidge, Stanfield",
+            "Lakeside, Pinetop",
+            "Oracle, San Manuel",
+            "Sedona, Oak Creek",
+            "Sierra Vista, Huachuca City",
+            "White Tank, Buckeye Area"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.system_water_quality_status.service_cities",
+        "public.water_systems.service_cities"
+      ],
+      "source_types": {
+        "public.system_water_quality_status.service_cities": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_alert_level",
+      "term_name": "System Alert Level",
+      "term_id": "ac5acd3c-d4dd-5ffc-89b3-7255579dcd2f",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "operational",
+        "water-quality-and-compliance"
+      ],
+      "off_vocabulary_tags": [
+        "water-quality-and-compliance"
+      ],
+      "category": "Water Quality and Compliance",
+      "definition": "The current status of water quality monitoring, indicating whether the system is in a normal or alert state.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "ATTENTION",
+            "OK"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.system_water_quality_status.system_alert_level"
+      ],
+      "source_types": {
+        "public.system_water_quality_status.system_alert_level": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "tier_3_from_gallons",
+      "term_name": "Tier 3 From Gallons",
+      "term_id": "648c4c75-0ca7-5392-abf6-f7d9127ace37",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The minimum volume of water usage in gallons required to reach the third tier of the billing rate structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier3_from_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier3_from_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_2_rate_per_1000_gallons",
+      "term_name": "Tier 2 Rate Per 1000 Gallons",
+      "term_id": "16d4e324-b60e-5817-91b8-aeed63514b79",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The cost per 1,000 gallons of water consumed by a customer under the second tier of the tiered pricing structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier2_rate_per_1000gal"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier2_rate_per_1000gal": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_3_rate_per_1000_gallons",
+      "term_name": "Tier 3 Rate Per 1000 Gallons",
+      "term_id": "a67821b4-77ea-59c4-b01f-8b0678ac2b4f",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The cost per 1,000 gallons of water consumed by the customer during the third tier of the tiered pricing structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier3_rate_per_1000gal"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier3_rate_per_1000gal": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "effective_date",
+      "term_name": "Effective Date",
+      "term_id": "09b9ea9a-6a0f-5d30-a11b-5405d4360a15",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "temporal",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The date on which the specific tiered rate structure becomes active for billing calculations.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.effective_date"
+      ],
+      "source_types": {
+        "public.tiered_rates.effective_date": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_3_to_gallons",
+      "term_name": "Tier 3 To Gallons",
+      "term_id": "cb06c1a1-8411-55d1-a08d-144b80aed2c3",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The quantity of water usage in gallons that triggers the Tier 3 pricing bracket.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier3_to_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier3_to_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_4_rate_per_1000_gallons",
+      "term_name": "Tier 4 Rate Per 1000 Gallons",
+      "term_id": "e789a8b1-419e-52cf-b436-7e8e8868c0d9",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The highest tier rate applied to non-essential or discretionary water usage, typically ranging from $9.75 to $11.00 per 1,000 gallons.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier4_rate_per_1000gal"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier4_rate_per_1000gal": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "rate_period",
+      "term_name": "Rate Period",
+      "term_id": "10fe375d-46c2-5374-9003-6ba8be77e0eb",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "temporal",
+        "billing-and-revenue"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The specific timeframe or interval during which a tiered rate structure is applied to a customer's water usage.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.rate_period"
+      ],
+      "source_types": {
+        "public.tiered_rates.rate_period": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_4_from_gallons",
+      "term_name": "Tier 4 From Gallons",
+      "term_id": "55ee00c2-f01e-5d3e-bd30-cd9fd79f98fe",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The minimum volume threshold in gallons required to trigger the Tier 4 pricing rate for water usage.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier4_from_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier4_from_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_1_rate_per_1000_gallons",
+      "term_name": "Tier 1 Rate Per 1000 Gallons",
+      "term_id": "b4cffdff-6015-5f92-b9e2-14da48b5c0b2",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The base rate charged for essential water usage in the first tier of the tiered pricing structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier1_rate_per_1000gal"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier1_rate_per_1000gal": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_2_to_gallons",
+      "term_name": "Tier 2 To Gallons",
+      "term_id": "9a4def1b-c52b-5ff4-b5f2-72ef293f6568",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The volume of water usage in gallons that triggers the transition from the first tier to the second tier of the billing rate.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier2_to_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier2_to_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_1_from_gallons",
+      "term_name": "Tier 1 From Gallons",
+      "term_id": "8b840c3f-07ee-5079-8350-19a3c543c881",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The minimum volume threshold in gallons starting the first tier of the tiered water rate structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier1_from_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier1_from_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_4_to_gallons",
+      "term_name": "Tier 4 To Gallons",
+      "term_id": "2b150eae-e96b-5f18-8cd5-5b4f0aa58682",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The quantity of water in gallons associated with the fourth tier of the tiered rate structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier4_to_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier4_to_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_1_to_gallons",
+      "term_name": "Tier 1 To Gallons",
+      "term_id": "a93b3715-c3fe-5cc2-b265-0948b3c8cbe3",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The maximum volume of water in gallons allowed within the first tier of the tiered pricing structure.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier1_to_gallons"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier1_to_gallons": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "tier_rate",
+      "term_name": "Tier Rate",
+      "term_id": "19b53146-de72-597c-9c75-2e9a8be81a5f",
+      "sensitivity": "LOW",
+      "tags": [
+        "financial",
+        "billing-and-revenue",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "billing-and-revenue"
+      ],
+      "category": "Billing and Revenue",
+      "definition": "The published tiered rate for water usage, specifically the Tier 1 lifeline rate per 1,000 gallons.",
+      "detect": [],
+      "sources": [
+        "public.tiered_rates.tier_rate"
+      ],
+      "source_types": {
+        "public.tiered_rates.tier_rate": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "payment_collection_rate",
+      "term_name": "Payment Collection Rate",
+      "term_id": "688c51e7-30b2-5c4e-b7b4-e47a2bc83022",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "operations-and-monitoring",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The percentage of total billed amounts successfully collected from customers for a specific system usage conservation record.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.payment_collection_rate"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.payment_collection_rate": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "total_system_usage_1000_gallons",
+      "term_name": "Total System Usage (1000 Gallons)",
+      "term_id": "0f96e545-3f58-5487-9a7f-c7a6e5d22b03",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The total volume of water used by the system, measured in units of 1,000 gallons.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.total_system_usage_1000gal"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.total_system_usage_1000gal": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "active_customers",
+      "term_name": "Active Customers",
+      "term_id": "8ed48cb4-9f12-532e-85a8-d3cf38cf9c2a",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "customer",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The count of customers associated with a system usage conservation record.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.active_customers"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.active_customers": "BIGINT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "average_customer_usage",
+      "term_name": "Average Customer Usage",
+      "term_id": "34f188eb-1e26-5dc4-9bc3-02e360889d2a",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The mean volume of water consumed by a customer within a specific reporting period.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.avg_customer_usage"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.avg_customer_usage": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "unpaid_accounts",
+      "term_name": "Unpaid Accounts",
+      "term_id": "8922525f-2368-522d-9f4c-e885d663ecd5",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "sensitive",
+        "identifier",
+        "operations-and-monitoring",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "Accounts with outstanding balances associated with system usage conservation records.",
+      "detect": [],
+      "sources": [
+        "public.system_usage_conservation.unpaid_accounts"
+      ],
+      "source_types": {
+        "public.system_usage_conservation.unpaid_accounts": "BIGINT"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "source_type",
+      "term_name": "Source Type",
+      "term_id": "f66bc155-799a-5c83-a4a4-e5ed1d66733e",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The primary physical source of water for a given system, such as groundwater wells or surface water bodies.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Wells + Fort Huachuca Allocation",
+            "Wells + Local Surface Water",
+            "Wells + Watershed Recharge",
+            "Wells - Harquahala Valley Aquifer",
+            "Wells - Lower Hassayampa",
+            "Wells - Mule Creek",
+            "Wells - Oracle Ridge",
+            "Wells - San Tan Valley"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.source_type"
+      ],
+      "source_types": {
+        "public.water_systems.source_type": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "number_of_customers",
+      "term_name": "Number Of Customers",
+      "term_id": "75e9ef1b-63f9-5d17-bbf8-eda7ddfcba55",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The total count of unique customers served by a specific water system.",
+      "detect": [],
+      "sources": [
+        "public.water_systems.number_of_customers"
+      ],
+      "source_types": {
+        "public.water_systems.number_of_customers": "INTEGER"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "system_status",
+      "term_name": "System Status",
+      "term_id": "09f54c59-f4d5-511c-a6af-61ee938e0f4f",
+      "sensitivity": "LOW",
+      "tags": [
+        "operational",
+        "operations-and-monitoring",
+        "governance"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The current operational state of a water system, such as active, inactive, or suspended.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Active",
+            "active",
+            "inactive",
+            "suspended"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.system_status"
+      ],
+      "source_types": {
+        "public.water_systems.system_status": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "system_type",
+      "term_name": "System Type",
+      "term_id": "5d75ba30-c6ec-59c4-96bf-367d9b5d6bf5",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The classification of a water system based on its source or infrastructure type, such as groundwater or mixed systems.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Groundwater",
+            "Mixed"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.system_type"
+      ],
+      "source_types": {
+        "public.water_systems.system_type": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "county",
+      "term_name": "County",
+      "term_id": "47236123-f167-5d61-a78f-cdf7bb9a88c9",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "location",
+        "privacy",
+        "operations-and-monitoring",
+        "maskable",
+        "cde"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The geographical county where the water system is located.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Cochise",
+            "Coconino",
+            "Maricopa",
+            "Navajo",
+            "Pinal"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.county"
+      ],
+      "source_types": {
+        "public.water_systems.county": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "conservation_focus",
+      "term_name": "Conservation Focus",
+      "term_id": "68647995-d4b7-57bb-a2e1-1e3c8259f5ba",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "governance",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The primary strategic objective or environmental constraint governing the management of a specific water system.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Expanding metro area, new customer acquisition, infrastructure growth",
+            "Historic mining town, limited groundwater availability, reuse programs",
+            "Military installation coordination, population growth planning",
+            "Mountain community, seasonal variation, wildlife protection",
+            "Residential conservation, tourism water efficiency, seasonal management",
+            "Rural agriculture, small system management, reliability focus",
+            "Suburban growth management, new development standards",
+            "Tier-based conservation, agricultural water reuse, desert landscaping education"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.conservation_focus"
+      ],
+      "source_types": {
+        "public.water_systems.conservation_focus": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "total_annual_usage_acre_feet",
+      "term_name": "Total Annual Usage Acre Feet",
+      "term_id": "21a1f184-8b34-5d7b-ab4c-12e9c38a2a8a",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "financial",
+        "operations-and-monitoring",
+        "operational"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The total volume of water consumed by a specific water system within a single calendar year.",
+      "detect": [],
+      "sources": [
+        "public.water_systems.total_annual_usage_acre_feet"
+      ],
+      "source_types": {
+        "public.water_systems.total_annual_usage_acre_feet": "NUMERIC"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "primary_source",
+      "term_name": "Primary Source",
+      "term_id": "89d25008-f778-5f53-8e81-fbecc174d83e",
+      "sensitivity": "LOW",
+      "tags": [
+        "operations-and-monitoring",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The primary physical source of water for a specific water system, such as groundwater wells or local springs.",
+      "detect": [
+        {
+          "type": "dictionary",
+          "values": [
+            "Groundwater Wells",
+            "Local Springs & Wells",
+            "Military Water Allocation + Wells",
+            "Mountain Springs + Wells"
+          ],
+          "source": "profiled"
+        }
+      ],
+      "sources": [
+        "public.water_systems.primary_source"
+      ],
+      "source_types": {
+        "public.water_systems.primary_source": "VARCHAR"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "seeded"
+    },
+    {
+      "concept": "last_compliance_check",
+      "term_name": "Last Compliance Check",
+      "term_id": "b2c3dcf8-44a1-5ad5-99ef-553e73fc9f16",
+      "sensitivity": "LOW",
+      "tags": [
+        "compliance",
+        "operations-and-monitoring",
+        "cde",
+        "operational",
+        "record"
+      ],
+      "off_vocabulary_tags": [
+        "operations-and-monitoring"
+      ],
+      "category": "Operations and Monitoring",
+      "definition": "The date of the most recent compliance audit performed on a specific water system.",
+      "detect": [],
+      "sources": [
+        "public.water_systems.last_compliance_check"
+      ],
+      "source_types": {
+        "public.water_systems.last_compliance_check": "DATE"
+      },
+      "keys": {},
+      "method": null,
+      "detection_intent": "mapping_only"
+    },
+    {
+      "concept": "water_quality_report_record",
+      "term_name": "Water Quality Report Record",
+      "term_id": "1810e832-cd46-5fa4-b533-8fc0177bf1e4",
+      "sensitivity": "LOW",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Water Quality and Compliance",
+      "definition": "A single entry in the water quality reports table representing a specific instance of a water quality test or observation.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "monthly_usage_record",
+      "term_name": "Monthly Usage Record",
+      "term_id": "a4a1c2f1-1fbe-5e20-8e4f-7ef1d5b165bf",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Billing and Revenue",
+      "definition": "A record of water usage for a single month, associated with a specific customer account.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "customer_record",
+      "term_name": "Customer Record",
+      "term_id": "320af468-e4f1-5849-91bc-a8d68cd468c9",
+      "sensitivity": "HIGH",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Customer Management",
+      "definition": "A unique entry representing a customer's profile and account information within the organization's database.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "customer_billing_summary_record",
+      "term_name": "Customer Billing Summary Record",
+      "term_id": "53f28b12-b85f-5b7f-87f2-c10461ff8a85",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Billing and Revenue",
+      "definition": "A summary of billing information for a specific customer account, stored as a table-level record.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "account_alert_record",
+      "term_name": "Account Alert Record",
+      "term_id": "faa69c25-2118-5854-82b4-743fd7f94f1c",
+      "sensitivity": "LOW",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Operations and Monitoring",
+      "definition": "A record representing a specific alert triggered for a customer account within the monitoring system.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "system_water_quality_status_record",
+      "term_name": "System Water Quality Status Record",
+      "term_id": "501aa901-483b-5138-ab6e-482044345616",
+      "sensitivity": "LOW",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Water Quality and Compliance",
+      "definition": "The primary record identifying the current water quality status for a specific system within the reporting framework.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "tiered_rate_record",
+      "term_name": "Tiered Rate Record",
+      "term_id": "b2b07d2e-49ec-51ff-9fdb-c8e759c89614",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Billing and Revenue",
+      "definition": "A record representing a specific pricing tier for water usage, used to calculate billing amounts based on volume.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "system_usage_conservation_record",
+      "term_name": "System Usage Conservation Record",
+      "term_id": "47dcbda6-fe83-5b9f-ba78-778939b06d85",
+      "sensitivity": "MEDIUM",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Operations and Monitoring",
+      "definition": "A record of system usage data specifically related to water conservation efforts.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    },
+    {
+      "concept": "water_system_record",
+      "term_name": "Water System Record",
+      "term_id": "ac42629f-0aca-5a50-88ce-25c360569d10",
+      "sensitivity": "HIGH",
+      "tags": [
+        "record",
+        "table-level"
+      ],
+      "off_vocabulary_tags": [],
+      "category": "Operations and Monitoring",
+      "definition": "A unique identifier for a specific water system component within the infrastructure network.",
+      "detect": [],
+      "sources": [],
+      "source_types": {},
+      "keys": {},
+      "method": null
+    }
+  ],
+  "physical_model": {
+    "keys": [],
+    "relationships": []
+  },
+  "tag_vocabulary": {
+    "allow_list": [
+      "cde",
+      "compliance",
+      "contact",
+      "customer",
+      "direct-identifier",
+      "document",
+      "financial",
+      "governance",
+      "identifier",
+      "location",
+      "maskable",
+      "operational",
+      "personal-data",
+      "pii",
+      "privacy",
+      "record",
+      "sensitive",
+      "table-level",
+      "tax",
+      "temporal"
+    ],
+    "sensitivity_floors": {
+      "pii": "HIGH",
+      "personal-data": "HIGH",
+      "direct-identifier": "HIGH",
+      "privacy": "MEDIUM",
+      "contact": "MEDIUM",
+      "location": "MEDIUM",
+      "financial": "MEDIUM",
+      "sensitive": "MEDIUM"
+    },
+    "terms": {
+      "Customer ID": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Customer Account Number",
+          "Cust ID"
+        ],
+        "tags": [
+          "identifier",
+          "customer"
+        ],
+        "layer": "generic"
+      },
+      "Account Number": {
+        "sensitivity": "HIGH",
+        "aliases": [
+          "Acct Number",
+          "Account No"
+        ],
+        "tags": [
+          "financial",
+          "identifier",
+          "pii"
+        ],
+        "layer": "generic"
+      },
+      "Customer Name": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Full Name"
+        ],
+        "tags": [
+          "pii",
+          "personal-data",
+          "privacy"
+        ],
+        "layer": "generic"
+      },
+      "Email": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Email Address",
+          "E-mail"
+        ],
+        "tags": [
+          "pii",
+          "contact",
+          "privacy"
+        ],
+        "layer": "generic"
+      },
+      "Phone": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Phone Number",
+          "Telephone"
+        ],
+        "tags": [
+          "pii",
+          "contact",
+          "privacy"
+        ],
+        "layer": "generic"
+      },
+      "Address": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Mailing Address",
+          "Service Address"
+        ],
+        "tags": [
+          "pii",
+          "location",
+          "privacy"
+        ],
+        "layer": "generic"
+      },
+      "SSN": {
+        "sensitivity": "HIGH",
+        "aliases": [
+          "Social Security Number"
+        ],
+        "tags": [
+          "pii",
+          "direct-identifier",
+          "sensitive"
+        ],
+        "layer": "generic"
+      },
+      "Amount": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial"
+        ],
+        "layer": "generic"
+      },
+      "Date": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Timestamp"
+        ],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "generic"
+      },
+      "Account Status": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "identifier",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Active Customers": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Alert Date": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "temporal",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "Alert Type": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "Amount Paid": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Asset ID": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Asset Type": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Average Customer Usage": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Average Monthly Usage": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Bacteria Present": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Base Charge (Tiered Rates)": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Base Charge",
+          "Base Charge (Monthly Usage)"
+        ],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Billing Address": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "location",
+          "privacy",
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Billing City": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "location",
+          "privacy",
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Billing Month": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Billing ZIP": {
+        "sensitivity": "HIGH",
+        "aliases": [
+          "Service ZIP"
+        ],
+        "tags": [
+          "pii",
+          "location",
+          "privacy",
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Bills Generated": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Capacity": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Capacity Units": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Chlorine Residual": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Chlorine Residual Ppm": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Compliance": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "document",
+          "compliance",
+          "maskable",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Compliance Status": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "compliance",
+          "operational",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Condition Rating": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Conservation Focus": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Contaminant Level (ppm)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Contaminant Level"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Copper Ppm": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Correspondence": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "document"
+        ],
+        "layer": "company"
+      },
+      "County": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "location",
+          "privacy"
+        ],
+        "layer": "company"
+      },
+      "Criticality": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Customer Type": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Diameter (inches)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Diameter Inches",
+          "Diameter (inches"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Due Date": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Effective Date": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Flow (gpm)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Flow Gpm"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Gis": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "document"
+        ],
+        "layer": "company"
+      },
+      "Hardness (ppm)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Hardness Ppm"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Inspections": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "document"
+        ],
+        "layer": "company"
+      },
+      "Install Year": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Last Compliance Check": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "compliance",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Last Inspection Date": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Last Maintenance": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Latitude": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "location"
+        ],
+        "layer": "company"
+      },
+      "Lead (ppb)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Lead Ppb"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Length (ft)": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Length Feet"
+        ],
+        "tags": [
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Longitude": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "location"
+        ],
+        "layer": "company"
+      },
+      "Material": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Meter ID": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Meter Reading": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Number Of Customers": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Opted Out Marketing": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Outstanding Bills": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Paid Bills": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "customer",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Payment Collection Rate": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Payment Date": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Payment Status (Customer Billing Summary)": {
+        "sensitivity": "MEDIUM",
+        "aliases": [
+          "Payment Status",
+          "Payment Status (Monthly Usage)"
+        ],
+        "tags": [
+          "financial",
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "Peak Usage": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "pH Level": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Ph Level",
+          "pH Level"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Population Served": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "location"
+        ],
+        "layer": "company"
+      },
+      "Primary Source": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Pump Status": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "Quality Rating": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Rate Period": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Recommended Action": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "Report Month": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal"
+        ],
+        "layer": "company"
+      },
+      "Reservoir Level Percent": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Resolved Date": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "temporal",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "SCADA System Data": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Scada"
+        ],
+        "tags": [
+          "document"
+        ],
+        "layer": "company"
+      },
+      "Segment ID": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Service Area System": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Service Cities": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "Service City": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "location",
+          "privacy",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Service County": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "location",
+          "privacy",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Service Start Date": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "temporal",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Severity": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "Site Name": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Source Type": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Status (Tiered Rates)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Status",
+          "Status (Csv)",
+          "Status (Infrastructure And Assets)",
+          "Status (Account Alerts)"
+        ],
+        "tags": [
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "Street Name": {
+        "sensitivity": "HIGH",
+        "aliases": [],
+        "tags": [
+          "pii",
+          "personal-data",
+          "direct-identifier",
+          "privacy"
+        ],
+        "layer": "company"
+      },
+      "System Alert Level": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "System Name (System Usage Conservation)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "System Name",
+          "System Name (Csv)",
+          "System Name (Infrastructure And Assets)",
+          "System Name (Customer Billing Summary)",
+          "System Name (System Water Quality Status)"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "System Status": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [
+          "operational"
+        ],
+        "layer": "company"
+      },
+      "System Type": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tax Amount": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "tax"
+        ],
+        "layer": "company"
+      },
+      "Tier 1 Charge": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Tier 1 From Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier1 From Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 1 Rate Per 1000 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier1 Rate Per 1000gal"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 2 Charge": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Tier 2 From Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier2 From Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 2 Rate Per 1000 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier2 Rate Per 1000gal",
+          "Tier 2 Rate Per 1,000 Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 2 To Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier2 To Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 3 Charge": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Tier 3 From Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier3 From Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 3 Rate Per 1000 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier3 Rate Per 1000gal"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 3 To Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier3 To Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 4 Charge": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Tier 4 From Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier4 From Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 4 Rate Per 1000 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier4 Rate Per 1000gal"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier 4 To Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Tier4 To Gallons"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier Rate": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Tier1 To Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Total Annual Usage Acre Feet": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial"
+        ],
+        "layer": "company"
+      },
+      "Total Before Tax": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "tax"
+        ],
+        "layer": "company"
+      },
+      "Total Dissolved Solids (ppm)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Total Dissolved Solids Ppm"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Total Due": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      },
+      "Total Outstanding": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "customer"
+        ],
+        "layer": "company"
+      },
+      "Total System Usage (1000 Gallons)": {
+        "sensitivity": "LOW",
+        "aliases": [
+          "Total System Usage 1000gal"
+        ],
+        "tags": [],
+        "layer": "company"
+      },
+      "Unpaid Accounts": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "identifier"
+        ],
+        "layer": "company"
+      },
+      "Usage Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Usage Tier 1 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Usage Tier 2 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Usage Tier 3 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Usage Tier 4 Gallons": {
+        "sensitivity": "LOW",
+        "aliases": [],
+        "tags": [],
+        "layer": "company"
+      },
+      "Wastewater Charge": {
+        "sensitivity": "MEDIUM",
+        "aliases": [],
+        "tags": [
+          "financial",
+          "sensitive",
+          "cde"
+        ],
+        "layer": "company"
+      }
+    },
+    "domain": "generic",
+    "source": "term_tag_dictionary",
+    "note": "governed = generic baseline + steward-approved; pending items excluded"
+  },
+  "governance_audit": {
+    "count": 300,
+    "cap": 5000,
+    "last_action_at": "2026-08-24T13:05:41+00:00",
+    "actors": [
+      "catalog.admin",
+      "steward"
+    ],
+    "recent": [
+      {
+        "ts": "2026-08-24T13:05:41+00:00",
+        "actor": "catalog.admin",
+        "action": "dictionary.save",
+        "terms": 122,
+        "tags": 20,
+        "warnings": 0
+      },
+      {
+        "ts": "2026-08-24T13:01:59+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Wastewater Charge"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:58+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Usage Tier 4 Gallons"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:58+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Usage Tier 3 Gallons"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:57+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Usage Tier 2 Gallons"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:56+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Usage Tier 1 Gallons"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:56+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Usage Gallons"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:55+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Unpaid Accounts"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:55+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total System Usage (1000 Gallons)"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:55+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total Outstanding"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:55+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total Due"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:55+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total Dissolved Solids (ppm)"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:54+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total Before Tax"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:53+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Total Annual Usage Acre Feet"
+        ],
+        "changed": 1
+      },
+      {
+        "ts": "2026-08-24T13:01:53+00:00",
+        "actor": "steward",
+        "action": "term.approve",
+        "names": [
+          "Tier1 To Gallons"
+        ],
+        "changed": 1
+      }
+    ]
+  },
+  "references": {}
+}

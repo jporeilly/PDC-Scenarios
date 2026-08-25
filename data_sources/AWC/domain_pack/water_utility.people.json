@@ -1,0 +1,95 @@
+{
+  "people": [
+    {
+      "name": "catalog.admin",
+      "display_name": "Catalog Admin",
+      "email": "catalog.admin@azwater.gov",
+      "id": "311b31d8-600f-4458-a17e-790e50aa8c28",
+      "roles": [
+        "Data_Developer",
+        "Data_Steward",
+        "default-roles-pdc",
+        "Business_Steward",
+        "Data_User",
+        "Business_User",
+        "Data_Storage_Administrator",
+        "Admin"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "infrastructure and assets, operations and monitoring, data storage"
+    },
+    {
+      "name": "david.chen",
+      "display_name": "David Chen",
+      "email": "david.chen@azwater.gov",
+      "id": "c53e7d0c-8a19-43c6-99d0-16955cc61e5c",
+      "roles": [
+        "Data_Steward",
+        "default-roles-pdc",
+        "Business_Steward"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "water quality, compliance, operations, monitoring, infrastructure, assets"
+    },
+    {
+      "name": "maria.garcia",
+      "display_name": "Maria Garcia",
+      "email": "maria.garcia@azwater.gov",
+      "id": "8b554d20-44d8-4eab-b51c-a41f764178e3",
+      "roles": [
+        "default-roles-pdc",
+        "Business_Steward"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "customer-management, operations, billing and finance"
+    },
+    {
+      "name": "priya.nair",
+      "display_name": "Priya Nair",
+      "email": "priya.nair@azwater.gov",
+      "id": "f2ff1592-a54d-46d2-8fab-4f8a4a44d9b3",
+      "roles": [
+        "Data_Steward",
+        "default-roles-pdc"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "water quality, compliance, operations, monitoring, infrastructure, assets"
+    },
+    {
+      "name": "robert.hayes",
+      "display_name": "Robert Hayes",
+      "email": "robert.hayes@azwater.gov",
+      "id": "48fdea67-8f2e-4cc1-adf1-4234f89b3dec",
+      "roles": [
+        "default-roles-pdc",
+        "Business_Steward"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "water quality, compliance, operations, monitoring, infrastructure, assets"
+    },
+    {
+      "name": "susan.park",
+      "display_name": "Susan Park",
+      "email": "susan.park@azwater.gov",
+      "id": "425f57d2-689b-47e4-a1d3-8c8462c48660",
+      "roles": [
+        "default-roles-pdc",
+        "Business_Steward"
+      ],
+      "stakeholder_role": "Steward",
+      "community": "",
+      "owns": "",
+      "expertise": "water quality, compliance, monitoring"
+    }
+  ]
+}

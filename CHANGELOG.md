@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.0] - 2026-08-25
+
+### Added - the AWC vertical, seeded from the clean walkthrough's deliverables
+
+`data_sources/AWC/` joins the suite convention (see CSCU): scenario.json,
+the domain pack the estate TAUGHT (`water_utility.example.json` -
+learned abbreviations, curated seeds, governed vocabulary, the adopted
+retention vocabulary; domain water_utility, company Arizona Water), the
+steward roster, and `deliverables/` - the 2026-08 clean-walkthrough
+closeout: the Classification Registry (142 concepts, 45 authorable,
+142/142 ids), the import JSONL (5 "and" categories / 142 terms), 128
+DQ expectations, and the governance audit trail. Snapshot state: 45
+methods deployed id-bound with anchored single-token hints, the four
+Status vocabulary twins deliberately mapping-only, read-back 114
+columns / zero multi-term, drift 45/45 clean, efficacy 41 live / 0
+dead. A colleague can rebuild the estate's governance from the folder
+alone.
+
 ## [1.5.1] - 2026-08-06
 
 ### Fixed - the exported roster would have come back empty

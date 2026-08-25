@@ -1,0 +1,2357 @@
+[
+  {
+    "ts": "2026-08-24T10:23:18+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 32
+  },
+  {
+    "ts": "2026-08-24T10:23:20+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:32:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 55
+  },
+  {
+    "ts": "2026-08-24T10:44:25+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 148
+  },
+  {
+    "ts": "2026-08-24T10:44:47+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "via": "dictionary-page",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:44:49+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:49:22+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:49:37+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:49:46+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:49:56+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:50:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:50:11+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:50:32+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:50:47+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:50:52+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:51:22+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:51:27+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:51:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:51:34+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:51:41+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:51:46+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:51:53+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:51:56+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:52:09+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:52:14+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:52:18+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:52:24+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:52:26+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:52:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:52:36+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:52:41+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:54:32+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:54:44+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:54:49+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:55:21+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:55:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:55:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:55:42+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:55:54+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T10:55:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:56:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T10:56:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:56:09+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:11+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:20+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:27+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:37+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 52
+  },
+  {
+    "ts": "2026-08-24T10:57:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:57:42+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:58:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T10:58:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:24:25+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:24:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:24:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:24:43+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:24:53+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 39
+  },
+  {
+    "ts": "2026-08-24T12:25:19+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:25:29+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:25:55+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:26:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:26:02+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:26:09+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:26:17+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:26:20+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:26:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T12:26:52+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:26:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:27:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:27:13+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:27:23+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:27:29+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:27:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:27:50+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:27:57+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:28:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:28:05+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:28:10+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:28:27+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:28:39+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T12:28:56+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:29:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:29:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:29:29+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 56
+  },
+  {
+    "ts": "2026-08-24T12:29:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 52
+  },
+  {
+    "ts": "2026-08-24T12:29:49+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:30:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:30:03+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:30:16+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:30:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:30:37+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:30:41+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:30:50+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:31:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:31:01+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:31:29+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 55
+  },
+  {
+    "ts": "2026-08-24T12:31:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:31:41+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 52
+  },
+  {
+    "ts": "2026-08-24T12:31:44+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:31:50+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:31:55+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:32:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:32:01+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:32:06+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:32:08+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:32:13+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:32:15+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:32:29+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:32:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:32:44+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:32:48+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 51
+  },
+  {
+    "ts": "2026-08-24T12:32:53+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:32:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:33:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:33:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:33:15+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 53
+  },
+  {
+    "ts": "2026-08-24T12:33:28+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 57
+  },
+  {
+    "ts": "2026-08-24T12:33:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:33:32+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:33:36+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:33:49+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:00+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:01+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:13+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:34:19+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:34:25+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:28+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:36+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:34:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:35:25+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:35:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:35:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:35:52+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:35:56+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:36:09+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:37:12+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:37:30+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 54
+  },
+  {
+    "ts": "2026-08-24T12:37:34+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:37:44+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:37:51+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 50
+  },
+  {
+    "ts": "2026-08-24T12:37:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 49
+  },
+  {
+    "ts": "2026-08-24T12:38:44+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:42:03+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:42:08+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 48
+  },
+  {
+    "ts": "2026-08-24T12:42:36+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 46
+  },
+  {
+    "ts": "2026-08-24T12:42:40+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 45
+  },
+  {
+    "ts": "2026-08-24T12:42:52+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 43
+  },
+  {
+    "ts": "2026-08-24T12:42:57+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 41
+  },
+  {
+    "ts": "2026-08-24T12:43:02+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 41
+  },
+  {
+    "ts": "2026-08-24T12:43:06+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 39
+  },
+  {
+    "ts": "2026-08-24T12:43:09+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 38
+  },
+  {
+    "ts": "2026-08-24T12:43:12+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 36
+  },
+  {
+    "ts": "2026-08-24T12:43:15+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 35
+  },
+  {
+    "ts": "2026-08-24T12:43:19+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 33
+  },
+  {
+    "ts": "2026-08-24T12:43:22+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 32
+  },
+  {
+    "ts": "2026-08-24T12:43:26+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 31
+  },
+  {
+    "ts": "2026-08-24T12:43:49+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 31
+  },
+  {
+    "ts": "2026-08-24T12:43:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 30
+  },
+  {
+    "ts": "2026-08-24T12:44:05+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 27
+  },
+  {
+    "ts": "2026-08-24T12:44:11+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 24
+  },
+  {
+    "ts": "2026-08-24T12:44:18+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 22
+  },
+  {
+    "ts": "2026-08-24T12:44:21+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 19
+  },
+  {
+    "ts": "2026-08-24T12:44:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 19
+  },
+  {
+    "ts": "2026-08-24T12:44:54+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 19
+  },
+  {
+    "ts": "2026-08-24T12:44:58+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 18
+  },
+  {
+    "ts": "2026-08-24T12:45:04+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 16
+  },
+  {
+    "ts": "2026-08-24T12:45:13+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 14
+  },
+  {
+    "ts": "2026-08-24T12:45:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 13
+  },
+  {
+    "ts": "2026-08-24T12:45:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "via": "dictionary-page",
+    "refreshed": 13
+  },
+  {
+    "ts": "2026-08-24T12:45:33+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "via": "dictionary-page",
+    "refreshed": 13
+  },
+  {
+    "ts": "2026-08-24T12:45:35+00:00",
+    "actor": "steward",
+    "action": "dictionary.refresh_pending",
+    "glossary": "Arizona Water",
+    "refreshed": 13
+  },
+  {
+    "ts": "2026-08-24T12:49:55+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "account-alerts"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:49:57+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "all-systems-snapshot-2026-05-15"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:49:58+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "asset-inventory"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:49:59+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "monthly-usage"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:00+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "pinal-valley-pressure-2026-05-14"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:01+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "pipe-network-segments"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:03+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "system-usage-conservation"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:04+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "system-water-quality-status"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:05+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "tiered-rates"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:06+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "water-quality-reports"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:07+00:00",
+    "actor": "steward",
+    "action": "tag.reject",
+    "names": [
+      "water-systems"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:12+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Account Status"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:13+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Active Customers"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:16+00:00",
+    "actor": "steward",
+    "action": "term.reject",
+    "names": [
+      "Alarm"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:17+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Alert Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:18+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Alert Type"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:18+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Amount Paid"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:19+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Asset ID"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:19+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Asset Type"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:20+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Average Customer Usage"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:20+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Average Monthly Usage"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:21+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Bacteria Present"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:21+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Base Charge (Tiered Rates)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:22+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Billing Address"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:23+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Billing City"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:29+00:00",
+    "actor": "steward",
+    "action": "term.alias",
+    "names": [
+      "Billing Name"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:31+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Billing Month"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:31+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Billing ZIP"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:33+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Bills Generated"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:33+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Capacity"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:34+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Capacity Units"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:34+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Chlorine Residual"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:35+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Chlorine Residual Ppm"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:35+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Compliance"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:35+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Compliance Status"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:36+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Condition Rating"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:37+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Conservation Focus"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:37+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Contaminant Level (ppm)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:37+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Copper Ppm"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:38+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Correspondence"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:38+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "County"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:38+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Criticality"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:39+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Customer Type"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:39+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Diameter (inches)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:39+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Due Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:39+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Effective Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:40+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Flow (gpm)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:40+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Gis"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:41+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Hardness (ppm)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:42+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Inspections"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:50:43+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Install Year"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:45+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Last Compliance Check"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:47+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Last Inspection Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:47+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Last Maintenance"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:47+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Latitude"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Lead (ppb)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Length (ft)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:49+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Longitude"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:49+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Material"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:51+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Meter ID"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T12:51:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Meter Reading"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:27+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Number Of Customers"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:27+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Opted Out Marketing"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:28+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Outstanding Bills"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:28+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Paid Bills"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:29+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Payment Collection Rate"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:29+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Payment Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:30+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Payment Status (Customer Billing Summary)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:30+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Peak Usage"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:31+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "pH Level"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:31+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Population Served"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:31+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Primary Source"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:32+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Pump Status"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:32+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Quality Rating"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:33+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Rate Period"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:33+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Recommended Action"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:34+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Report Month"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:34+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Reservoir Level Percent"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:35+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Resolved Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:35+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "SCADA System Data"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:36+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Segment ID"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:36+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Service Area System"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:38+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Service Cities"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:40+00:00",
+    "actor": "steward",
+    "action": "term.alias",
+    "names": [
+      "Service ZIP"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:42+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Service City"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:42+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Service County"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:43+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Service Start Date"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:43+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Severity"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:44+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Site Name"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:45+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Source Type"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:45+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Status (Tiered Rates)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:46+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Street Name"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:46+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "System Alert Level"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:47+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "System Name (System Usage Conservation)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:47+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "System Status"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "System Type"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tax Amount"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 1 Charge"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 1 From Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:48+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 1 Rate Per 1000 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:49+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 2 Charge"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:49+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 2 From Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:49+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 2 Rate Per 1000 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:50+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 2 To Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:50+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 3 Charge"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:50+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 3 From Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 3 Rate Per 1000 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 3 To Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 4 Charge"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 4 From Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:52+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 4 Rate Per 1000 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:53+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier 4 To Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:53+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier Rate"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:53+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Tier1 To Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:53+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total Annual Usage Acre Feet"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:54+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total Before Tax"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:55+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total Dissolved Solids (ppm)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:55+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total Due"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:55+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total Outstanding"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:55+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Total System Usage (1000 Gallons)"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:55+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Unpaid Accounts"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:56+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Usage Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:56+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Usage Tier 1 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:57+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Usage Tier 2 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:58+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Usage Tier 3 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:58+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Usage Tier 4 Gallons"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:01:59+00:00",
+    "actor": "steward",
+    "action": "term.approve",
+    "names": [
+      "Wastewater Charge"
+    ],
+    "changed": 1
+  },
+  {
+    "ts": "2026-08-24T13:05:41+00:00",
+    "actor": "catalog.admin",
+    "action": "dictionary.save",
+    "terms": 122,
+    "tags": 20,
+    "warnings": 0
+  }
+]
