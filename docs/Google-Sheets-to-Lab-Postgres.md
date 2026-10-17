@@ -1,17 +1,13 @@
 # Google Sheets → lab PostgreSQL with Pentaho
 
 How to pull a **private** Google Sheet into the demo lab's PostgreSQL
-(`192.168.1.200:5433`) with Pentaho Data Integration (PDI), so PDC can then
-ingest, profile and identify it like any other lab table.
-
-> **Why not straight into PDC?** PDC 10.x/11 has no Google Sheets data
-> source — its supported sources are databases, object stores and file
-> systems. The documented pattern is to land the data in a database PDC
-> already scans (the lab Postgres) and catalog it there.
+(`192.168.1.200:5433`) with Pentaho Data Integration (PDI). Only PDI is
+needed — the same job works against any PostgreSQL by changing the
+connection.
 
 ```text
-Google Sheet ──(service account, HTTPS)──► PDI job ──► lab Postgres ──► PDC
- (private)        CSV export per tab       kjb + ktr    <db>.<schema>    ingest · profile
+Google Sheet ──(service account, HTTPS)──► PDI job ──► PostgreSQL
+ (private)        CSV export per tab       kjb + ktr    <db>.<schema>.<table>
 ```
 
 ## 1. One-time Google setup (service account)
@@ -68,14 +64,13 @@ In Spoon: **View → Database connections → New**.
 | Type | PostgreSQL (Native JDBC) |
 | Host | `192.168.1.200` (or `localhost` when PDI runs on the VM) |
 | Port | `5433` |
-| Database | the scenario db, e.g. `cto_retail` — see the table in [data_sources/lab/README.md](../data_sources/lab/README.md) |
+| Database | the target db, e.g. a dedicated `pentaho_exams` (create it once: `CREATE DATABASE pentaho_exams;`) |
 | User / password | `demo_admin` / value of `PG_ADMIN_PASSWORD` in `data_sources/lab/.env` |
 
-Write as **`demo_admin`, never `pdc_user`**: `pdc_user` is read-only, and
-each scenario's `02-create-readonly-user.sql` sets
-`ALTER DEFAULT PRIVILEGES … GRANT SELECT ON TABLES TO pdc_user` for tables
-`demo_admin` creates — so a new table written by `demo_admin` is readable
-by PDC with no extra grant.
+Write as **`demo_admin`** (or another account that can create tables) —
+the lab's `pdc_user` is read-only. Keep the results in their own database
+rather than a scenario db: `make remove SCENARIO=<ID>` drops a scenario's
+whole database.
 
 ## 4. The PDI job — `gsheets_to_postgres.kjb`
 
@@ -86,8 +81,8 @@ Job parameters (**Edit → Settings → Parameters**):
 | `SA_KEY` | `/home/pdc/PDC-Demo/secrets/gsheets-sa.json` |
 | `SPREADSHEET_ID` | `1AbC…xyz` |
 | `SHEET_GID` | `0` |
-| `TARGET_SCHEMA` | `cto_retail` |
-| `TARGET_TABLE` | `gsheet_promo_targets` |
+| `TARGET_SCHEMA` | `public` |
+| `TARGET_TABLE` | `exam_results` |
 | `WORK_DIR` | `/tmp/gsheets` |
 
 Entries, connected in order on the success hop:
@@ -122,8 +117,7 @@ Entries, connected in order on the success hop:
    Click **Get Fields**, then fix the types (Sheets exports everything as
    text: set dates to `Date` with the sheet's format, money to `Number`).
 2. **Select values** *(optional)* — rename headers to snake_case column
-   names (`Store ID` → `store_id`) so the PDC glossary and policies match
-   cleanly.
+   names (`Email Address` → `email`).
 3. **Table output** — connection `lab_postgres`, target schema
    `${TARGET_SCHEMA}`, target table `${TARGET_TABLE}`, *Truncate table*
    checked (full refresh each run), commit size `1000`. Click **SQL** once
@@ -141,32 +135,19 @@ From Spoon, or headless on the VM:
 ./kitchen.sh -file=gsheets_to_postgres.kjb \
   -param:SA_KEY=$HOME/PDC-Demo/secrets/gsheets-sa.json \
   -param:SPREADSHEET_ID=1AbC...xyz -param:SHEET_GID=0 \
-  -param:TARGET_SCHEMA=cto_retail -param:TARGET_TABLE=gsheet_promo_targets \
+  -param:TARGET_SCHEMA=public -param:TARGET_TABLE=exam_results \
   -param:WORK_DIR=/tmp/gsheets
 ```
 
 Check the load from `data_sources/lab`:
 
 ```sh
-docker exec -it demo-postgres psql -U demo_admin -d cto_retail \
-  -c "SELECT count(*) FROM cto_retail.gsheet_promo_targets"
+docker exec -it demo-postgres psql -U demo_admin -d pentaho_exams \
+  -c "SELECT count(*) FROM public.exam_results"
 ```
 
 Schedule it with cron (VM) or Task Scheduler (Windows host) calling
 `kitchen` if the sheet changes regularly.
-
-## 6. Bring it into PDC
-
-The scenario's PostgreSQL data source already points at this database, so:
-
-1. **Data Sources** → the scenario's Postgres source → **Scan / ingest**
-   again (the new table appears under the schema).
-2. Run **Profile** on the new table, then Data Identification as usual.
-3. *(Optional)* Re-scan in the Glossary Generator (:5000) so the sheet's
-   columns get glossary terms and Registry entries.
-
-Note that `make remove SCENARIO=<ID>` drops the whole database, sheet
-tables included — re-run the job after a rebuild.
 
 ## Troubleshooting
 
@@ -177,5 +158,4 @@ tables included — re-run the job after a rebuild.
 | **401** after it used to work | Key deleted/rotated — create a new JSON key |
 | Only the first tab arrives | Wrong or missing `gid` — copy it from the tab's URL |
 | `permission denied for schema` | Connection is using `pdc_user`; switch it to `demo_admin` |
-| PDC can't see the table | Table created by a role other than `demo_admin`; `GRANT SELECT ON <schema>.<table> TO pdc_user` |
 | Garbled accents | CSV file input encoding not `UTF-8` |
